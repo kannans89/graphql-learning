@@ -1,4 +1,5 @@
 
+# Environment Setup
 
 To follow the examples in this course you will need
 
@@ -7,15 +8,14 @@ To follow the examples in this course you will need
 - A recent version of Node.js installed. The latest LTS version is recommended
 - Visual Studio Code or any code editor of your choice
 
-
 # How to Build a GraphQL server with nodejs
 
 1. nodejs
 2. express
 3. apollo
 
+First we need to setup a  graphQL server. For this we need to install
 
-First we need to setup a  graphQL server. For this we need to install 
 - express framework
 - cors as initial phase.
 
@@ -25,34 +25,29 @@ what is CORS ?
 what is body-parser?
   graphql request are in json format , so we need a jsonparser
   
-
 Install express and check the express server is running
 **server.js**
 
-```javascript 
+```javascript
 
     const bodyParser = requier('body-parser')
     const cors = require('cors')
     const express = require('express')
     const port = 9000
-    
     const app = express()
     app.use(cors() , bodyParser())
     app.listen(port, () => console.log('server running on port ${port}'));
-   
+
 ```
+
 what are the dependencies for graphql ?
- - graphql
-   contains the core graphql functionalities like parsing queries
-   
- - graphql-tools
+  **graphql**
+  contains the core graphql functionalities like parsing queries
+
+ **graphql-tools**
    provides some utility functions
-   
-   - apollo-server-express@1 
+
+   **apollo-server-express@1**
     provides the glue for serving grahql over http on top of express
-    
-    
- note: make sure apollo server version 1.0 is used 
- 
- 
- 
+
+ *note*: make sure apollo server version 1.0 is used
