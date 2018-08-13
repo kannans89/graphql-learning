@@ -1,3 +1,4 @@
+  
 # HelloWorld Example
 
 Let us create a minimal graphQL server
@@ -35,28 +36,29 @@ create a server.js file in the project folder and type  the following code.
 
 ```
 
-now test the express server is running by checking 
+now test the express server is running by checking
 
 ```javascript
  node server.js
 ```
 
 in the server console you will see the following output.
-```javascript 
+
+```javascript
 server is up and running at 9000
 ```
 
-open the browser and type http://localhost:9000 you will get the following screen.
+open the browser and type `http://localhost:9000` you will get the following screen.
 !["express"](https://user-images.githubusercontent.com/9062443/44002340-a6ab8992-9e5e-11e8-8907-81ec94ad27df.png "express")
 
 This shows that the express server is running on port 9000 . Lets stop the server pressing *ctr+c*
 and start installing GraphQL libraries.
 
-```javascript 
+```javascript
 npm install graphql graphql-tools apollo-server-express@1
 ```
-After installation is successful you can verify all the dependencies
-using package.json 
+
+After installation is successful you can verify all the dependencies using package.json
 
 ```javascript
 {
@@ -109,7 +111,7 @@ Next step is to add some code to process the request for greeting field, we do t
 |1    | schema | What the client can ask For
 | 2   | resolver | Logic of how the  server will respond
 
-Next is wire both together , for this we use some helper functions given by graphql tools. 
+Next is wire both together , for this we use some helper functions given by graphql tools.
 
 ```javascript
   const {makeExecutableSchema} = require('graphql-tools')
@@ -158,7 +160,6 @@ app.listen(port , ()=> console.log(`server is up and running ${port}`))
 
 ```
 
-Open the  browser and type  http://localhost:9000/graphiql
+Open the  browser and type `http://localhost:9000/graphiql`
 
 !["graphiql"](https://user-images.githubusercontent.com/9062443/44010356-80865618-9ecf-11e8-8297-fe947766a200.png "graphql")
-

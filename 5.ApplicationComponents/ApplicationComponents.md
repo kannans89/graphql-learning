@@ -1,3 +1,4 @@
+
 # Application Components
 
 This section we will discuss how the different components relate with each other and GraphQL building blocks. The entire application components can be divided into two.
