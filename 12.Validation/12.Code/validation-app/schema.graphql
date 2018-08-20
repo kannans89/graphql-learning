@@ -1,0 +1,37 @@
+
+type Query {
+    greeting:String
+    students:[Student]
+    studentById(id:ID!):Student
+}
+
+
+type College {
+    id:ID!
+    name:String
+    location:String
+    rating:Float
+
+}
+
+type Student {
+    id:ID!
+    firstName:String
+    lastName:String
+    fullName:String
+    college:College
+}
+
+ type Mutation {
+    createStudent(collegeId:ID,firstName:String,lastName:String):String
+    addStudent_returns_object(collegeId:ID,firstName:String,lastName:String):Student
+    signUp(input:SignUpInput):String
+}
+
+
+input SignUpInput {
+    email:String!,
+    password:String!,
+    firstName:String!
+
+}
