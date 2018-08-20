@@ -3,7 +3,7 @@
 
  GraphQL itself is a specification . It is just a document which sepdicifes how a grpahql server has to behave . What kind of request it should accept what response the response format
  should like .[graphqlspecfication is here](https://facebook.github.io/graphql) .  
-  Suppose yo want to use GrahQL in your project ,you can read the speccification and build it by yourself , in any programming language of your choice . There are reference implementation in nodejs platform.
+  Suppose yo want to use GrahQL in your project ,you can read the specification and build it by yourself , in any programming language of your choice . There are reference implementation in nodejs platform.
 
 ## Architectural UseCases
 

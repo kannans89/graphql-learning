@@ -51,3 +51,5 @@ what are the dependencies for graphql ?
     provides the glue for serving grahql over http on top of express
 
  *note*: make sure apollo server version 1.0 is used
+
+**needToFix**: vsscode extensions for graphql to be added

@@ -112,7 +112,7 @@ sample  response from server would look like
     "addStudent": {
       {
          firstName:"Kannan"
-         lastName:"Sudhakaran        
+         lastName:"Sudhakaran"
       }
     }
   }
@@ -121,3 +121,16 @@ sample  response from server would look like
 ```
 
 We will discuss how to do CRUD (Create,Read,Update,Delete) in mutation chapter in detail.
+
+### Type Marker
+
+Will add extra meaning to a  type
+
+|Sr No |  marker   |  syntax  | example|
+|:----:|:---------|:-------------|:-----
+| 1|Non-null Type  | `<type>!`  | String!
+| 2|List Type  | `[<type>]`  |[String]
+| 3|List of Non-null Types   | `[<type>!]`  | [String!]
+| 4|Non-null List Type   | `[<type>]!`  | [String]!
+
+### **needToFix** add enum types

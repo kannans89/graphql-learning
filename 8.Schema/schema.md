@@ -76,7 +76,7 @@ step 2: create a respository module to convert students.json as a collection in 
 ```javascript
 
 const { DataStore } = require('notarealdb');
-const store = new DataStore('./data'); // data folder will contain students.json file and other flat files 
+const store = new DataStore('./data'); // data folder will contain students.json file and other flat files
 
 module.exports = {
   
@@ -164,6 +164,53 @@ app.listen(port, () => console.info(`Server started on port ${port}`));
 
 ```
 
-Now execute using `npm start`  , once server is started open the browser and type as given below
+Now execute using `npm start`  , once server is started open the browser and type graphql query given below . The query will dispaly the greeting of helloworld and the students stored in our students.json file.
+
+```javascript
+
+{
+  greeting
+  students {
+    id
+    firstName
+    lastName
+  }
+  
+}
+
+```
 
 ![1_student_query](https://user-images.githubusercontent.com/9062443/44244618-714f9a80-a1f2-11e8-84dd-d948ca0e0913.png)
+
+**Note** : we can replace the students.json with a RESTful api call to retrieve student data or even a real database like mysql or mongodb. GraphQL becomes a thin wrapper around your original application layer to improve performance .
+
+## makeExecutableSchema Function Syntax
+
+makeExecutableSchema takes a single argument: an object of options. Only the typeDefs option is required
+
+```javascript
+import { makeExecutableSchema } from 'graphql-tools';
+
+const jsSchema = makeExecutableSchema({
+  typeDefs,
+  resolvers, // optional
+  logger, // optional
+  allowUndefinedInResolve = false, // optional
+  resolverValidationOptions = {}, // optional
+  directiveResolvers = null, // optional
+  schemaDirectives = null,  // optional
+  parseOptions = {},  // optional
+  inheritResolversFromInterfaces = false  // optional
+});
+
+```
+
+|Sr No |  parameter  |  Description
+|:----:|:--------|:------------------
+|   1  |   typeDefs|is a required argument and should be an GraphQL schema language string or array of GraphQL schema language strings.
+|    2 | resolvers |  optional argument (empty object by default) and should be an object
+| 3 | logger | is an optional argument, which can be used to print errors to the server console
+| 4 | parseOptions | is an optional argument which allows customization of parse when specifying typeDefs as a string.
+| 5| allowUndefinedInResolve |  is true by default. When set to false, causes your resolve functions to throw errors if they return undefined
+| 5 |  resolverValidationOptions | optional argument which accepts an object with boolean properties
+| 6| inheritResolversFromInterfaces| optional   boolean argument to check resolvers object inheritance.
