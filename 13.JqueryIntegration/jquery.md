@@ -1,5 +1,5 @@
 
-#JQuery Integration
+# JQuery Integration
 
 To integrate GraphQL with jQuery first lets inspect the graphiql request headers and understand the request parameters.
 
