@@ -1,9 +1,10 @@
 
 # Home
+GraphQL is an opensource server side technology. It is based on JavaScript programming language. It was developed by facebook to optimise RESTful API calls.GraphQL is -
+a. Data Query language b. Runtime
 
-GraphQL is an opensource server side technology developed by facebook to
-optimise RESTful API calls. It is a  data query language as well as a runtime to execute it.It allows client applications to define the structure of the data required, and exactly the same structure of the data is returned from the server, therefore preventing excessively large amounts of data from being returned.This tutorial will teach you basic GraphQL queries and will also take you through integration with React and Jquery Applications
+Unlike RESTful services,GraphQL allows client applications to restrict the data fields that should be retrieved fom the server.Thus it prevents excessively large amounts of data from being returned.
 
-This tutorial has been prepared for the beginners to help them understand GraphQL. After completing this tutorial you will find yourself at a moderate level of expertise in using GraphQL in your web applications.
+This tutorial introduces you to the basics of GraphQL queries. It also explains the integration of GraphQL with React and Jquery Applications. After completing this tutorial you will find yourself at a moderate level of expertise in using GraphQL in your web applications.
 
-GraphQL development is based on JavaScript programming language so if you have basic understanding on JavaScript programming then it will be a fun to learn GraphQL
+A basic understanding of JavaScript programming is a pre-requisite to learn GraphQL
