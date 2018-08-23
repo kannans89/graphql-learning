@@ -1,0 +1,63 @@
+
+type Query {
+    greeting:String
+    jobs:[Job]
+    students:[Student]
+    job(id:ID!):Job
+    studentById(id:ID!):Student
+    greetingWithAuth:String
+}
+
+type Mutation {
+    createJob(companyId:ID,description:String,title:String):String
+    createStudent(collegeId:ID,firstName:String,lastName:String):String
+    signUp(input:SignUpInput):String
+}
+
+# to add a comment
+input SignUpInput {
+    email:String!,
+    password:String!,
+    firstName:String!
+
+}
+
+type College {
+    id:ID!
+    name:String
+    location:String
+    rating:Float
+
+}
+
+type Company {
+     id:ID!
+     name:String
+     description:String
+}
+
+type Student {
+    id:ID!
+    firstName:String
+    lastName:String
+    fullName:String
+    college:College
+}
+
+type Job {
+   id:ID!
+   title:String
+   description:String
+   companyId:String
+   company:Company
+}
+
+
+
+
+
+
+
+
+
+
