@@ -64,7 +64,7 @@ $(document).ready(function(){
                 
               $("#greetingDiv").html('').css({'color':''});
             },
-            error:(xhr,err)=> console.log(err)
+            error:(xhr,err)=> alert('error')
         })
     }else alert("email and pwd empty")
 
@@ -75,7 +75,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-        <h1> GraphQl Authentication </h1>
+        <h1> GraphQL Authentication </h1>
 
 <hr/>
         <section>
@@ -90,17 +90,22 @@ $(document).ready(function(){
         <hr/>
 
         <section id="LoginSection"> 
+            <header>
+                <h2>*Login first to  access greeting </h2>
+            </header>
                         
-            <input type="text" value="abc@abc.com" placeholder="enter email" id="txtEmail"/>
+            <input type="text" value="mohtashim@tutorial.com" placeholder="enter email" id="txtEmail"/>
             <br/>
            <input type="password" value="pass@123" placeholder="enter password" id="txtPwd"/>
 
             <br/>
 
-            <input type="button" id="btnAuthenticate" value="authenticate"/>
+            <input type="button" id="btnAuthenticate" 
+            value="Login"/>
             <p id="authStatus"></p>
 
       </section>
+      
 
 
 </body>

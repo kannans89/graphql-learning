@@ -1,16 +1,16 @@
 [
   {
     "id": "12345",
-    "email": "abc@abc.com",
-    "name":"abc",
-    "password": "pass@123",
-    "companyId": "HJRa-DOuG"
+    "email": "mohtashim@tutorial.com",
+    "name":"Mohtashim",
+    "password": "pass@123"
+    
   },
   {
     "id": "ry9pbwdOz",
-    "name":"pqr",
-    "email": "bob@goobook.co",
-    "password": "bob123",
-    "companyId": "SJV0-wdOM"
+    "name":"kannan",
+    "email": "kannan@tutorial.co",
+    "password": "kannan@123"
+  
   }
 ]

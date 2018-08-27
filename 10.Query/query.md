@@ -292,4 +292,4 @@ verify the response
 
 ```
 
-## What is query variable
+## What is query variable ,Fragments also to be added

@@ -1,0 +1,23 @@
+
+type Query {
+    greeting:String
+    students:[Student]
+    studentById(id:ID!):Student
+}
+
+
+type College {
+    id:ID!
+    name:String
+    location:String
+    rating:Float
+
+}
+
+type Student {
+    id:ID!
+    firstName:String
+    lastName:String
+    fullName:String
+    college:College
+}
