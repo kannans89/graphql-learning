@@ -27,13 +27,14 @@ type College {
     name:String
     location:String
     rating:Float
-
+    students:[Student]
 }
 
 type Company {
      id:ID!
      name:String
      description:String
+     
 }
 
 type Student {

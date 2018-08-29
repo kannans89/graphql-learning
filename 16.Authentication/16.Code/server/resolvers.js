@@ -56,6 +56,12 @@ const Student={
   }
 }
 
+// for each single college object returned
+const College = {
+    students:(root)=>{
+        return db.students.list().filter(s=>s.collegeId==root.id)
+    }
+}
 
 const Mutation ={
     createJob:(root,args,context,info)=>{
@@ -102,4 +108,4 @@ const Mutation ={
 }
 
 
-module.exports = {Query , Job ,Student , Mutation}
+module.exports = {Query , Job ,Student , Mutation , College}
