@@ -7,12 +7,12 @@ app.use(bodyParser.json() , cors())
 
 const typeDefinition = `
 type Query  {
-    greeting: String
+    test: String
 }`
 
 const  resolverObject = {
    Query : {
-       greeting: () => 'Hello GraphQL  From TutorialsPoint !!'
+       test: () => 'Test Success , GraphQL server is up & running !!'
    }
 }
 const {makeExecutableSchema} = require('graphql-tools')

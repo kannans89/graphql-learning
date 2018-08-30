@@ -1,9 +1,9 @@
 
-# Introduction
+# Why GraphQL
 
 RESTful APIs follow a resource-oriented approach that is clear and well structured. But when the data gets more and more complex, the routes get longer and longer, and sometimes it isn’t even possible to fetch the data you want with only one request. This is where GraphQL comes into play. It’s designed to work with data represented by a graph, and it has a powerful query syntax for traversing, retrieving, and mutating data.
 
-## Ask for what you need,get exactly that
+## 1. Ask for what you need,get exactly that
 
 Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Apps using GraphQL are fast and stable because they control the data they get, not the server.
 
@@ -40,7 +40,7 @@ Response will contain only id and firstName. The query will not fetch college de
 
 ```
 
-## Get many resources in a single request
+## 2. Get many resources in a single request
 
    GraphQL queries  helps to smoothly retrieve associated business objects ,While typical REST APIs require loading from multiple URLs, GraphQL APIs get all the data your app needs in a single request. Apps using GraphQL can be quick even on slow mobile network connections.  
    For example Student business object have association with College and  mobile application need to display both in a single request.The GraphQL query will look like
@@ -98,7 +98,7 @@ The response will contain exactly the fields in the query .
 
 ```
 
-### Describe what’s possible with a type system
+## 3. Describe what’s possible with a type system
 
 GraphQL APIs are organized in terms of types and fields, not endpoints unlike a RESTful webservice . Access the full capabilities of your data from a single endpoint. GraphQL uses types to ensure Apps only ask for what’s possible and provide clear and helpful errors. Apps can use types to avoid writing manual parsing code.
 
@@ -129,10 +129,10 @@ type Query {
 
   ```
 
-## Move faster with powerful developer tools
+## 4. Move faster with powerful developer tools
 
 Know exactly what data you can request from your API without leaving your editor, highlight potential issues before sending a query, and take advantage of improved code intelligence. GraphQL makes it easy to build powerful tools like **GraphiQL** by leveraging your API’s type system
 
-## Evolve your API without versions
+## 5. Evolve your API without versions
 
 Add new fields and types to your GraphQL API without impacting existing queries. Aging fields can be deprecated and hidden from tools. By using a single evolving version, GraphQL APIs give apps continuous access to new features and encourage cleaner, more maintainable server code.

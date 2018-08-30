@@ -1,10 +1,8 @@
 
 # Home
 
-GraphQL is an open source server side technology developed by facebook to
-optimise API calls. It is a  data query language as well as an execution engine.This tutorial will teach you basic GraphQL queries and will also take you through integration with React and Jquery Applications
+GraphQL is an open source server side technology developed by facebook to optimise API calls. It is a data query language as well as an execution engine.This tutorial will take you through GraphQL fundamentals .
 
-This tutorial has been prepared for the beginners to help them understand GraphQL. After completing this tutorial you will find yourself at a moderate level of expertise in using GraphQL in your web applications.
+In this tutorial we will implement GraphQL API using Apollo server . The GraphQL API will be tested through GraphiQL tool . We will build react and jQuery client applications to consume the API. To enhance react application development we will be using Apollo Client library.
 
-GraphQL has become an open standard in 2015 . GraphQL servers are available for multiple languages, including JavaScript, Java, C#. This course is
-based on JavaScript programming language so if you have basic understanding on JavaScript programming then it will be a fun to learn GraphQL
+ GraphQL servers are available for multiple languages, including JavaScript, Java, C#. This course is based on JavaScript  so if you have basic understanding on JavaScript programming then it will be a fun to learn GraphQL
