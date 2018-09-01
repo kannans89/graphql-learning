@@ -35,7 +35,7 @@ C:\Users\Admin\test-app>code .
 
 ```
 
-Step 3: Create  *package.json* and install the dependencies .
+Step 3: Create  **package.json** and install the dependencies .
 
 Create a package.json file which will contain all the dependencies of the GraphQL server application.
 

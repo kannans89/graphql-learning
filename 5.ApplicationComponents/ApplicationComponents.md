@@ -1,16 +1,16 @@
 
 # Application Components
 
-This section we will discuss how the different components relate with each other and GraphQL building blocks. The entire application components can be divided into two.
+This section we will discuss how the different GraphQL components relate with each other. The entire application components can be divided as following.
 
 |Sr No |  Description              |
 |:----:|:--------------------------|
 | 1    | Server Side Components    |
 | 2    | client Side Components    |
 
-## GraphQL Server  
+## server Side Components
 
-  GraphQL server forms the core component on the server side .GraphQL server allows to parse the queries coming from graphql client applications. Apollo Server is most commonly used implementation of GraphlQL server specification. Other server programming components include the following.
+ **GraphQL server** forms the core component on the server side .GraphQL server allows to parse the queries coming from graphql client applications. Apollo Server is most commonly used implementation of GraphQL specification. Other server programming components include the following.
 
 |Sr No |  Server Essentials   | Description
 |:----:|:-------------|:---------------------------
