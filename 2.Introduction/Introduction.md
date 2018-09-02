@@ -6,9 +6,9 @@ GraphQL structures data in the form of a graph.It has a powerful query syntax fo
 
 ## 1. Ask for what you need,get exactly that
 
-Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Applications using GraphQL are fast and stable because they control the data they get, not the server.
+Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Applications using GraphQL are fast and stable.Unlike Restful services, these applications can restrict data that should be fetched from the server. The following example will help you understand this better.
 
-Suppose we have a business object student and client application need to display the id and firstName of all students. The sample GraphQL query would look like below.
+Suppose,an application needs to display the id and firstName of all students.   we have a business object student and client . The sample GraphQL query would look like below.
 
 ```javascript
 {
