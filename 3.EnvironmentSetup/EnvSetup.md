@@ -1,7 +1,7 @@
 
 # Environment Setup
 
-To follow the examples in this tutorial you will need
+To execute the examples in this tutorial you will need-
 
 - A computer running Linux, macOS, or Windows.
 - A web browser, preferably the latest version of Google Chrome.
