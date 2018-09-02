@@ -137,7 +137,7 @@ type Query {
 
 ## 4. Move faster with powerful developer tools
 
-GraphQL provides rich developer tools for documentation and testing queries. **GraphiQL** is an excellent tool which generates documentation of the query and its schema. It also gives a query editor to test GraphQL APIs. It also gives improved code intelligence in the form of intellisense while building queries.
+GraphQL provides rich developer tools for documentation and testing queries. **GraphiQL** is an excellent tool which generates documentation of the query and its schema. It also gives a query editor to test GraphQL APIs. It also providesintelligent code completion capability while building queries.
 
 ## 5. Evolve your API without versions
 
