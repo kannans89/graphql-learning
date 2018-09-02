@@ -1,11 +1,12 @@
 
 # Why GraphQL
 
-RESTful APIs follow a resource-oriented approach that is clear and well structured. But when the data gets more and more complex, the routes get longer and longer, and sometimes it isn’t even possible to fetch the data you want with only one request. This is where GraphQL comes into play. It’s designed to work with data represented by a graph, and it has a powerful query syntax for traversing, retrieving, and mutating data.
+RESTful APIs follow a resource-oriented approach that is clear and well structured. But when the data gets more and more complex, the routes get longer and longer, and sometimes it isn’t even possible to fetch the data you want with a single request. This is where GraphQL comes into play. 
+GraphQL structures data in the form of a graph.It has a powerful query syntax for traversing, retrieving, and modifying data.
 
 ## 1. Ask for what you need,get exactly that
 
-Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Apps using GraphQL are fast and stable because they control the data they get, not the server.
+Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Applications using GraphQL are fast and stable because they control the data they get, not the server.
 
 Suppose we have a business object student and client application need to display the id and firstName of all students. The sample GraphQL query would look like below.
 
