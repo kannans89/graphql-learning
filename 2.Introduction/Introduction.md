@@ -8,8 +8,9 @@ GraphQL structures data in the form of a graph.It has a powerful query syntax fo
 
 Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Applications using GraphQL are fast and stable.Unlike Restful services, these applications can restrict data that should be fetched from the server. The following example will help you understand this better.
 
-Let us consider a business object Student with the attributes id , firstName ,lastName and collegeName . If we design a REST endpoint like `/api/v1/students`, it will return all attributes for the student object . Consider a case where a mobile application needs to only fetch the firstName and id.  but still end up fetching data for other fields .
-Suppose,an application needs to display the id and firstName of all students, where the student details are stored in an object. have a business object student and client . The sample GraphQL query would look like below.
+Let us consider a business object Student with the attributes id , firstName ,lastName and collegeName .Suppose a mobile application needs to fetch only the firstName and id.If we design a REST endpoint like `/api/v1/students`, it will end up fetching data for all the fields for a student object. This means, data is overfetched by the RESTful service. 
+
+This problem can be solved by using GraphQL. Consider the following sample GraphQL query given below.
 
 ```javascript
 {
@@ -22,7 +23,7 @@ Suppose,an application needs to display the id and firstName of all students, wh
 
 ```
 
-Response will contain only id and firstName. The query will not fetch college details or any other associated resources .
+The above query will only return values for id and firstname in the response.The query will not fetch values for other attributes of the student object. The response of the query illustrated above will be as shown below:
 
 ```javascript
 {
