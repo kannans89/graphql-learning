@@ -106,7 +106,7 @@ The response will contain exactly the fields in the query .
 
 ## 3. Describe what’s possible with a type system
 
-GraphQL queries are based on fields and their associated data types and not endpoints as in case of  RESTful services. One can fetch details of a business object and all its associated objects through a single endpoint. 
+GraphQL queries are based on fields and their associated data types. One can fetch details of a business object and all its associated objects through a single endpoint. 
 GraphQL is strongly typed.In case of exceptions due to data type mismatch in a GraphQL query, client applications get clear and helpful error messages. This helps in smooth debugging and easy detection of bugs by client applications. 
 The GraphQL type system has an inbuit capability to convert values returned from the server to its appropriate type. This reduces the overhead of manual data conversion.
 
