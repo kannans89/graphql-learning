@@ -76,11 +76,11 @@ step 2: create a respository module to convert students.json as a collection in 
 ```javascript
 
 const { DataStore } = require('notarealdb');
-const store = new DataStore('./data'); // data folder will contain students.json file and other flat files
+const store = new DataStore('./data'); /* data folder will contain students.json file and other flat files*/
 
 module.exports = {
   
-  students:store.collection('students') // read the students.json file
+  students:store.collection('students') /* read the students.json file*/
 };
 
 
@@ -214,3 +214,16 @@ const jsSchema = makeExecutableSchema({
 | 5| allowUndefinedInResolve |  is true by default. When set to false, causes your resolve functions to throw errors if they return undefined
 | 5 |  resolverValidationOptions | optional argument which accepts an object with boolean properties
 | 6| inheritResolversFromInterfaces| optional   boolean argument to check resolvers object inheritance.
+
+## Type Marker
+
+Will add extra meaning to a  type
+
+|Sr No |  marker   |  syntax  | example|
+|:----:|:---------|:-------------|:-----
+| 1|Non-null Type  | `<type>!`  | String!
+| 2|List Type  | `[<type>]`  |[String]
+| 3|List of Non-null Types   | `[<type>!]`  | [String!]
+| 4|Non-null List Type   | `[<type>]!`  | [String]!
+
+Note: All code samples discussed  here will be in subsequent chapters.

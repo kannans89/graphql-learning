@@ -6,6 +6,14 @@ type Query {
     job(id:ID!):Job
     studentById(id:ID!):Student
     greetingWithAuth:String
+    getFavouriteColor:ColorType
+    setFavouriteColor(color:ColorType):String
+}
+
+enum ColorType {
+   RED
+   BLUE
+   GREEN
 }
 
 type Mutation {

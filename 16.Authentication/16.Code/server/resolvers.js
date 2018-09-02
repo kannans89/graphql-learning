@@ -25,6 +25,20 @@ const Query = {
             throw new Error('Unauthorized');
           }
         return "Hello from TutorialsPoint, welcome back : "+user.name;
+    },
+    getFavouriteColor:()=>{
+        const no =Math.random()*10;
+        if(no>7)
+         return "GREEN";
+        if(no>4)
+         return "BLUE";
+         return "RED";
+    },
+    setFavouriteColor:(root,args)=>{
+        console.log(args.color);
+
+        return  "Your Fav Color is :"+args.color;
+
     }
     
 }

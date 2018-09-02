@@ -23,7 +23,7 @@ these are primitive types which resolve to single concrete data . the default sc
 
 Syntax for a field named greeting which returns String type
 
-```javacript
+```javascript
    greeting: String
 ```
 
@@ -120,17 +120,68 @@ sample  response from server would look like
 
 ```
 
-We will discuss how to do CRUD (Create,Read,Update,Delete) in mutation chapter in detail.
+## Enums
 
-### Type Marker
+An Enum is similar to a scalar type, but it can only be one of several values defined in the schema. Enums are most useful in a situation where the user must pick from a prescribed list of options. Additionally enums improve development velocity, since they will auto-complete in tools like GraphiQL.
 
-Will add extra meaning to a  type
+```javascript
 
-|Sr No |  marker   |  syntax  | example|
-|:----:|:---------|:-------------|:-----
-| 1|Non-null Type  | `<type>!`  | String!
-| 2|List Type  | `[<type>]`  |[String]
-| 3|List of Non-null Types   | `[<type>!]`  | [String!]
-| 4|Non-null List Type   | `[<type>]!`  | [String]!
+enum ColorType {
+   RED
+   BLUE
+   GREEN
+}
 
-### **needToFix** add enum types
+type Query{
+   setFavouriteColor(color:ColorType):String
+}
+
+```
+
+Request using a query variable named `$color` is shown
+
+```graphql
+ query colorQuery($color:ColorType){
+  setFavouriteColor(color:$color)
+}
+```
+
+Query variable value can be passed as below
+
+```javascript
+{
+  "color":"GREEN"
+}
+
+
+```
+
+The query variable can have only RED,BLUE or GREEN .Response from the server is as below .
+
+```javascript
+{
+  "data": {
+    "setFavouriteColor": "Your Fav Color is :GREEN"
+  }
+}
+
+```
+
+Server will give you following error if different color is passed as below
+
+```javascript
+{
+  "errors": [
+    {
+      "message": "Variable \"$color\" got invalid value \"PINK\"; Expected type ColorType.",
+      "locations": [
+        {
+          "line": 1,
+          "column": 18
+        }
+      ]
+    }
+  ]
+}
+
+```

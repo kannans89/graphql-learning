@@ -60,3 +60,13 @@ A sample response from server for the above query.
 ```
 
 This is a powerful tool for  GraphQL client side developers. In the same way that the URLs of a REST based API provided a globally unique key, the `id` field in this system provides a globally unique key.
+
+## How to verify client queries are being cached
+
+To do client caching we need to install Apollo client for this
+first fire following commands
+
+```javascript
+c:\17.Code\caching-app\client>npm install apollo-boost graphql
+
+```
