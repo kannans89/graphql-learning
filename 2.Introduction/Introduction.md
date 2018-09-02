@@ -106,11 +106,9 @@ The response will contain exactly the fields in the query .
 
 ## 3. Describe what’s possible with a type system
 
-GraphQL queries are based on fields and their associated data types. One can fetch details of a business object and all its associated objects through a single endpoint. 
-GraphQL is strongly typed.In case of exceptions due to data type mismatch in a GraphQL query, client applications get clear and helpful error messages. This helps in smooth debugging and easy detection of bugs by client applications. 
-The GraphQL type system has an inbuit capability to convert values returned from the server to its appropriate type. This reduces the overhead of manual data conversion.
+GraphQL queries are based on fields and their associated data types.GraphQL is strongly typed.If there is type mismatch in a GraphQL query, server applications return clear and helpful error messages. This helps in smooth debugging and easy detection of bugs by client applications.GraphQL also provides client side libraries that can help in reducing explicit data conversion and parsing.
 
- An example of the Student and College data type is as given below.
+ An example of the the Student and College data types is as given below.
 
 ```graphql
 
@@ -139,7 +137,7 @@ type Query {
 
 ## 4. Move faster with powerful developer tools
 
-Know exactly what data you can request from your API without leaving your editor, highlight potential issues before sending a query, and take advantage of improved code intelligence. GraphQL makes it easy to build powerful tools like **GraphiQL** by leveraging your API’s type system
+GraphQL provides rich developer tools for documentation and testing queries. **GraphiQL** is an excellent tool which generates documentation of the query and its schema. It also gives a query editor to test GraphQL APIs. It also gives improved code intelligence in the form of intellisense while building queries.
 
 ## 5. Evolve your API without versions
 
