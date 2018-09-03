@@ -1,7 +1,7 @@
 
 # Type System
 
- GraphQL is a strongly typed language  . GraphQL has a type system to describe the data that is possible to query . The type system help to define the schema , which is a contract between client and server .Commonly used datatypes in are as follows
+ GraphQL is a strongly typed language  . The type system helps to define the schema , which is a contract between client and server .Commonly used datatypes in are as follows
 
 |Sr No |  Types              |  Description
 |:----:|:--------------------------|:------------------
