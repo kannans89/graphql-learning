@@ -1,16 +1,14 @@
   
 # HelloWorld Example
 
-Let us create a minimal graphQL server
-and access it through client tool **graphiQL** . This will be based on nodejs,express,apollo server.This will be a simple API which will return a greeting message.  
-
+We will create a simple API that returns a greeting message and access it using **graphiQL** . This example is based on NodeJS,Express and Apollo server.
 You will learn to put together all the concepts together .
 
-## step 1: setting up express
+## Step 1: Setting up Express
 
-ExpressJS is a web application framework that provides you with a simple API to build websites, web apps and back ends.For handling http requests efficiently we will  be building a GraphQL server on the top of express framework.
+ExpressJS is a web application framework that helps you build websites, web applications.In this example,we will build a GraphQL API on top of the Express framework.
 
- create a folder **hello-world-server** add a **package.json** , give a name to the package . Since we are using this package internally lets make it private.
+a. Create a folder **hello-world-server** .Add a **package.json** , and give a name to the package . Since we this package will be used internally we shall declare it private.
 
 ```javascript
 {
@@ -19,7 +17,7 @@ ExpressJS is a web application framework that provides you with a simple API to 
 }
 ```
 
-open terminal t and  change the directory to hello-world-server and install dependencies for express server
+b. Open the terminal.Change the directory to **hello-world-server**.Install the dependencies for Express server
 
 ```javascript
 C:\Users\Admin>mkdir hello-world-server
@@ -28,9 +26,9 @@ C:\Users\Admin\hello-world-server>npm install express body-parser cors
 
 ```
 
-*body-parser* is a middleware package which help express to handle http post request efficiently , *cors* is another middleware package for handling  cross-origin resource sharing efficiently.Both packages are helpful once we make a reactjs client application.
+*body-parser* is a middleware package which helps Express to handle HTTP Post requests efficiently.*cors* is another middleware package that handles cross-origin resource sharing.**Both these packages are helpful once we make a reactjs client application**.
 
-create a **server.js** file within the project folder and type the following in it.
+c. Create a **server.js** file within the project folder and type the following in it.
 
 ```javascript
 
@@ -46,19 +44,19 @@ create a **server.js** file within the project folder and type the following in 
 
 ```
 
-now test the express server is running by checking
+d. To Verify if the Express server is up and running execute the following in the terminal window.
 
 ```javascript
  C:\Users\Admin\hello-world-server>node server.js
 ```
 
-in the server console you will see the following output.
+The following output will be diaplayed in the server console.
 
 ```javascript
 server is up and running at 9000
 ```
 
-open the browser and type `http://localhost:9000` you will get the following screen.
+e. open the browser and type `http://localhost:9000` you will get the following screen.
 !["express"](https://user-images.githubusercontent.com/9062443/44002340-a6ab8992-9e5e-11e8-8907-81ec94ad27df.png "express")
 
 This shows that the express server is running on port 9000 . Lets stop the server pressing *ctr+c*.
