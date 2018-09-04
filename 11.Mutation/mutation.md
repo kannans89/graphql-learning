@@ -147,7 +147,7 @@ step 2: update the **resolvers.js** file as below
 
 ```
 
-step 3: start the server and type the request query in graphiql
+step 3: start the server and type the request query in GraphiQL
 
 ```javascript
 mutation {

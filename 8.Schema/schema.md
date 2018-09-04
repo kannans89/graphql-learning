@@ -9,7 +9,7 @@ The GraphQL runtime layer, which can be written in any language, defines a gener
 can query the schema within its capabilities. This approach decouples clients from servers
 and allows both of them to evolve and scale independently.
 
-Let us create  simple application to understand schema . this application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
+Let us create  simple application to understand schema . this application will create schema for querying  list of students from the server . The student data will be stored in a json file and we will use a node module called **notarealdb** to fake a database and read from json file .
 
 step 1 : create a folder named schema-app , change your directory to schema-app from terminal .Add a file package.json
 

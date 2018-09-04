@@ -63,6 +63,11 @@ This is a powerful tool for  GraphQL client side developers. In the same way tha
 
 ## How to verify client queries are being cached
 
+  To understand caching lets create an application in reactjs without ApolloClient . We will request for resources from reactjs using the fetch api for http calls. Fetch api does not cache graphql queries. After that we will modify the code to install apollo client and use caching.
+
+  Step 1: Create react app without ApolloClient
+  
+
 To do client caching we need to install Apollo client for this
 first fire following commands
 
