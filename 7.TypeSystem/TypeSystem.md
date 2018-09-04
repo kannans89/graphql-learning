@@ -76,15 +76,14 @@ The example given above defines an object data-type  `Student`. The `stud_detail
 
 ## The Query type
 
-A GraphQL query is for used to fetch data. It is similar to requesting a resource in REST-based APIs. Simply put, the Query type is the request send from a client application to the GraphQL server.
-GraphQL uses the Schema Definition Language(SDL to define a Query.Query type is one of the many root-level types in GraphQL.It acts as an entry-point to other more specific types within the schema.
+A GraphQL query is to used to fetch data. It is similar to requesting a resource in REST-based APIs. Simply put, the Query type is the request send from a client application to the GraphQL server.GraphQL uses the Schema Definition Language(SDL) to define a Query.Query type is one of the many root-level types in GraphQL.
 
-The syntax for defining a Query is as given here
+The syntax for defining a Query is as given below
  ```javascript
  type Query  {
      field1: data_type
      field2:data_type
-     
+     field2(param1:data_type,param2:data_type,...paramN:data_type):data_type
  }
  ```
 
@@ -99,7 +98,16 @@ Following is an example of defining a Query :
 
 Mutations are operations sent to the server to create, update or delete data. These are analogous to the PUT, POST, PATCH and DELETE verbs to call REST-based APIs.
 
-Mutation is one of the root-level data-types in GraphQL.The Query type defines the entry-points for data-fetching operations whereas the Mutation type specifies the entry points for data-manipulation operations.
+Mutation is one of the root-level data-types in GraphQL.The Query type defines the entry-points for data-fetching operations whereas the Mutation type specifies the entry points for data-manipulation operations.  
+
+The syntax for defining a Mutation type is as given below
+ ```javascript
+ type Mutation {
+     field1: data_type
+     field2(param1:data_type,param2:data_type,...paramN:data_type):data_type
+     
+ }
+ ```
 
 For example, we can define a mutation type to add a new Student as given below:
 
@@ -109,35 +117,6 @@ For example, we can define a mutation type to add a new Student as given below:
 }
 
 ```
-
-This implements a single addStudent mutation which accepts firstName and lastName as arguments.The important thing to note here is that this mutation will return the newly-created Student object. Sample syntax for mutation query is below .
-
-```javascript
- mutation {
-  addStudent(firstName: "Kannan", lastName: "Sudhakaran") {
-    firstName
-    lastName
-  }
-}
-```
-
-sample  response from server would look like
-
-```javascript
-      {
-  "data": {
-    "addStudent": {
-      {
-         firstName:"Kannan"
-         lastName:"Sudhakaran"
-      }
-    }
-  }
-}
-
-```
-
-We will discuss how to do CRUD (Create,Read,Update,Delete) in mutation chapter in detail.
 
 ### Type Marker
 
@@ -151,3 +130,5 @@ Will add extra meaning to a  type
 | 4|Non-null List Type   | `[<type>]!`  | [String]!
 
 ### **needToFix** add enum types
+
+We will discuss how to use each of these types in detail in the later chapters.
