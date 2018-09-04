@@ -93,7 +93,7 @@ We can verify if these dependencies are installed successfully by checking the *
 
 ## Step 3: Define the Schema
 
-A GraphQL schema defines what kind of object can be fetched from a service, and what fields it has.The schema can be defined using **GraphQL Schema Definition Language**.
+A GraphQL schema defines what kind of object can be fetched from a service, and what fields it has.The schema can be defined using **GraphQL Schema Definition Language**. Add the following code snippet in the **server.js** file.
 
 ```javascript
 
@@ -111,7 +111,7 @@ Here, the query contains a `greeting` attribute that returns a `string` value.
 
 ## Step 4: Create a  Resolver
 
-a.The next step is to add some code to process the request for greeting field. This is specified in a **resolver**. The structure of the resolver function must  match the schema. 
+a.The next step is to add some code to process the request for greeting field. This is specified in a **resolver**. The structure of the resolver function must  match the schema. Add the following code snippet in the **server.js** file.
 
 ```javascript
 
@@ -124,7 +124,7 @@ a.The next step is to add some code to process the request for greeting field. T
   }
 ```
 
-b. Bind the schema and resolver using `makeExecutableSchema`. This function is pre-defined in the graphql-tools module.
+b. Bind the schema and resolver using `makeExecutableSchema`. This function is pre-defined in the graphql-tools module.Add the following code snippet in the **server.js** file.
 
 ```javascript
   const {makeExecutableSchema} = require('graphql-tools')
@@ -133,7 +133,7 @@ b. Bind the schema and resolver using `makeExecutableSchema`. This function is p
 ```
 
 ## Step 4: Define routes to fetch data from ReactJS / GraphiQL application
-
+Add the following code snippet in the **server.js** file.
 
 ```javascript
   const {graphqlExpress , graphiqlExpress} = require('apollo-server-express')
@@ -144,11 +144,11 @@ b. Bind the schema and resolver using `makeExecutableSchema`. This function is p
 
 ```
 
-The `graphqlExpress` function helps to register the route http://localhost:9000/graphql. The ReactJS application can use this endpoint to query data. Similarly, the `graphqliExpress` function helps to register the route http://localhost:9000/graphiql. This will be used by the GraphiQL browser client to test the API.
+The `graphqlExpress` function helps to register the route `http://localhost:9000/graphql`. The ReactJS application can use this endpoint to query data. Similarly, the `graphqliExpress` function helps to register the route `http://localhost:9000/graphiql`. This will be used by the GraphiQL browser client to test the API.
 
  
  
- The complete **server.js** code is given below
+ The complete **server.js** code is as given below
 
 ```javascript
 
