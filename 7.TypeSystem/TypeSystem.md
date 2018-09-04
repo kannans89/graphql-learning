@@ -9,7 +9,7 @@ GraphQL is a strongly typed language. Type System defines the various data types
 | 2    | Object     | Shows what kind of object can be fetched
 | 3   | Query    | Entry point type to other specific types
 | 4    | Mutation   | Entry point for data manipulation
-| 5   | Enum   | useful in a situation where you need the user to pick from a prescribed list of options
+| 5   | Enum   | Useful in a situation where you need the user to pick from a prescribed list of options
 
 ## Scalar Types
 
@@ -117,6 +117,32 @@ For example, we can define a mutation type to add a new Student as given below:
 }
 
 ```
+### Enum Type  
+An Enum is similar to a scalar type. Enums are useful in a situation where the value for a field must be from a prescribed list of options. 
+
+The syntax for defining an Enum type is -  
+
+```javascript
+  type enum_name{
+  value1
+  value2
+}
+
+```
+Following snippet ilustrates how an enum type can be defined -  
+
+```javascript
+  type Days_of_Week{
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+```
 
 ### Type Marker
 
@@ -129,6 +155,4 @@ Will add extra meaning to a  type
 | 3|List of Non-null Types   | `[<type>!]`  | [String!]
 | 4|Non-null List Type   | `[<type>]!`  | [String]!
 
-### **needToFix** add enum types
-
-We will discuss how to use each of these types in detail in the later chapters.
+.
