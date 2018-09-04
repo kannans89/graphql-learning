@@ -144,15 +144,44 @@ Following snippet ilustrates how an enum type can be defined -
 
 ```
 
-### Type Marker
+### List Type  
+Lists can be used to represent an array of values of a specifc type. Lists are defined with a type modifier `[]` that wraps object types, scalars, and enums.
 
-Will add extra meaning to a  type
+The following syntax can be used to define a  list type -   
 
-|Sr No |  marker   |  syntax  | example|
-|:----:|:---------|:-------------|:-----
-| 1|Non-null Type  | `<type>!`  | String!
-| 2|List Type  | `[<type>]`  |[String]
-| 3|List of Non-null Types   | `[<type>!]`  | [String!]
-| 4|Non-null List Type   | `[<type>]!`  | [String]!
+```javascript
 
-.
+
+field:[data_type]
+
+```
+The below example defines a list type `todos`  
+```javascript
+type Query {
+  todos: [String]
+}
+```
+
+
+### Non-Nullable Type  
+By default, each of the core scalar types can be set to null. In other words, these types can either return a value of the specified type or they can have no value.To override this default and specify that a field must be defined,an exclamation mark (!) can be appended to a type.This ensures the presence of the value in results returned by the query.  
+The following syntax can be used to define a non-nullable field   
+
+```javascript
+field:data_type!
+```
+
+In the below example, `stud_id` is declared a mandatory field
+
+```javascript
+type Student {
+    stud_id:ID!
+    firstName:String
+    lastName:String
+    fullName:String
+    college:College
+}
+
+```
+
+
