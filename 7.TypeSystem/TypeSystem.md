@@ -21,7 +21,13 @@ These are primitive data types. Scalar types can store only a  single value . Th
 - **Boolean** :true or false
 - **ID** : A unique identifier, often used as a unique identifier to fetch an object or as the key for a cache.
 
-Syntax for a field named greeting which returns String type
+The Syntax for defining a scalar type is - 
+
+```javacript
+   field: data_type
+```
+
+The snippet given below defines a field named greeting which returns String value
 
 ```javacript
    greeting: String
@@ -30,6 +36,21 @@ Syntax for a field named greeting which returns String type
 ## Object Types
 
 The object type is the most common type used in a schema and represents a group of fields. Each field inside an object type maps to another type, thereby allowing nested types. In other words, an object type is composed of multiple scalar types or Object types.
+The Syntax for defining an Object type is - 
+
+```javacript
+type object_type_name
+{
+   field1: data_type
+   field2:data_type 
+   ....
+   fieldn:data_type
+   
+ }
+```
+
+Consider the following code snippet-  
+
 
 ```javascript
 --Define an object type--
@@ -43,7 +64,7 @@ type Student {
 }
 
 
---Defining a GraphQL schema--
+--Defining a GraphQL schema--  
 
 type Query
 {
@@ -55,42 +76,32 @@ The example given above defines an object data-type  `Student`. The `stud_detail
 
 ## The Query type
 
-A GraphQL query is for used to fetch data and compares to the GET verb in REST-based APIs. Query is the request send from client application to the backend graphql server.
+A GraphQL query is for used to fetch data. It is similar to requesting a resource in REST-based APIs. Simply put, the Query type is the request send from a client application to the GraphQL server.
+GraphQL uses the Schema Definition Language(SDL to define a Query.Query type is one of the many root-level types in GraphQL.It acts as an entry-point to other more specific types within the schema.
 
-In order to define what queries are possible on a server , the Query type is used within the Schema Definition Language(SDL).he Query type is one of many root-level types which defines functionality (it doesn’t actually trigger a query) for clients and acts as an entry-point to other more specific types within the schema.
-
- From the helloworld example we seen in the previous section the query syntax is given below.
-
+The syntax for defining a Query is as given here
  ```javascript
+ type Query  {
+     field1: data_type
+     field2:data_type
+     
+ }
+ ```
+
+Following is an example of defining a Query :
+```javascript
  type Query  {
      greeting: String
  }
  ```
-
-client application we used in helloworld example was GraphiQL and to request for greetings query this was the syntax used
-`{greeting}` or we can even use `query
-{
-  greeting
-}`
-
-the response from server will be same
-
-```javascript
- {
-  "data": {
-    "greeting": "Hello GraphQL  From TutorialsPoint !!"
-  }
-}
-
-```
-
+ 
 ## Mutation Type
 
-Mutations are operations sent to the server to create, update or delete data. These are comparable to the PUT, POST, PATCH and DELETE verbs on REST-based APIs.
+Mutations are operations sent to the server to create, update or delete data. These are analogous to the PUT, POST, PATCH and DELETE verbs to call REST-based APIs.
 
-Much like how the Query type defines the entry-points for data-fetching operations on a GraphQL server, the root-level Mutation type specifies the entry points for data-manipulation operations.
+Mutation is one of the root-level data-types in GraphQL.The Query type defines the entry-points for data-fetching operations whereas the Mutation type specifies the entry points for data-manipulation operations.
 
-For example, when imagining a situation where the API supported adding a new Student, the SDL might implement the following Mutation type:
+For example, we can define a mutation type to add a new Student as given below:
 
 ```javascript
   type Mutation {
