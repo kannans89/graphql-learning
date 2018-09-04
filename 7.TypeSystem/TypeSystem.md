@@ -1,11 +1,11 @@
 
 # Type System
 
- GraphQL is a strongly typed language  . The type system helps to define the schema , which is a contract between client and server .Commonly used datatypes in are as follows
+GraphQL is a strongly typed language. Type System defines the various data types that can be used in a GraphQL application.The type system helps to define the schema , which is a contract between client and server . The commonly used GraphQL data types are as follows-
 
 |Sr No |  Types              |  Description
 |:----:|:--------------------------|:------------------
-| 1    | Scalar    | Stores single value
+| 1    | Scalar    | Stores a single value
 | 2    | Object     | Shows what kind of object can be fetched
 | 3   | Query    | Entry point type to other specific types
 | 4    | Mutation   | Entry point for data manipulation
@@ -13,13 +13,13 @@
 
 ## Scalar Types
 
-these are primitive types which resolve to single concrete data . the default scalar type which GraphQL offers are .
+These are primitive data types. Scalar types can store only a  single value . The default scalar types that GraphQL offers are:
 
-- Int :Signed 32 bit Integer
-- Float: Signed double precision floating point value
-- String : UTF‐8 character sequence
-- Boolean :true or false
-- ID : A unique identifier, often used to refetch an object or as the key for a cache. While serialized as a String, ID signifies that it is not intended to be human‐readable
+- **Int** :Signed 32 bit Integer
+- **Float**: Signed double precision floating point value
+- **String** : UTF‐8 character sequence
+- **Boolean** :true or false
+- **ID** : A unique identifier, often used as a unique identifier to fetch an object or as the key for a cache.
 
 Syntax for a field named greeting which returns String type
 
@@ -29,27 +29,33 @@ Syntax for a field named greeting which returns String type
 
 ## Object Types
 
-The object type is the most common type used in a schema and represents a group of fields. Each field inside of an object type maps to another type, allowing nested types and circular references.
+The object type is the most common type used in a schema and represents a group of fields. Each field inside an object type maps to another type, thereby allowing nested types. In other words, an object type is composed of multiple scalar types or Object types.
 
 ```javascript
+--Define an object type--
 
-type TypeName {
-  fieldA: String
-  fieldB: Boolean
-  fieldC: Int
-  fieldD: CustomType
+type Student {
+  stud_id:ID
+  firstname: String
+  age: Int
+  score:Float
+ 
 }
 
-type CustomType {
-  circular: TypeName
-}
 
+--Defining a GraphQL schema--
+
+type Query
+{
+ stud_details:[Student]
+}
 
 ```
+The example given above defines an object data-type  `Student`. The `stud_details` field in the root Query schema will return a list of Student objects.
 
 ## The Query type
 
-A GraphQL query is for fetching data and compares to the GET verb in REST-based APIs. Query is the request send from client application to the backend graphql server.
+A GraphQL query is for used to fetch data and compares to the GET verb in REST-based APIs. Query is the request send from client application to the backend graphql server.
 
 In order to define what queries are possible on a server , the Query type is used within the Schema Definition Language(SDL).he Query type is one of many root-level types which defines functionality (it doesn’t actually trigger a query) for clients and acts as an entry-point to other more specific types within the schema.
 
