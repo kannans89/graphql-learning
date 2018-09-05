@@ -1,21 +1,19 @@
 
 # Resolver
 
-referece [resolver](https://www.apollographql.com/docs/graphql-tools/resolvers.html#Resolver-map)
+Resolver is a collection of functions that generates response for a  GraphQL query. Simply put, a resolver acts as a GraphQL query handler.Every resolver function in a GraphQL schema accepts four positional arguments as given below:
 
- The schema already describes all of the fields, arguments, and result types, the only thing left is a collection of functions called resolvers that are called to actually execute these fields.Every resolver function in a GraphQL schema accepts four positional arguments
-
-`fieldName(obj, args, context, info) { result }`
+`fieldName(root, args, context, info) { result }`
 
 |Sr No |  arguments   |  Description
 |:----:|:---------|:-------------
-| 1  |  obj | The object that contains the result returned from the resolver on the parent field
+| 1  |  root | The object that contains the result returned from the resolver on the parent field
 |2| args | An object with the arguments passed into the field in the query
 |3|context|This is an object shared by all resolvers in a particular query
 |4|info| it contains information about the execution state of the query, including the field name, path to the field from the root
 
  **Resolver Result Format**  
-  Resolvers in GraphQL can return different kinds of results which are treated differently:
+  Resolvers in GraphQL can return different types of values:
 
 |Sr No |  arguments   |  Description
 |:----:|:---------|:-------------
@@ -24,60 +22,9 @@ referece [resolver](https://www.apollographql.com/docs/graphql-tools/resolvers.h
 |3|promise|resolvers often do asynchronous actions like fetching from a database or backend API, so they can return promises
 |4|scalar or object |  a resolver can also return other values
 
-In the previous chapter we have seen the query to fetch students
+## Illustration 
 
-```javascriipt
-  
-{
-  greeting
-  students {
-    id
-    firstName
-    lastName
-  }
-  
-}
-
-
-```
-
-each field have schema associated with it
-
-```javascript
-
-  type Query {
-    greeting:String
-    students:[Student]
-}
-
-
-type Student {
-    id:ID!
-    firstName:String
-    lastName:String
-    password:String
-    collegeId:String
-
-}
-
-```
-
-each field has to fetch data from datastore .so there should be a function called resolver which will be called for each field and that will yield a result. The greeting field have a greeting resolver function and students field have another resolver function which calls backend and returns a list of students.
-
-```javascript
-const db = require('./db')
-
-const Query = {
-    greeting:()=>{
-        return "hello from  TutorialsPoint !!!"
-    },
-    students:()=>db.students.list()
-
-}
-module.exports = {Query}
-
-
-```
+**each field has to fetch data from datastore .so there should be a function called resolver which will be called for each field and that will yield a result. The greeting field have a greeting resolver function and students field have another resolver function which calls backend and returns a list of students.**
 
 ## Passing parameter to a resolver
 

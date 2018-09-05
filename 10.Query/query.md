@@ -1,59 +1,20 @@
 
 # Query
 
-A GraphQL operation can be either a query (read operation), or a mutation (write operation).
-For both cases, the operation is a simple string that a GraphQL server can parse and
-respond to with data in a specific format. The popular response format that is usually used
-for mobile and web applications is JSON.
+A GraphQL operation can be either a read operation or a write operation. A GraphQL query is used to read or fetch values while a mutation is used to write or post values.In either cases, the operation is a simple string that a GraphQL server can parse and respond to with data in a specific format. The popular response format that is usually used for mobile and web applications is JSON.
 
-The syntax of firing a query is `query{ someField }` or it can be simple like `{ someField }`. The second syntax will by default take query type as the root.
+The syntax to define a query is-  
+`query{ someField }`   
+  or  
+`{ someField }`  
 
-GraphQL queries help to reduce over fetching of data unlike a Restful API . Suppose a client application needs only student firstName and lastName only then application can just fire query
+The query keyword is optional.
 
-```javascript
-  {
-      students{
-          id
-          firstName
-          lastName
-      }
-  }
+GraphQL queries help to reduce over fetching of data.Unlike a Restful API, GraphQL allows a user to restrict fields that should be fetched from the server. This means smaller queries and lesser traffic over the network. This in turn reduces the response time.
 
-```
+## Illustration 1
 
-response from the server is as follows
-
-```javascript
-   {
-  "data": {
-    "students": [
-      {
-        "id": "S1001",
-        "firstName": "Mohtashim",
-        "lastName": "Mohammad"
-      },
-      {
-        "id": "S1002",
-        "firstName": "Kannan",
-        "lastName": "Sudhakaran"
-      },
-      {
-        "id": "S1003",
-        "firstName": "Kiran",
-        "lastName": "Panigrahi"
-      }
-    ]
-  }
-}
-
-
-```
-
-other details like collegeId and password details are not fetched . so queries are more smaller and less traffic over network , application will be much faster.
-
-## Adding a custom field
-
-Following is the **students.json** file which contains list of students
+Step 1. Create a **students.json** file. This file will contain details for a list of students.
 
 ```javascript
  [
@@ -86,9 +47,10 @@ Following is the **students.json** file which contains list of students
 
 ```
 
-Note there is no fullName field in the query , now in query we need fullName ,so we need to change the schema file first followed by the resolver function. The fullName will be a **custom field** which does not match with data source field.
+Step 2: Create 
+Note there is no fullName field in the query , now in query we need fullName. The fullName will be a **custom field** which does not match with data source field.
 
-step 1: change the **schema.graphql** by adding fullName field add data type as String
+step 1: change the by adding fullName field add data type as String
 
 ```javascript
 
