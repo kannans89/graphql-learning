@@ -1,17 +1,51 @@
 
 # Schema
 
-A GraphQL schema is at the center of any GraphQL server implementation and describes the functionality available to the clients which connect to it.
+A GraphQL schema is at the core of any GraphQL server implementation. It describes the functionality available to the client applications that connect to it. We can use any programming language to create a GraphQL schema and build an interface around it.
 
-Since GraphQL is a specification for a server runtime, we can use any language to create a GraphQL schema and build an interface around it.
-
-The GraphQL runtime layer, which can be written in any language, defines a generic graph based schema to publish the capabilities of the data service it represents. Client applications
-can query the schema within its capabilities. This approach decouples clients from servers
+The GraphQL runtime defines a generic graph based schema to publish the capabilities of the data service it represents. Client applications an query the schema within its capabilities. This approach decouples clients from servers
 and allows both of them to evolve and scale independently.
 
-Let us create  simple application to understand schema . this application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
+In this tutorial, we are using Apollo server for executing GraphQL queries. The makeExecutableSchema function in Apollo helps you to bind a schema and a resolvers. The syntax for using the makeExecutableSchema function is as given below-  
 
-step 1 : create a folder named schema-app , change your directory to schema-app from terminal .Add a file package.json
+## makeExecutableSchema Function Syntax
+
+The makeExecutableSchema function takes a single argument of an `Object` type.
+
+```javascript
+import { makeExecutableSchema } from 'graphql-tools';
+
+const jsSchema = makeExecutableSchema({
+  typeDefs,
+  resolvers, // optional
+  logger, // optional
+  allowUndefinedInResolve = false, // optional
+  resolverValidationOptions = {}, // optional
+  directiveResolvers = null, // optional
+  schemaDirectives = null,  // optional
+  parseOptions = {},  // optional
+  inheritResolversFromInterfaces = false  // optional
+});
+
+```
+
+|Sr No |  parameter  |  Description
+|:----:|:--------|:------------------
+|   1  |   typeDefs|is a required argument and should be an GraphQL schema language string or array of GraphQL schema language strings.
+|    2 | resolvers |  optional argument (empty object by default) and should be an object
+| 3 | logger | is an optional argument, which can be used to print errors to the server console
+| 4 | parseOptions | is an optional argument which allows customization of parse when specifying typeDefs as a string.
+| 5| allowUndefinedInResolve |  is true by default. When set to false, causes your resolve functions to throw errors if they return undefined
+| 5 |  resolverValidationOptions | optional argument which accepts an object with boolean properties
+| 6| inheritResolversFromInterfaces| optional   boolean argument to check resolvers object inheritance.
+
+**Illustration**
+Let us create a simple application to understand schema . This application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
+
+Step 1 :  Download and Install required dependencies for the project  
+
+a. Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.   
+b. Add a file **package.json**. Add the following code to the **package.json** file. 
 
 ```javascript
 {
@@ -38,7 +72,10 @@ step 1 : create a folder named schema-app , change your directory to schema-app 
 
 ```
 
-type the command `npm install` on the terminal to install all the dependencies . Now lets add a **data** folder where our flat files will be stored . Lets create database for students first so create students.json file inside data folder .
+c.Type the command `npm install` on the terminal to install all the dependencies . 
+
+Step 2: Create a Flat  file Database  
+a.Add a **data** folder where our flat files will be stored .Create **students.json** file inside data folder . This will act as the Student database. 
 
 ```javascript
 [
@@ -71,7 +108,8 @@ type the command `npm install` on the terminal to install all the dependencies .
 
 ```
 
-step 2: create a respository module to convert students.json as a collection in the current applicaiton . we will add a *db.js* file in *schema-app* folder .
+Step 3:  Create Data Access Layer. 
+Create a  **db.js** file in **schema-app** folder . Add the following code to this file. 
 
 ```javascript
 
@@ -87,11 +125,11 @@ module.exports = {
 
 ```
 
-step 3: Lets create a schema **schema.graphql** file in the project folder *schema-app*
+//explain code
+Create a respository module to convert students.json as a collection.
 
-The root of the schema will be **Query** type , in the hello world example we have already used this . With in this query we have two fields on is greeting with data type String and other will be a list of students . Since student data is a complex data type we are using an object type as discussed in TypeSystem chapter.
 
-Id cannot be nullable so we are using the syntax `DataType!` by default all fields are nullable
+Step 4: Create a schema **schema.graphql** file in the project folder **schema-app** and add the following code-
 
 ```javascript
 
@@ -112,8 +150,9 @@ type Student {
 
 ```
 
-step 4:
-Once the client request for a list of students we need a resolver function to handle this so lets create a file **resolvers.js** to the project folder. Resolvers will be discussed in detail in another section
+The root of the schema will be **Query** type . The query has two fields greeting and Students that return String and a list of students respectively . Student is declared as an Object type since it contains multiple fields.  The ID field is declared as non-nullable.
+
+Step 5: Create a file **resolvers.js** in the project folder and add the following code-
 
 ```javascript
 
@@ -129,8 +168,10 @@ const Query = {
 module.exports = {Query}
 
 ```
+In order to handle a client request for data from GraphQL, we need a resolver function.Resolvers will be discussed in detail in another section.
 
-step 5: Now lets run the application by creating **server.js** . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js*
+Step 6: Run the application
+a. Create a  **server.js** and add the following code.
 
 ```javascript
 
@@ -163,10 +204,12 @@ app.listen(port, () => console.info(`Server started on port ${port}`));
 
 
 ```
+**explain code step (a)**
 
-Now execute using `npm start`  , once server is started open the browser and type graphql query given below . The query will dispaly the greeting of helloworld and the students stored in our students.json file.
-
-```javascript
+b. Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
+c. Open the browser and type the url `http://localhost:9000/graphiql` . Type the following query in the editor.
+ 
+ ```javascript
 
 {
   greeting
@@ -179,38 +222,12 @@ Now execute using `npm start`  , once server is started open the browser and typ
 }
 
 ```
+The query will display the output as shown below-  
 
 ![1_student_query](https://user-images.githubusercontent.com/9062443/44244618-714f9a80-a1f2-11e8-84dd-d948ca0e0913.png)
 
-**Note** : we can replace the students.json with a RESTful api call to retrieve student data or even a real database like mysql or mongodb. GraphQL becomes a thin wrapper around your original application layer to improve performance .
 
-## makeExecutableSchema Function Syntax
+**Now lets run the application by  . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js** - add this to comment section  
 
-makeExecutableSchema takes a single argument: an object of options. Only the typeDefs option is required
+**Note** : We can replace the students.json with a RESTful api call to retrieve student data or even a real database like mysql or mongodb. GraphQL becomes a thin wrapper around your original application layer to improve performance .
 
-```javascript
-import { makeExecutableSchema } from 'graphql-tools';
-
-const jsSchema = makeExecutableSchema({
-  typeDefs,
-  resolvers, // optional
-  logger, // optional
-  allowUndefinedInResolve = false, // optional
-  resolverValidationOptions = {}, // optional
-  directiveResolvers = null, // optional
-  schemaDirectives = null,  // optional
-  parseOptions = {},  // optional
-  inheritResolversFromInterfaces = false  // optional
-});
-
-```
-
-|Sr No |  parameter  |  Description
-|:----:|:--------|:------------------
-|   1  |   typeDefs|is a required argument and should be an GraphQL schema language string or array of GraphQL schema language strings.
-|    2 | resolvers |  optional argument (empty object by default) and should be an object
-| 3 | logger | is an optional argument, which can be used to print errors to the server console
-| 4 | parseOptions | is an optional argument which allows customization of parse when specifying typeDefs as a string.
-| 5| allowUndefinedInResolve |  is true by default. When set to false, causes your resolve functions to throw errors if they return undefined
-| 5 |  resolverValidationOptions | optional argument which accepts an object with boolean properties
-| 6| inheritResolversFromInterfaces| optional   boolean argument to check resolvers object inheritance.
