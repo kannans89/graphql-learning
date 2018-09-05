@@ -1,27 +1,33 @@
 
 # Type System
 
- GraphQL is a strongly typed language  . GraphQL has a type system to describe the data that is possible to query . The type system help to define the schema , which is a contract between client and server .Commonly used datatypes in are as follows
+GraphQL is a strongly typed language. Type System defines the various data types that can be used in a GraphQL application.The type system helps to define the schema , which is a contract between client and server . The commonly used GraphQL data types are as follows-
 
 |Sr No |  Types              |  Description
 |:----:|:--------------------------|:------------------
-| 1    | Scalar    | Stores single value
+| 1    | Scalar    | Stores a single value
 | 2    | Object     | Shows what kind of object can be fetched
 | 3   | Query    | Entry point type to other specific types
 | 4    | Mutation   | Entry point for data manipulation
-| 5   | Enum   | useful in a situation where you need the user to pick from a prescribed list of options
+| 5   | Enum   | Useful in a situation where you need the user to pick from a prescribed list of options
 
 ## Scalar Types
 
-these are primitive types which resolve to single concrete data . the default scalar type which GraphQL offers are .
+These are primitive data types. Scalar types can store only a  single value . The default scalar types that GraphQL offers are:
 
-- Int :Signed 32 bit Integer
-- Float: Signed double precision floating point value
-- String : UTF‐8 character sequence
-- Boolean :true or false
-- ID : A unique identifier, often used to refetch an object or as the key for a cache. While serialized as a String, ID signifies that it is not intended to be human‐readable
+- **Int** :Signed 32 bit Integer
+- **Float**: Signed double precision floating point value
+- **String** : UTF‐8 character sequence
+- **Boolean** :true or false
+- **ID** : A unique identifier, often used as a unique identifier to fetch an object or as the key for a cache.
 
-Syntax for a field named greeting which returns String type
+The Syntax for defining a scalar type is - 
+
+```javacript
+   field: data_type
+```
+
+The snippet given below defines a field named greeting which returns String value
 
 ```javascript
    greeting: String
@@ -29,62 +35,81 @@ Syntax for a field named greeting which returns String type
 
 ## Object Types
 
-The object type is the most common type used in a schema and represents a group of fields. Each field inside of an object type maps to another type, allowing nested types and circular references.
+The object type is the most common type used in a schema and represents a group of fields. Each field inside an object type maps to another type, thereby allowing nested types. In other words, an object type is composed of multiple scalar types or Object types.
+The Syntax for defining an Object type is - 
+
+```javacript
+type object_type_name
+{
+   field1: data_type
+   field2:data_type 
+   ....
+   fieldn:data_type
+   
+ }
+```
+
+Consider the following code snippet-  
+
 
 ```javascript
+--Define an object type--
 
-type TypeName {
-  fieldA: String
-  fieldB: Boolean
-  fieldC: Int
-  fieldD: CustomType
+type Student {
+  stud_id:ID
+  firstname: String
+  age: Int
+  score:Float
+ 
 }
 
-type CustomType {
-  circular: TypeName
-}
 
+--Defining a GraphQL schema--  
+
+type Query
+{
+ stud_details:[Student]
+}
 
 ```
+The example given above defines an object data-type  `Student`. The `stud_details` field in the root Query schema will return a list of Student objects.
 
 ## The Query type
 
-A GraphQL query is for fetching data and compares to the GET verb in REST-based APIs. Query is the request send from client application to the backend graphql server.
+A GraphQL query is to used to fetch data. It is similar to requesting a resource in REST-based APIs. Simply put, the Query type is the request send from a client application to the GraphQL server.GraphQL uses the Schema Definition Language(SDL) to define a Query.Query type is one of the many root-level types in GraphQL.
 
-In order to define what queries are possible on a server , the Query type is used within the Schema Definition Language(SDL).he Query type is one of many root-level types which defines functionality (it doesn’t actually trigger a query) for clients and acts as an entry-point to other more specific types within the schema.
-
- From the helloworld example we seen in the previous section the query syntax is given below.
-
+The syntax for defining a Query is as given below
  ```javascript
+ type Query  {
+     field1: data_type
+     field2:data_type
+     field2(param1:data_type,param2:data_type,...paramN:data_type):data_type
+ }
+ ```
+
+Following is an example of defining a Query :
+```javascript
  type Query  {
      greeting: String
  }
  ```
-
-client application we used in helloworld example was GraphiQL and to request for greetings query this was the syntax used
-`{greeting}` or we can even use `query
-{
-  greeting
-}`
-
-the response from server will be same
-
-```javascript
- {
-  "data": {
-    "greeting": "Hello GraphQL  From TutorialsPoint !!"
-  }
-}
-
-```
-
+ 
 ## Mutation Type
 
-Mutations are operations sent to the server to create, update or delete data. These are comparable to the PUT, POST, PATCH and DELETE verbs on REST-based APIs.
+Mutations are operations sent to the server to create, update or delete data. These are analogous to the PUT, POST, PATCH and DELETE verbs to call REST-based APIs.
 
-Much like how the Query type defines the entry-points for data-fetching operations on a GraphQL server, the root-level Mutation type specifies the entry points for data-manipulation operations.
+Mutation is one of the root-level data-types in GraphQL.The Query type defines the entry-points for data-fetching operations whereas the Mutation type specifies the entry points for data-manipulation operations.  
 
-For example, when imagining a situation where the API supported adding a new Student, the SDL might implement the following Mutation type:
+The syntax for defining a Mutation type is as given below
+ ```javascript
+ type Mutation {
+     field1: data_type
+     field2(param1:data_type,param2:data_type,...paramN:data_type):data_type
+     
+ }
+ ```
+
+For example, we can define a mutation type to add a new Student as given below:
 
 ```javascript
   type Mutation {
@@ -92,96 +117,71 @@ For example, when imagining a situation where the API supported adding a new Stu
 }
 
 ```
+### Enum Type  
+An Enum is similar to a scalar type. Enums are useful in a situation where the value for a field must be from a prescribed list of options. 
 
-This implements a single addStudent mutation which accepts firstName and lastName as arguments.The important thing to note here is that this mutation will return the newly-created Student object. Sample syntax for mutation query is below .
-
-```javascript
- mutation {
-  addStudent(firstName: "Kannan", lastName: "Sudhakaran") {
-    firstName
-    lastName
-  }
-}
-```
-
-sample  response from server would look like
+The syntax for defining an Enum type is -  
 
 ```javascript
-      {
-  "data": {
-    "addStudent": {
-      {
-         firstName:"Kannan"
-         lastName:"Sudhakaran"
-      }
-    }
-  }
+  type enum_name{
+  value1
+  value2
+}
+
+```
+Following snippet ilustrates how an enum type can be defined -  
+
+```javascript
+  type Days_of_Week{
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
 }
 
 ```
 
-## Enums
+### List Type  
+Lists can be used to represent an array of values of a specifc type. Lists are defined with a type modifier `[]` that wraps object types, scalars, and enums.
 
-An Enum is similar to a scalar type, but it can only be one of several values defined in the schema. Enums are most useful in a situation where the user must pick from a prescribed list of options. Additionally enums improve development velocity, since they will auto-complete in tools like GraphiQL.
+The following syntax can be used to define a  list type -   
 
 ```javascript
 
-enum ColorType {
-   RED
-   BLUE
-   GREEN
-}
 
-type Query{
-   setFavouriteColor(color:ColorType):String
-}
+field:[data_type]
 
 ```
-
-Request using a query variable named `$color` is shown
-
-```graphql
- query colorQuery($color:ColorType){
-  setFavouriteColor(color:$color)
+The below example defines a list type `todos`  
+```javascript
+type Query {
+  todos: [String]
 }
 ```
 
-Query variable value can be passed as below
+
+### Non-Nullable Type  
+By default, each of the core scalar types can be set to null. In other words, these types can either return a value of the specified type or they can have no value.To override this default and specify that a field must be defined,an exclamation mark (!) can be appended to a type.This ensures the presence of the value in results returned by the query.  
+The following syntax can be used to define a non-nullable field   
 
 ```javascript
-{
-  "color":"GREEN"
-}
-
-
+field:data_type!
 ```
 
-The query variable can have only RED,BLUE or GREEN .Response from the server is as below .
+In the below example, `stud_id` is declared a mandatory field
 
 ```javascript
-{
-  "data": {
-    "setFavouriteColor": "Your Fav Color is :GREEN"
-  }
+type Student {
+    stud_id:ID!
+    firstName:String
+    lastName:String
+    fullName:String
+    college:College
 }
 
 ```
 
-Server will give you following error if different color is passed as below
 
-```javascript
-{
-  "errors": [
-    {
-      "message": "Variable \"$color\" got invalid value \"PINK\"; Expected type ColorType.",
-      "locations": [
-        {
-          "line": 1,
-          "column": 18
-        }
-      ]
-    }
-  ]
-}
-
-```

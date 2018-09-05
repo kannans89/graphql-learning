@@ -1,13 +1,16 @@
 
 # Why GraphQL
 
-RESTful APIs follow a resource-oriented approach that is clear and well structured. But when the data gets more and more complex, the routes get longer and longer, and sometimes it isn’t even possible to fetch the data you want with only one request. This is where GraphQL comes into play. It’s designed to work with data represented by a graph, and it has a powerful query syntax for traversing, retrieving, and mutating data.
+RESTful APIs follow a resource-oriented approach that is clear and well structured. But when the data gets more and more complex, the routes get longer and longer, and sometimes it isn’t even possible to fetch the data you want with a single request. This is where GraphQL comes into play. 
+GraphQL structures data in the form of a graph.It has a powerful query syntax for traversing, retrieving, and modifying data.
 
 ## 1. Ask for what you need,get exactly that
 
-Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Apps using GraphQL are fast and stable because they control the data they get, not the server.
+Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Applications using GraphQL are fast and stable.Unlike Restful services, these applications can restrict data that should be fetched from the server. The following example will help you understand this better.
 
-Suppose we have a business object student and client application need to display the id and firstName of all students. The sample GraphQL query would look like below.
+Let us consider a business object Student with the attributes id , firstName ,lastName and collegeName .Suppose a mobile application needs to fetch only the firstName and id.If we design a REST endpoint like `/api/v1/students`, it will end up fetching data for all the fields for a student object. This means, data is overfetched by the RESTful service. 
+
+This problem can be solved by using GraphQL. Consider the following sample GraphQL query given below.
 
 ```javascript
 {
@@ -20,7 +23,7 @@ Suppose we have a business object student and client application need to display
 
 ```
 
-Response will contain only id and firstName. The query will not fetch college details or any other associated resources .
+The above query will return values only for the id and firstname fields in the response.The query will not fetch values for other attributes of the student object. The response of the query illustrated above will be as shown below:
 
 ```javascript
 {
@@ -42,8 +45,11 @@ Response will contain only id and firstName. The query will not fetch college de
 
 ## 2. Get many resources in a single request
 
-   GraphQL queries  helps to smoothly retrieve associated business objects ,While typical REST APIs require loading from multiple URLs, GraphQL APIs get all the data your app needs in a single request. Apps using GraphQL can be quick even on slow mobile network connections.  
-   For example Student business object have association with College and  mobile application need to display both in a single request.The GraphQL query will look like
+GraphQL queries  helps to smoothly retrieve associated business objects ,while typical REST APIs require loading from multiple URLs. GraphQL APIs fetch all the data your application needs in a single request. Applications using GraphQL can be quick even on slow mobile network connections.  
+
+Let us consider one more business object College which has the attributes name and location. The Student business object has an association relationship with the College object. If we were to use a REST API in order to fetch the details of students and their college we will end up making two requests to server like `/api/v1/students` and `/api/v1/colleges` .This will lead to under fetching of data , that is less data fetched in each request .So mobile applications are forced to make mulitple calls to server to get the desired data .
+
+However, the mobile application can fetch details for both -Student and College objects in a single request by using GraphQL. The GraphQL query for the same will be- 
 
 ```javascript
     {
@@ -100,9 +106,9 @@ The response will contain exactly the fields in the query .
 
 ## 3. Describe what’s possible with a type system
 
-GraphQL APIs are organized in terms of types and fields, not endpoints unlike a RESTful webservice . Access the full capabilities of your data from a single endpoint. GraphQL uses types to ensure Apps only ask for what’s possible and provide clear and helpful errors. Apps can use types to avoid writing manual parsing code.
+GraphQL queries are based on fields and their associated data types.GraphQL is strongly typed.If there is type mismatch in a GraphQL query, server applications return clear and helpful error messages. This helps in smooth debugging and easy detection of bugs by client applications.GraphQL also provides client side libraries that can help in reducing explicit data conversion and parsing.
 
-GraphQL is strongly typed and a sample type for Student and College is given below.
+ An example of the the Student and College data types is as given below.
 
 ```graphql
 
@@ -131,8 +137,4 @@ type Query {
 
 ## 4. Move faster with powerful developer tools
 
-Know exactly what data you can request from your API without leaving your editor, highlight potential issues before sending a query, and take advantage of improved code intelligence. GraphQL makes it easy to build powerful tools like **GraphiQL** by leveraging your API’s type system
-
-## 5. Evolve your API without versions
-
-Add new fields and types to your GraphQL API without impacting existing queries. Aging fields can be deprecated and hidden from tools. By using a single evolving version, GraphQL APIs give apps continuous access to new features and encourage cleaner, more maintainable server code.
+GraphQL provides rich developer tools for documentation and testing queries. **GraphiQL** is an excellent tool which generates documentation of the query and its schema. It also gives a query editor to test GraphQL APIs. It also providesintelligent code completion capability while building queries.

@@ -1,16 +1,14 @@
   
 # HelloWorld Example
 
-Let us create a minimal graphQL server
-and access it through client tool **graphiQL** . This will be based on nodejs,express,apollo server.This will be a simple API which will return a greeting message.  
-
+We will create a simple API that returns a greeting message and access it using **GraphiQL** . This example is based on NodeJS,Express and Apollo server.
 You will learn to put together all the concepts together .
 
-## step 1: setting up express
+## Step 1: Setting up Express
 
-ExpressJS is a web application framework that provides you with a simple API to build websites, web apps and back ends.For handling http requests efficiently we will  be building a GraphQL server on the top of express framework.
+ExpressJS is a web application framework that helps you build websites, web applications.In this example,we will build a GraphQL API on top of the Express framework.
 
- create a folder **hello-world-server** add a **package.json** , give a name to the package . Since we are using this package internally lets make it private.
+a. Create a folder **hello-world-server** .Add a **package.json** , and give a name to the package . Since we this package will be used internally we shall declare it private.
 
 ```javascript
 {
@@ -19,7 +17,7 @@ ExpressJS is a web application framework that provides you with a simple API to 
 }
 ```
 
-open terminal t and  change the directory to hello-world-server and install dependencies for express server
+b. Open the terminal.Change the directory to **hello-world-server**.Install the dependencies for Express server
 
 ```javascript
 C:\Users\Admin>mkdir hello-world-server
@@ -28,9 +26,9 @@ C:\Users\Admin\hello-world-server>npm install express body-parser cors
 
 ```
 
-*body-parser* is a middleware package which help express to handle http post request efficiently , *cors* is another middleware package for handling  cross-origin resource sharing efficiently.Both packages are helpful once we make a reactjs client application.
+*body-parser* is a middleware package which helps Express to handle HTTP Post requests efficiently.*cors* is another middleware package that handles cross-origin resource sharing.
 
-create a **server.js** file within the project folder and type the following in it.
+c. Create a **server.js** file within the project folder and type the following in it.
 
 ```javascript
 
@@ -46,33 +44,37 @@ create a **server.js** file within the project folder and type the following in 
 
 ```
 
-now test the express server is running by checking
+d. To Verify if the Express server is up and running execute the following in the terminal window.
 
 ```javascript
  C:\Users\Admin\hello-world-server>node server.js
 ```
 
-in the server console you will see the following output.
+The following output will be diaplayed in the server console.This shows that the express server is running on port 9000
 
 ```javascript
 server is up and running at 9000
 ```
 
-open the browser and type `http://localhost:9000` you will get the following screen.
+e. open the browser and type `http://localhost:9000` you will get the following screen.
 !["express"](https://user-images.githubusercontent.com/9062443/44002340-a6ab8992-9e5e-11e8-8907-81ec94ad27df.png "express")
 
-This shows that the express server is running on port 9000 . Lets stop the server pressing *ctr+c*.
+To stop the server press *ctr+c*.
 
-## Step 2: install graphql and apollo server
+## Step 2: Install GraphQL and Apollo server
 
- Now express is configured , next step will be to download the dependencies of graphql which include graphql,graphql-tools and apollo-server-express@1 modules . As apollo server v1.0 is a stable release we will be using the same.Type the following commands to install this dependencies.
+Now that Express is configured , the next step will be to download the following GraphQL dependencies-
+a.  graphql
+b. graphql-tools
+c. apollo-server-express@1 modules 
+We shall use Apollo server v1.0 as it is a stable release 
+Type the following commands to install this dependencies.
 
 ```javascript
  C:\Users\Admin\hello-world-server>npm install graphql graphql-tools apollo-server-express@1
 ```
 
-After installation is successful you can verify all the dependencies using package.json
-
+We can verify if these dependencies are installed successfully by checking the **package.json** file that we created previously. 
 ```javascript
 {
     "name": "hello-world-server",
@@ -89,11 +91,9 @@ After installation is successful you can verify all the dependencies using packa
 
 ```
 
-## Step 3: create  schema
+## Step 3: Define the Schema
 
-Lets describe the data which we want to expose in the GraphQL API . This
-is possible by defining a type system .So we need to write some TypeDefinitions . For this we need to use a special syntax called
-**GraphQL Schema Definition Language**
+A GraphQL schema defines what kind of object can be fetched from a service, and what fields it has.The schema can be defined using **GraphQL Schema Definition Language**. Add the following code snippet in the **server.js** file.
 
 ```javascript
 
@@ -106,11 +106,12 @@ is possible by defining a type system .So we need to write some TypeDefinitions 
   `
 ```
 
-From the type definition we can understand the root query  contains a `greeting` attribute which will return a `string` value.
 
-## Step 4: create  resolver
+Here, the query contains a `greeting` attribute that returns a `string` value.
 
-Next step is to add some code to process the request for greeting field, we do that in object called resolver. Structure of resolver function will match the Schema defined before.
+## Step 4: Create a  Resolver
+
+a.The next step is to add some code to process the request for greeting field. This is specified in a **resolver**. The structure of the resolver function must  match the schema. Add the following code snippet in the **server.js** file.
 
 ```javascript
 
@@ -123,12 +124,7 @@ Next step is to add some code to process the request for greeting field, we do t
   }
 ```
 
-|Sr.No | concept | description
-|:-----|:--------|:-----------
-|1    | schema | What the client can ask For
-| 2   | resolver | Logic of how the  server will respond
-
-We need to tie both together , for this we use `makeExecutableSchema` helper function from graphql-tools module.
+b. Bind the schema and resolver using `makeExecutableSchema`. This function is pre-defined in the graphql-tools module.Add the following code snippet in the **server.js** file.
 
 ```javascript
   const {makeExecutableSchema} = require('graphql-tools')
@@ -136,7 +132,8 @@ We need to tie both together , for this we use `makeExecutableSchema` helper fun
 
 ```
 
-Now lets tell express to serve our graphql schema , this is by importing  `graphqlExpress` function from apollo-server-express module. All GraphQL API's are tested using a browser based tool called **GraphiQL** . To support it we need to import `graphiqlExpress` function and register routes for graphql and graphiql as follows.
+## Step 4: Define routes to fetch data from ReactJS / GraphiQL application
+Add the following code snippet in the **server.js** file.
 
 ```javascript
   const {graphqlExpress , graphiqlExpress} = require('apollo-server-express')
@@ -144,9 +141,14 @@ Now lets tell express to serve our graphql schema , this is by importing  `graph
    app.use('/graphql',graphqlExpress({schema}))
    app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
 
+
 ```
 
-The complete server.js code is given below
+The `graphqlExpress` function helps to register the route `http://localhost:9000/graphql`. The ReactJS application can use this endpoint to query data. Similarly, the `graphqliExpress` function helps to register the route `http://localhost:9000/graphiql`. This will be used by the GraphiQL browser client to test the API.
+
+ 
+ 
+ The complete **server.js** code is as given below
 
 ```javascript
 
@@ -176,51 +178,19 @@ app.listen(port , ()=> console.log(`server is up and running ${port}`))
 
 ```
 
-## Step 5: start app
+## Step 5: Start the Application
 
- Lets add nodemon as a development dependency to project . This help to restart the server automatically if we make any change in server.js file.
-
- ```javascript
- C:\Users\Admin\hello-world-server>npm install --save-dev nodemon
-
-```
-
-Add start command in the scripts section as shown below
+Execute **server.js** using Node.js .
 
 ```javascript
-
-{
-    "name": "hello-world-server",
-    "private": true,
-    "scripts": {
-        "start": "nodemon --ignore data/ server.js"
-      },
-    "dependencies": {
-        "apollo-server-express": "^1.4.0",
-        "body-parser": "^1.18.3",
-        "cors": "^2.8.4",
-        "express": "^4.16.3",
-        "graphql": "^0.13.2",
-        "graphql-tools": "^3.1.1"
-    },
-    "devDependencies": {
-        "nodemon": "1.17.1"
-    }
-}
-
-
-
+C:\Users\Admin\hello-world-server>node server.js
 ```
 
-Now start the server using `npm start`
+## Step 6: Test the GraphQL API.
 
-```javascript
-C:\Users\Admin\hello-world-server>npm start
-```
+Open the  browser and type `http://localhost:9000/graphiql`
 
-This will execute the server.js file.Open the  browser and type `http://localhost:9000/graphiql`
-
-In the query tab enter the given query
+In the query tab of GraphiQL, enter the following -
 
 ```javascript
   {
@@ -229,7 +199,7 @@ In the query tab enter the given query
 
 ```
 
-The response from the server is will be as below.
+The response from the server is given below.
 
 ```javascript
   {
@@ -240,5 +210,7 @@ The response from the server is will be as below.
 
 
 ```
+
+The following image illustrates the same. 
 
 !["graphiql"](https://user-images.githubusercontent.com/9062443/44010356-80865618-9ecf-11e8-8297-fe947766a200.png "graphql")
