@@ -31,13 +31,13 @@ const jsSchema = makeExecutableSchema({
 
 |Sr No |  parameter  |  Description
 |:----:|:--------|:------------------
-|   1  |   typeDefs|is a required argument and should be an GraphQL schema language string or array of GraphQL schema language strings.
-|    2 | resolvers |  optional argument (empty object by default) and should be an object
-| 3 | logger | is an optional argument, which can be used to print errors to the server console
-| 4 | parseOptions | is an optional argument which allows customization of parse when specifying typeDefs as a string.
-| 5| allowUndefinedInResolve |  is true by default. When set to false, causes your resolve functions to throw errors if they return undefined
-| 5 |  resolverValidationOptions | optional argument which accepts an object with boolean properties
-| 6| inheritResolversFromInterfaces| optional   boolean argument to check resolvers object inheritance.
+|   1  | typeDefs|This is a required argument. It represents a GraphQL query as a UTF-8 string.
+|    2 | resolvers | This is an optional argument (empty object by default). This should be an object.
+| 3 | logger | This is an optional argument. This can be used to print errors to the server console.
+| 4 | parseOptions | This is an optional argument .It allows customization of parse when specifying typeDefs as a string.
+| 5| allowUndefinedInResolve |  This is true by default. When set to false, causes your resolve functions to throw errors if they return undefined
+| 5 |  resolverValidationOptions | This is an optional argument.It accepts an object with boolean properties
+| 6| inheritResolversFromInterfaces| This is an optional argument. It accepts a boolean argument to check resolvers object inheritance.
 
 **Illustration**
 Let us create a simple application to understand schema . This application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
@@ -125,9 +125,7 @@ module.exports = {
 
 ```
 
-//explain code
-Create a respository module to convert students.json as a collection.
-
+**explain code (step 3)** --Create a respository module to convert students.json as a collection.  
 
 Step 4: Create a schema **schema.graphql** file in the project folder **schema-app** and add the following code-
 
@@ -168,6 +166,7 @@ const Query = {
 module.exports = {Query}
 
 ```
+**explain code**
 In order to handle a client request for data from GraphQL, we need a resolver function.Resolvers will be discussed in detail in another section.
 
 Step 6: Run the application
@@ -205,6 +204,7 @@ app.listen(port, () => console.info(`Server started on port ${port}`));
 
 ```
 **explain code step (a)**
+**Now lets run the application by  . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js** - add this to comment section   
 
 b. Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
 c. Open the browser and type the url `http://localhost:9000/graphiql` . Type the following query in the editor.
@@ -227,7 +227,7 @@ The query will display the output as shown below-
 ![1_student_query](https://user-images.githubusercontent.com/9062443/44244618-714f9a80-a1f2-11e8-84dd-d948ca0e0913.png)
 
 
-**Now lets run the application by  . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js** - add this to comment section  
+ 
 
 **Note** : We can replace the students.json with a RESTful api call to retrieve student data or even a real database like mysql or mongodb. GraphQL becomes a thin wrapper around your original application layer to improve performance .
 
