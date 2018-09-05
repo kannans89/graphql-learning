@@ -3,6 +3,7 @@ type Query {
     greeting:String
     students:[Student]
     studentById(id:ID!):Student
+    getTime:String
 }
 
 

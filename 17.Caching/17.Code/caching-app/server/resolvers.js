@@ -1,5 +1,3 @@
-
-
 const db = require('./db')
 
 const Query = {
@@ -9,8 +7,18 @@ const Query = {
     students:()=>db.students.list(),
     studentById:(root,args,context,info) => {
         return db.students.get(args.id);
+    },
+    getTime:()=>{
+        const today = new Date();
+        
+
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        
+        return `${h}:${m}:${s}`;
+
     }
-    
 
 }
 

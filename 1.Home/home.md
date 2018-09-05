@@ -9,4 +9,4 @@ This tutorial will introduce you to the fundamental concepts of  GraphQL. In thi
 - Test GraphQL API using GraphiQL  
 - Build ReactJS(with Apollo Client library) and jQuery client applications to consume the API
 
-GraphQL servers are available for multiple languages, including JavaScript, Java, C#. This course is based on JavaScript  so if you have basic understanding on JavaScript programming then it will be fun to learn GraphQL.
+GraphQL servers are available for multiple languages, including JavaScript, Java, C#. This course is based on javaScript and  nodejs . So if you have basic understanding of nodejs  then it will be fun to learn GraphQL.

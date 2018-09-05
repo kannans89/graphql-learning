@@ -19,12 +19,14 @@ class Students extends Component {
     constructor(props){
         super(props);
         this.state={
-            students:[{id:701,firstName:'test'}]
+            students:[{id:701,firstName:'test'}],
+            serverTime:''
         }
         
-        this.loadWithApolloclient().then(students=>{
+        this.loadStudents().then(data=>{
             this.setState({
-                students
+                students:data.students,
+                serverTime:data.getTime
             })
         })
         
@@ -34,6 +36,7 @@ class Students extends Component {
     
         console.log("inside apollo client function")
          const query =gql`{
+            getTime
             students {
                 id
               firstName
@@ -41,7 +44,7 @@ class Students extends Component {
           }`;
 
         const {data} = await  client.query({query})
-        return data.students;
+        return data;
 
     }
 
@@ -50,6 +53,7 @@ class Students extends Component {
           method:'POST',
           headers:{'content-type':'application/json'},
           body:JSON.stringify({query:`{
+            getTime
             students {
                 id
               firstName
@@ -59,7 +63,7 @@ class Students extends Component {
         })
 
         const rsponseBody= await response.json();
-        return rsponseBody.data.students;
+        return rsponseBody.data;
 
     }
 
@@ -67,6 +71,7 @@ class Students extends Component {
 
         return(
             <div>
+                 <h1>Time on server :{this.state.serverTime}</h1>
                <h1>Following Students Found </h1>
                <div>
                {
