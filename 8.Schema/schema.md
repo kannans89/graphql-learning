@@ -39,13 +39,14 @@ const jsSchema = makeExecutableSchema({
 | 5 |  resolverValidationOptions | This is an optional argument.It accepts an object with boolean properties
 | 6| inheritResolversFromInterfaces| This is an optional argument. It accepts a boolean argument to check resolvers object inheritance.
 
-**Illustration**
+## Illustration
+
 Let us create a simple application to understand schema . This application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
 
 Step 1 :  Download and Install required dependencies for the project  
 
-a. Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.   
-b. Add a file **package.json**. Add the following code to the **package.json** file. 
+a. Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.
+b. Add a file **package.json**. Add the following code to the **package.json** file.
 
 ```javascript
 {
@@ -72,10 +73,10 @@ b. Add a file **package.json**. Add the following code to the **package.json** f
 
 ```
 
-c.Type the command `npm install` on the terminal to install all the dependencies . 
+c.Type the command `npm install` on the terminal to install all the dependencies .
 
 Step 2: Create a Flat  file Database  
-a.Add a **data** folder where our flat files will be stored .Create **students.json** file inside data folder . This will act as the Student database. 
+a.Add a **data** folder where our flat files will be stored .Create **students.json** file inside data folder . This will act as the Student database.
 
 ```javascript
 [
@@ -108,8 +109,8 @@ a.Add a **data** folder where our flat files will be stored .Create **students.j
 
 ```
 
-Step 3:  Create Data Access Layer. 
-Create a  **db.js** file in **schema-app** folder . Add the following code to this file. 
+Step 3:  Create Data Access Layer.
+Create a  **db.js** file in **schema-app** folder . Add the following code to this file.
 
 ```javascript
 
@@ -166,6 +167,7 @@ const Query = {
 module.exports = {Query}
 
 ```
+
 **explain code**
 In order to handle a client request for data from GraphQL, we need a resolver function.Resolvers will be discussed in detail in another section.
 
@@ -205,7 +207,7 @@ app.listen(port, () => console.info(`Server started on port ${port}`));
 ```
 
 **explain code step (a)**
-**Now lets run the application by  . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js** - add this to comment section   
+**Now lets run the application by  . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js** - add this to comment section.
 
 b. Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
 c. Open the browser and type the url `http://localhost:9000/graphiql` . Type the following query in the editor.
