@@ -441,7 +441,7 @@ query myQuery($myname_Variable:String!){
 
  ![1_variable_syntax](https://user-images.githubusercontent.com/9062443/45154943-eb25e300-b1f6-11e8-93bc-df86cf41cae8.png)
 
-Example of variable with Enum
+### Example of variable with Enum
 
 The schema would look like this
 
@@ -471,7 +471,7 @@ setFavouriteColor:(root,args)=>{
 
 ```
 
-query is given belwo
+query is given below
 
 ```javascript
 query query_to_setColor($color_variable:ColorType)
@@ -498,3 +498,5 @@ response is as below
 }
 
 ```
+
+![1_variable_syntax_enum](https://user-images.githubusercontent.com/9062443/45158771-a607ae00-b202-11e8-8569-8821b8eb5d4e.png)
