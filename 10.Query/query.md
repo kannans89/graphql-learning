@@ -14,7 +14,7 @@ GraphQL queries help to reduce over fetching of data.Unlike a Restful API, Graph
 
 ## Illustration : Query with a Custom Field Name  
 
-### Step 1. Create a  project folder by the name QueryApp. Within this folder create another folder *data** .Add a **students.json** file to the **data** folder. This file will contain details for a list of students.
+### Step 1. Create a  project folder by the name QueryApp. Within this folder create another folder **data** .Add a **students.json** file to the **data** folder. This file will contain details for a list of students.
 
 ```javascript
  [
