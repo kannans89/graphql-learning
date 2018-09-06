@@ -408,7 +408,7 @@ If a query has some dynamic values to be passed , then represent these dynamic v
 
 ### Step1 : Edit schema file
 
- Add a sayHello field which takes a string parameter and returns a string.
+ Add a sayHello field which takes a string parameter and returns a string.The name values will be dynamic in client application.
 
  ```javascript
 
@@ -426,13 +426,9 @@ Add a sayHello resolver which takes parameter as below .
 sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
 ```
 
-### Step 3: Test the application
+### Step 3: Declare query variable in GraphiQL
 
-use `npm start` in termainl and launch GraphiQL in browser
-
-### Step 4: Declare query variable in GraphiQL
-
-- Varialbe is declared with `$` followed by name of variable
+- Variable is declared with `$` followed by name of variable
 - Variable `$myname_Variable` is used with a named query syntax . The query `myQuery` takes string value and passes it on to `sayHello` as shown below.
 
 ```javascript
@@ -489,7 +485,7 @@ The setFavouriteColor function takes enum as input and returns a string value.
 ### Step 2: Edit Resolvers.js file
 
 The resolver function setFavouriteColor takes root and args.
-The value passed to function at runtime can be accessed through args parameter.
+The enum value passed to function at runtime can be accessed through args parameter.
 
 ```javascript
 
@@ -499,9 +495,9 @@ setFavouriteColor:(root,args)=>{
     }
 ```
 
-### Step 3: Declare query variable in GraphiQL
+### Step 3: Declare a query variable in GraphiQL
 
-query is named `query_to_setColor` which takes a variable of the named `color_variable` of the type ColorType
+query is named `query_to_setColor` which takes a variable of the named `color_variable` of the type ColorType.This variable is passed on to method `setFavouriteColor`
 
 ```javascript
 query query_to_setColor($color_variable:ColorType)
