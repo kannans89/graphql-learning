@@ -405,43 +405,46 @@ The response for the query will be as given below-
 If a query has some dynamic values to be passed , then represent these dynamic values using variables. Hence, the query can be reused by the client applications .
 
 ### Illustration
- 
- #### Step1 : Edit schema file
- 
-  Add a sayHello field which takes a string parameter , which is not null.
+
+### Step1 : Edit schema file
+
+ Add a sayHello field which takes a string parameter and returns a string.
+
  ```javascript
- 
+
  type Query  {
-    greeting: String
     sayHello(name:String!):String
-}`
- 
+}
+
  ```
 
-#### Step 2: Edit resolver file
+### Step 2: Edit resolver file
+
 Add a sayHello resolver which takes parameter as below .
 
 ```javascript
 sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
 ```
 
-#### Step 3: Test the application
-use npm start and launch GraphiQL 
+### Step 3: Test the application
 
-Add teh following resovler function
+use `npm start` in termainl and launch GraphiQL in browser
 
- When we are working with variables, we need to do three things. These are explained in the following illustration-   
-1. Use $variablename as against a parameter to pass value to the query   
+### Step 4: Declare query variable in GraphiQL
+
+- Varialbe is declared with `$` followed by name of variable
+- Variable `$myname_Variable` is used with a named query syntax . The query `myQuery` takes string value and passes it on to `sayHello` as shown below.
 
 ```javascript
+
 query myQuery($myname_Variable:String!){
 
    sayHello(name:$myname_Variable)
 }
 
- ```
+```
 
-2. Set the value for the $variable_name as a JSON object in the **Query Variables** section of the GraphiQL client.
+- Set the value for the $myname_Variable as a JSON object in the **Query Variables** section of the GraphiQL client.
 
 ```javascript
  {
@@ -449,20 +452,7 @@ query myQuery($myname_Variable:String!){
  }
 ```
 
- 3. Pass this variable to a named query as given below. The query is named as myQuery which takes a variable of String and not null . With in the named query we are calling the actual `sayhello` resolver field with name value as `Mohtashim`
-
-
-
- resolve function is below
-
- ```javascript
-
-  sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
-  
-
- ```
-
- response will look like
+response will look like the following.
 
  ```javascript
     {
@@ -475,9 +465,11 @@ query myQuery($myname_Variable:String!){
 
  ![1_variable_syntax](https://user-images.githubusercontent.com/9062443/45154943-eb25e300-b1f6-11e8-93bc-df86cf41cae8.png)
 
-### Example of variable with Enum
+## How to use Query Variable with Enum
+  
+  Let us see how to use a query variable when field parameter is of enum type.
 
-The schema would look like this
+### Step 1: Edit Schema.graphql file
 
 ```graphql
 enum ColorType {
@@ -492,20 +484,24 @@ type Query {
 
 ```
 
-the resolver function is
+The setFavouriteColor function takes enum as input and returns a string value.
+
+### Step 2: Edit Resolvers.js file
+
+The resolver function setFavouriteColor takes root and args.
+The value passed to function at runtime can be accessed through args parameter.
 
 ```javascript
 
 setFavouriteColor:(root,args)=>{
-        console.log(args.color);
-
         return  "Your Fav Color is :"+args.color;
 
     }
-
 ```
 
-query is given below
+### Step 3: Declare query variable in GraphiQL
+
+query is named `query_to_setColor` which takes a variable of the named `color_variable` of the type ColorType
 
 ```javascript
 query query_to_setColor($color_variable:ColorType)
@@ -515,6 +511,8 @@ query query_to_setColor($color_variable:ColorType)
 
 ```
 
+In the query variable section of GraphiQL type the following code.
+
 ```javascript
  {
   "color_variable":"RED"
@@ -522,7 +520,7 @@ query query_to_setColor($color_variable:ColorType)
 
 ```
 
-response is as below
+response is shown below
 
 ```javascript
 {
