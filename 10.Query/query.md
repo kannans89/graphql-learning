@@ -8,10 +8,10 @@ The syntax to define a query is
 ```javascript
 
 //syntax 1
-`query query_name{ someField }`
+query query_name{ someField }
 
 //syntax 2
-`{ someField }`  
+{ someField }
 ```
 
 An  example query would look like
@@ -314,7 +314,7 @@ module.exports = {
 
 ```
 
-#### Step 4: Modify the **resolvers.js**
+### Step 4: Modify the **resolvers.js**
 
 - We need to add a `college` resolver function  as below. The college resolver function will be executed for each student object returned.The `root` parameter of resolver in this case will contain student.
 
