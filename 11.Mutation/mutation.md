@@ -1,11 +1,10 @@
 
 # Mutation
 
-Mutation queries does modification to the back-end data.If we want to support any kind of
-insert, update, or delete operations on our data, we need to define a mutation property on
-the schema.
+Mutation queries modify data in the data store. It can be used to insert, update, or delete data. 
+Mutations are defined as a part of the schema. Mutations should return a value.   
 
-All mutations should return a result just like select query.Syntax of a mutation query is given below
+The syntax of a mutation query is as given below:
 
 ```javascript
 mutation{
@@ -13,9 +12,13 @@ mutation{
  }
 ```
 
-Let us add new student into our datastore using mutation query.
+## Illustration
 
-step 1: open the **schema.graphql**  just like query type , we can add mutation type
+Let us understand how one can add new student record into the datastore using a  mutation query.
+
+### Step 1: Create a project folder by the name MutationApp. Create a folder-data in the project folder. Add a student.json file to this folder.
+
+### Step 2: Create a **schema.graphql** file in the project folder.Define a mutation type in this file as shown below-
 
 ```javascript
 
@@ -24,10 +27,9 @@ step 1: open the **schema.graphql**  just like query type , we can add mutation 
 }
 
 ```
-
 Note that the function returns a String type this will be the unique identifier(ID) which will be generated after creating a student.
 
-step 2: open the **resolvers.js** add resolver for Mutation type and add Mutation to the module.exports
+### Step 3:Create a resolver.js file in the MutationApp project folder.Add a resolver for the Mutation type and add Mutation to the module.exports.
 
 ```javascript
 
@@ -47,18 +49,17 @@ module.exports = {Query ,Student , Mutation}
 
 The *args* object will contain the parameters which are passed in the query
 
-step 3:  run the application by `npm start` and launch the browser
-`http://localhost:9000/graphiql` type following query
+### Step 4: Open the terminal window and execute the command `npm start`.Launch the browser and visit the URL `http://localhost:9000/graphiql`. Type the following in the GraphiQL query window. 
 
 ```javascript
 mutation {
-  createStudent(collegeId:"col-2",firstName:"Aparna",lastName:"UnniKrishnan")
+  createStudent(collegeId:"col-2",firstName:"Tim",lastName:"George")
 }
 
 
 ```
 
-response from the server will contain the Id generated
+The above query will create a student object in **student.json** file. The query will return a unique identifier. The response of the query will be as shoen below.
 
 ```javascript
 
@@ -70,7 +71,8 @@ response from the server will contain the Id generated
 
 ```
 
-since a student is created we can query the `studentById`, you can also open the **students.json** file from **data** folder to verify the id.
+**confirm if the following is required**
+To verify if the student object is created,since a student is created we can query the `studentById`, you can also open the **students.json** file from **data** folder to verify the id.
 
 ```javascript
 {
@@ -90,7 +92,7 @@ response from server
   "data": {
     "studentById": {
       "id": "SkQtxYBUm",
-      "fullName": "Aparna:UnniKrishnan"
+      "fullName": "Tim:John"
     }
   }
 }
@@ -151,7 +153,7 @@ step 3: start the server and type the request query in graphiql
 
 ```javascript
 mutation {
-  addStudent_returns_object(collegeId:"col-101",firstName:"Anju",lastName:"Unnikrishnan"){
+  addStudent_returns_object(collegeId:"col-101",firstName:"Susan",lastName:"George"){
     id
     fullName
     college{
@@ -170,7 +172,7 @@ response will be as below , this query add a new student as well as retrieves th
   "data": {
     "addStudent_returns_object": {
       "id": "rklUl08IX",
-      "fullName": "Anju:Unnikrishnan",
+      "fullName": "Susan:George",
       "college": {
         "id": "col-101",
         "name": "AMU"
