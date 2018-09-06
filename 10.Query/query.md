@@ -1,7 +1,7 @@
 
 # Query
 
-A GraphQL operation can be either a read operation or a write operation. A GraphQL query is used to read or fetch values while a mutation is used to write or post values.In either cases, the operation is a simple string that a GraphQL server can parse and respond to with data in a specific format. The popular response format that is usually used for mobile and web applications is JSON.
+A GraphQL operation can be either a read or write operation. A GraphQL query is used to read or fetch values while a mutation is used to write or post values.In either cases, the operation is a simple string that a GraphQL server can parse and respond to with data in a specific format. The popular response format that is usually used for mobile and web applications is JSON.
 
 The syntax to define a query is-  
 `query{ someField }`   
@@ -12,9 +12,9 @@ The query keyword is optional.
 
 GraphQL queries help to reduce over fetching of data.Unlike a Restful API, GraphQL allows a user to restrict fields that should be fetched from the server. This means smaller queries and lesser traffic over the network. This in turn reduces the response time.
 
-## Illustration 1
+## Illustration : Query with a Custom Field Name  
 
-Step 1. Create a **students.json** file. This file will contain details for a list of students.
+### Step 1. Create a  project folder by the name QueryApp. Within this folder create another folder *data** .Add a **students.json** file to the **data** folder. This file will contain details for a list of students.
 
 ```javascript
  [
@@ -47,10 +47,9 @@ Step 1. Create a **students.json** file. This file will contain details for a li
 
 ```
 
-Step 2: Create 
-Note there is no fullName field in the query , now in query we need fullName. The fullName will be a **custom field** which does not match with data source field.
+### Step 2: Create the **schema.graphql** file to the **QueryApp** folder.
 
-step 1: change the by adding fullName field add data type as String
+Note that there is no fullName field in the the students.json file. However, we need to fetch the fullname of the student via a query. The fullName, in this case will be a **custom field** that isn't available with the data source.
 
 ```javascript
 
@@ -63,8 +62,20 @@ type Student {
 
 
 ```
+### Step 3: Create a **db.js** file in the **QueryApp** folder. Add the following code.
 
-step 2: change the **resolvers.js** file , since fullName is field in Student we need to add a Student resolver and export it
+```javascript
+const { DataStore } = require('notarealdb');
+const store = new DataStore('./data');
+module.exports = {
+  students:store.collection('students'),
+  colleges:store.collection('colleges')
+};
+
+```
+
+### Step 4: Add the **resolvers.js** file to the **QueryApp** folder.
+Since the fullName is  not available as  a field in Student.json file, we need to add a Student resolver and export it. This is shown in the code given below-
 
 ```javascript
 //for each single student object returned,resolver is invoked
@@ -78,8 +89,9 @@ module.exports = {Query,Student}
 
 ```
 
-step 3: type `npm start` on terminal and open browser enter url `http://localhost:9000/graphiql`
-type the below query
+### Step 5: Test the application
+Open the terminal window and type `npm start` . Open  the browser  and enter the URL `http://localhost:9000/graphiql`.
+Type the following query in the GraphiQL window-
 
 ```javascript
 {
@@ -91,7 +103,7 @@ type the below query
 
 ```
 
-response will be as below
+The response for the  query will be as given below-
 
 ```javascript
 {
@@ -115,11 +127,11 @@ response will be as below
 
 ```
 
-## Nested Query
+## Illustration: Nested Query
 
-Let us create a nested query for fetching the student details and their college details.
+Let us create a nested query for fetching the student details and their college details. We will work with the same project folder. 
 
-step 1: Add **colleges.json** file which holds collection of colleges in the **data** folder of project
+### Step 1: We already have the **students.json** in the **data** folder (created in the previous illustration). Add **colleges.json** file to the **data** folder.This file will hold a collection of colleges.
 
 ```javascript
 [
@@ -139,7 +151,7 @@ step 1: Add **colleges.json** file which holds collection of colleges in the **d
   
 ```
 
-step 2: Modify the **Schema.graphql** to add a field college and define its type
+### Step 2: Edit the **Schema.graphql**(created in the previous illustration) in the **QueryApp** folder.The file already has the student field.Let us add a field college and define its type. The complete **Schema.graphql** file will be as given below.
 
 ```javascript
 
@@ -161,7 +173,7 @@ type Student {
 
 ```
 
-step 3: Modify the datastore **db.js** to add colleges collection
+### Step 3: Modify the **db.js** in the **QueryApp** folder to add a collection that points to the list of colleges. The complete code will be as  given below-  
 
 ```javascript
 const { DataStore } = require('notarealdb');
@@ -173,8 +185,8 @@ module.exports = {
 
 ```
 
-step 4: Modify the **resolvers.js**  to add field college for student resolver object. The college field internally fetches data from the collection of colleges by passing in the collegeId.
-The college resolver function will execute for each student object returned from the server.
+#### Step 4: Modify the **resolvers.js** in the **QueryApp** folder to add a field `college` for the student resolver object. 
+The `college` field passes in the collegeId and fetches data from the collection of colleges. The college resolver function will be executed for each student object returned from the server.
 
 ```javascript
 const Student={
@@ -190,8 +202,9 @@ module.exports = {Query,Student}
 
 ```
 
-step 5: run the application by `npm start` and launch the browser
-`http://localhost:9000/graphiql` type following query
+### Step 5: Test the application. 
+Open the terminal window,navigate to the project folder. Type the command -`npm start`.Launch the browser and enter the url `http://localhost:9000/graphiql`. Enter the following query in the GraphiQL window-
+
 
 ```javascript
     {
@@ -209,7 +222,7 @@ step 5: run the application by `npm start` and launch the browser
 
 ```
 
-verify the response
+The response for the query will be as given below-
 
 ```javascript
 
@@ -254,4 +267,5 @@ verify the response
 
 ```
 
-## What is query variable ,Fragments also to be added
+## What is query variable ,Fragments also to be added:::  Add an example for enum,query variable and fragments
+
