@@ -402,22 +402,36 @@ The response for the query will be as given below-
 
 ## What is Query Variable
 
-If a query have some dynamic values to be passed , then move the values which change into a variable. So the query can be reused by client applications .
+If a query has some dynamic values to be passed , then represent these dynamic values using variables. Hence, the query can be reused by the client applications .
 
- When we start working with variables, we need to do three things:
-1. Replace the parameter value in the query with $variableName
-2. Declare $variableName as one of the variables accepted by the query
-3. Pass variableName: value in the separate, transport-specific (usually JSON) variables dictionary
+### Illustration
+ 
+ #### Step1 : Edit schema file
+ 
+  Add a sayHello field which takes a string parameter , which is not null.
+ ```javascript
+ 
+ type Query  {
+    greeting: String
+    sayHello(name:String!):String
+}`
+ 
+ ```
 
-example of a variable
+#### Step 2: Edit resolver file
+Add a sayHello resolver which takes parameter as below .
 
 ```javascript
- {
-  "myname_Variable": "Mohtashim"
- }
+sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
 ```
 
-  Now we have to pass this variable to a named query as given below. The query is named as myQuery which takes a variable of String and not null . With in the named query we are calling the actual `sayhello` resolver field with name value as `Mohtashim`
+#### Step 3: Test the application
+use npm start and launch GraphiQL 
+
+Add teh following resovler function
+
+ When we are working with variables, we need to do three things. These are explained in the following illustration-   
+1. Use $variablename as against a parameter to pass value to the query   
 
 ```javascript
 query myQuery($myname_Variable:String!){
@@ -427,10 +441,24 @@ query myQuery($myname_Variable:String!){
 
  ```
 
+2. Set the value for the $variable_name as a JSON object in the **Query Variables** section of the GraphiQL client.
+
+```javascript
+ {
+  "myname_Variable": "Mohtashim"
+ }
+```
+
+ 3. Pass this variable to a named query as given below. The query is named as myQuery which takes a variable of String and not null . With in the named query we are calling the actual `sayhello` resolver field with name value as `Mohtashim`
+
+
+
  resolve function is below
 
  ```javascript
+
   sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
+  
 
  ```
 
