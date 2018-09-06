@@ -3,7 +3,25 @@
 
 Resolver is a collection of functions that generates response for a  GraphQL query. Simply put, a resolver acts as a GraphQL query handler.Every resolver function in a GraphQL schema accepts four positional arguments as given below:
 
-`fieldName(root, args, context, info) { result }`
+`fieldName:(root, args, context, info) => { result }`
+
+Sample resolver functions are shown below.
+
+```javascript
+//resolver function  with no parameters and returning string
+greeting:()=>{
+        return "hello from  TutorialsPoint !!!"
+    }
+
+//resolver function with no parameters and returning list
+ students:()=>db.students.list()
+
+//resolver function with arguments and returning object
+  studentById:(root,args,context,info) => {
+      return db.students.get(args.id);
+    }
+
+```
 
 |Sr No |  arguments   |  Description
 |:----:|:---------|:-------------
