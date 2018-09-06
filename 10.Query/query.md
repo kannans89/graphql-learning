@@ -417,7 +417,7 @@ example of a variable
  }
 ```
 
-  passing the variable in a query
+  Now we have to pass this variable to a named query as given below. The query is named as myQuery which takes a variable of String and not null . With in the named query we are calling the actual `sayhello` resolver field with name value as `Mohtashim`
 
 ```javascript
 query myQuery($myname_Variable:String!){
