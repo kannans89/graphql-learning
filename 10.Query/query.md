@@ -4,9 +4,15 @@
 A GraphQL operation can be either a read or write operation. A GraphQL query is used to read or fetch values while a mutation is used to write or post values.In either cases, the operation is a simple string that a GraphQL server can parse and respond to with data in a specific format. The popular response format that is usually used for mobile and web applications is JSON.
 
 The syntax to define a query is
+
+```javascript
+
+//syntax 1
 `query query_name{ someField }`
-  or  
+
+//syntax 2
 `{ someField }`  
+```
 
 An  example query would look like
 
