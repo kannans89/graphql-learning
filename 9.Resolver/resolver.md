@@ -74,7 +74,7 @@ Let us create a simple application to understand resolver . This application wil
 
 ```
 
-- Type the command npm install on the terminal to install all the dependencies
+- Type the command `npm install` on the terminal to install all the dependencies
 
 ### Step 2: Create a Flat file Database
 

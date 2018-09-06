@@ -1,25 +1,76 @@
 
 # Query
 
-A GraphQL operation can be either a read operation or a write operation. A GraphQL query is used to read or fetch values while a mutation is used to write or post values.In either cases, the operation is a simple string that a GraphQL server can parse and respond to with data in a specific format. The popular response format that is usually used for mobile and web applications is JSON.
+A GraphQL operation can be either a read or write operation. A GraphQL query is used to read or fetch values while a mutation is used to write or post values.In either cases, the operation is a simple string that a GraphQL server can parse and respond to with data in a specific format. The popular response format that is usually used for mobile and web applications is JSON.
 
-The syntax to define a query is-  
-`query{ someField }`   
+The syntax to define a query is
+`query query_name{ someField }`
   or  
 `{ someField }`  
 
-The query keyword is optional.
+An  example query would look like
+
+```javascript
+
+//query with name myQuery
+query myQuery{
+    greeting
+ }
+
+// query without any name
+{
+  greeting
+}
+
+```
+
+From the example it is clear that query keyword is optional.
 
 GraphQL queries help to reduce over fetching of data.Unlike a Restful API, GraphQL allows a user to restrict fields that should be fetched from the server. This means smaller queries and lesser traffic over the network. This in turn reduces the response time.
 
-## Illustration 1
+## Illustration 1: Query Student model with a Custom Field
 
-Step 1. Create a **students.json** file. This file will contain details for a list of students.
+In this example we have set of students stored in a json file each student model has fields like firstName,lastName , id  but no fullName field available. We will discuss here how to make a query to retrieve fullName of all students. For this we need to create fullName field in schema and  fullName field in resolver . Let us see how to do this illustration.
+
+### Step 1 : Download and Install required dependencies for the project
+
+- Create a folder named query-app .Change your directory to query-app from the terminal.
+- Add a file package.json. Add the following code to the package.json file.
 
 ```javascript
- [
 
-    {
+{
+  "name": "schema-app",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --ignore data/ server.js"
+  },
+  "dependencies": {
+    "apollo-server-express": "^1.4.0",
+    "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "4.16.3",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.1.1",
+     "notarealdb": "0.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "1.17.1"
+  }
+}
+
+```
+
+- Type the command `npm install` on the terminal to install all the dependencies
+
+### Step 2: Create a Flat file Database
+
+Add a **data** folder where our flat files will be stored .Create **students.json** file inside data folder . This will act as the Student database.Add contents as following
+
+```javascript
+   [
+     {
         "id": "S1001",
         "firstName":"Mohtashim",
         "lastName":"Mohammad",
@@ -45,14 +96,37 @@ Step 1. Create a **students.json** file. This file will contain details for a li
       }
   ]
 
+
 ```
 
-Step 2: Create 
-Note there is no fullName field in the query , now in query we need fullName. The fullName will be a **custom field** which does not match with data source field.
+### Step 3: Create Data Access Layer
 
-step 1: change the by adding fullName field add data type as String
+Create a **db.js** file in resolver-app folder . Add the following code to this file.
 
 ```javascript
+  const { DataStore } = require('notarealdb');
+const store = new DataStore('./data'); /* data folder will contain students.json file and other flat files*/
+
+module.exports = {
+  
+  students:store.collection('students') /* read the students.json file*/
+};
+
+
+```
+
+Here we are reading students.json file as a in memory collection using DataStore .Its easy to manipulate collections.To access the students collections outside the module we need to export it using module.exports.
+
+### Step 4: Create a schema
+
+Note that there is no fullName field in the the students.json file. However, we need to fetch the fullname of the student via a query. The fullName, in this case will be a **custom field** that isn't available with the data source.
+
+```javascript
+type Query {
+    greeting:String
+    students:[Student]
+    studentById(id:ID!):Student
+}
 
 type Student {
     id:ID!
@@ -64,10 +138,27 @@ type Student {
 
 ```
 
-step 2: change the **resolvers.js** file , since fullName is field in Student we need to add a Student resolver and export it
+### Step 5: Create Resolver
 
 ```javascript
-//for each single student object returned,resolver is invoked
+
+const db = require('./db')
+
+const Query = {
+   //resolver function for greeting
+    greeting:()=>{
+        return "hello from  TutorialsPoint !!!"
+    },
+   //resolver function for students returns list
+   students:()=>db.students.list(),
+
+    //resolver function for studentbyId
+   studentById:(root,args,context,info) => {
+     //args will contain parameter passed in query
+        return db.students.get(args.id);
+  }
+
+  //for each single student object returned,resolver is invoked
 const Student={
     fullName:(root,args,context,info)=>{
         return root.firstName+":"+root.lastName
@@ -76,10 +167,49 @@ const Student={
 
 module.exports = {Query,Student}
 
+
 ```
 
-step 3: type `npm start` on terminal and open browser enter url `http://localhost:9000/graphiql`
-type the below query
+## Step 6: Run the application
+
+- Create a  **server.js** and add the following code.
+
+```javascript
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const express = require('express');
+const db = require('./db');
+
+const port = 9000;
+const app = express();
+
+//loading type definitions from schema file
+const fs = require('fs')
+const typeDefs = fs.readFileSync('./schema.graphql',{encoding:'utf-8'})
+
+//loading resolvers
+const resolvers = require('./resolvers')
+
+//binding schema and resolver
+const {makeExecutableSchema}=require('graphql-tools')
+const schema = makeExecutableSchema({typeDefs , resolvers})
+
+//enabling cross domain calls and form post
+app.use(cors(), bodyParser.json());
+
+//enabling routes
+const  {graphiqlExpress,graphqlExpress} = require('apollo-server-express')
+app.use('/graphql',graphqlExpress({schema}))
+app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
+
+//registering port
+app.listen(port, () => console.info(`Server started on port ${port}`));
+
+```
+
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.
+
+- Open the browser and type the url `http://localhost:9000/graphiql` . Type the following query in the editor.
 
 ```javascript
 {
@@ -91,7 +221,7 @@ type the below query
 
 ```
 
-response will be as below
+The response for the  query will be as given below
 
 ```javascript
 {
@@ -115,11 +245,13 @@ response will be as below
 
 ```
 
-## Nested Query
+## Illustration 2: Nested Query
 
-Let us create a nested query for fetching the student details and their college details.
+Let us create a nested query for fetching the student details and their college details. We will work with the same project folder.
 
-step 1: Add **colleges.json** file which holds collection of colleges in the **data** folder of project
+### Step 1: Add Colleges data
+
+- Add **colleges.json** file to the **data** folder.This file will hold a collection of colleges.
 
 ```javascript
 [
@@ -139,7 +271,9 @@ step 1: Add **colleges.json** file which holds collection of colleges in the **d
   
 ```
 
-step 2: Modify the **Schema.graphql** to add a field college and define its type
+### Step 2: Edit the Schema
+
+- The schema file already has the student field.Let us add a field college and define its type.
 
 ```javascript
 
@@ -148,7 +282,6 @@ type College {
     name:String
     location:String
     rating:Float
-
 }
 
 type Student {
@@ -161,7 +294,9 @@ type Student {
 
 ```
 
-step 3: Modify the datastore **db.js** to add colleges collection
+### Step 3: Modify the Data Access Code
+
+- In current **db.js** add a collection that points to the  colleges json file. The  code will be as  given below
 
 ```javascript
 const { DataStore } = require('notarealdb');
@@ -173,8 +308,9 @@ module.exports = {
 
 ```
 
-step 4: Modify the **resolvers.js**  to add field college for student resolver object. The college field internally fetches data from the collection of colleges by passing in the collegeId.
-The college resolver function will execute for each student object returned from the server.
+#### Step 4: Modify the **resolvers.js**
+
+- We need to add a `college` resolver function  as below. The college resolver function will be executed for each student object returned.The `root` parameter of resolver in this case will contain student.
 
 ```javascript
 const Student={
@@ -183,15 +319,19 @@ const Student={
     },
     college:(root)=>{
       return db.colleges.get(root.collegeId);
-  }
-  }
+   }
+}
 
 module.exports = {Query,Student}
 
 ```
 
-step 5: run the application by `npm start` and launch the browser
-`http://localhost:9000/graphiql` type following query
+The resolver returns college of each student by calling the get method of college collection and  passing the collegeId.
+We have assoication realtionship between Student and College through the collegeId.
+
+### Step 5: Test the application
+
+Open the terminal window,navigate to the project folder. Type the command -`npm start`.Launch the browser and enter the url `http://localhost:9000/graphiql`. Enter the following query in the GraphiQL window
 
 ```javascript
     {
@@ -209,7 +349,7 @@ step 5: run the application by `npm start` and launch the browser
 
 ```
 
-verify the response
+The response for the query will be as given below-
 
 ```javascript
 
@@ -254,4 +394,107 @@ verify the response
 
 ```
 
-## What is query variable ,Fragments also to be added
+## What is Query Variable
+
+If a query have some dynamic values to be passed , then move the values which change into a variable. So the query can be reused by client applications .
+
+ When we start working with variables, we need to do three things:
+1. Replace the parameter value in the query with $variableName
+2. Declare $variableName as one of the variables accepted by the query
+3. Pass variableName: value in the separate, transport-specific (usually JSON) variables dictionary
+
+example of a variable
+
+```javascript
+ {
+  "myname_Variable": "Mohtashim"
+ }
+```
+
+  passing the variable in a query
+
+```javascript
+query myQuery($myname_Variable:String!){
+
+   sayHello(name:$myname_Variable)
+}
+
+ ```
+
+ resolve function is below
+
+ ```javascript
+  sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
+
+ ```
+
+ response will look like
+
+ ```javascript
+    {
+  "data": {
+    "sayHello": "Hi Mohtashim GraphQL server says Hello to you!!"
+  }
+}
+
+ ```
+
+ ![1_variable_syntax](https://user-images.githubusercontent.com/9062443/45154943-eb25e300-b1f6-11e8-93bc-df86cf41cae8.png)
+
+Example of variable with Enum
+
+The schema would look like this
+
+```graphql
+enum ColorType {
+   RED
+   BLUE
+   GREEN
+}
+
+type Query {
+   setFavouriteColor(color:ColorType):String
+}
+
+```
+
+the resolver function is
+
+```javascript
+
+setFavouriteColor:(root,args)=>{
+        console.log(args.color);
+
+        return  "Your Fav Color is :"+args.color;
+
+    }
+
+```
+
+query is given belwo
+
+```javascript
+query query_to_setColor($color_variable:ColorType)
+{
+  setFavouriteColor(color:$color_variable)
+}
+
+```
+
+```javascript
+ {
+  "color_variable":"RED"
+}
+
+```
+
+response is as below
+
+```javascript
+{
+  "data": {
+    "setFavouriteColor": "Your Fav Color is :RED"
+  }
+}
+
+```
