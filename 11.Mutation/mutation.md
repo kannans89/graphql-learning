@@ -2,7 +2,7 @@
 # Mutation
 
 Mutation queries modify data in the data store. It can be used to insert, update, or delete data. 
-Mutations are defined as a part of the schema. Mutations should return a value.   
+Mutations are defined as a part of the schema. Mutations must always return a value.   
 
 The syntax of a mutation query is as given below:
 
