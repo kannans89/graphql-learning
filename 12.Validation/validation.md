@@ -1,7 +1,9 @@
 
 # Validation
 
- When doing mutation on data it is important to validate the user input . GraphQL gives support for required field validation , required fields are not null and must be passed from client side to graphql server.
+ While adding or modifying data it is important to validate the user input.For example, we may need to ensure that the value of a field is always not null. We can use `!` (non-nullable) type marker in GraphQL to perform such validation.  
+
+The syntax for using the `!` type marker is as given below:
 
  ```javascript
   type TypeName {
@@ -12,9 +14,15 @@
 
 ```
 
- The above syntax enforces all the fields are not null while submitting data to server.How ever if we want to do additional constraints like string length or number with in range we could write custom logic with in the resolver function .
+The above syntax ensures that all the fields are not null.  
 
- Let us create a signup form with basic validation . The form will have email ,firsname and password.
+If we want to implement additional rules like checking for a string's length or checking if a number is within a given range, we can define custom validators. The custom validation logic will be a part of the resolver function. Let us understand this with the help of an example.   
+
+## Illustration : Implementing Custom Validators
+
+Let us create a signup form with basic validation . The form will have email ,firstame and password fields.
+
+**Include steps**  
 
  step 1: Edit the **schema.graphql** add operation signUp in mutation type.
 
