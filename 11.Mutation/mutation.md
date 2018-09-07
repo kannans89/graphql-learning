@@ -71,7 +71,6 @@ The above query will create a student object in **student.json** file. The query
 
 ```
 
-**confirm if the following is required**
 To verify if the student object is created,since a student is created we can query the `studentById`, you can also open the **students.json** file from **data** folder to verify the id.
 
 ```javascript
@@ -102,11 +101,10 @@ response from server
 
 ## Returning an Object in mutation
 
- Its a best practice to return an object in mutation so once we create a student , lets say the client application want to display the college details also . Rather than making two requests , that is
- 1. request to create a student
- 2. request to fetch the college details
+ Its a best practice to return an object in mutation.Say for example, the client application wants to fetch student and college details.In this case rather than making two different requests, we can create a query that returns and object that contains students and their college details.
 
-GraphQL optimizes multiple requests  so we can do this in single request , lets see how to do the same.
+
+**Add all the steps**
 
 step 1: add new method  named `addStudent_returns_object` in mutation type of **schema.graphql**
 
