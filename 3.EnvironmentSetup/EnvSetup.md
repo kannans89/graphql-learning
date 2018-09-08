@@ -5,14 +5,14 @@ To execute the examples in this tutorial you will need-
 
 - A computer running Linux, macOS, or Windows.
 - A web browser, preferably the latest version of Google Chrome.
-- A recent version of Node.js installed. The latest LTS version is recommended
+- A recent version of Node.js installed. The latest LTS version is recommended. Refer the **Installation** section in this tutorial [Installing NodeJs](https://www.tutorialspoint.com/nodejs/nodejs_environment_setup.htm).  
 - Visual Studio Code with extension *GraphQL for VSCode* installed or any code editor of your choice
 
-## How to Build a GraphQL server with nodejs
+## Build a GraphQL server with NodeJS
 
 ### Step 1 : Verify Node and NPM versions
   
-  After Installing nodejs , verify the version of node and npm using following commands on the terminal
+  After installing NodeJS , verify the version of node and npm using following commands on the terminal
 
 ```javascript
 C:\Users\Admin>node -v
@@ -74,7 +74,7 @@ C:\Users\Admin\test-app>npm install
 
 This tutorial will be using flat files to store and retrieve data.Create two files **students.json** and **colleges.json** . Following will be the contents of the files. These database files will be used in illustrations explained in the subsequent chapters.
 
-- following is colleges.json
+- Following is the colleges.json file
 
 ```javascript
 [
@@ -95,7 +95,7 @@ This tutorial will be using flat files to store and retrieve data.Create two fil
 
 ```
 
-- following is students.json
+- Following is the students.json file
 
 ```javascript
 [
@@ -158,7 +158,7 @@ Create a schema file  and add following contents.
 
 ```
 
-## Step 7: Create resolver file resolvers.js
+## Step 7: Create a resolver file resolvers.js
 
 ```javascript
 
@@ -202,7 +202,7 @@ app.listen(port, () => console.info(`Server started on port ${port}`));
 
 ### Step 9 : Run the application and test with GraphiQL
 
-- verify the folder structure of project test-app
+- Verify the folder structure of project test-app
 
 ```javascript
 
@@ -219,7 +219,7 @@ test-app /
 
 ```
 
-- run the command `npm start`.
+- Execute the command `npm start`.
 
 ```javascript
     C:\Users\Admin\test-app>npm start  
