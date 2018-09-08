@@ -1,7 +1,8 @@
 
 # React Integration
+React is a javascript library for building user interfaces.This chapter explains how one can integrate GraphQL with a React application.  
 
-The quickest way to set up a react project is by using *Create React App* tool.Create a client folder and change the terminal path to this folder and fire the following command.
+The quickest way to set up a react project is by using  the *Create React App* tool.Create a client folder and change the terminal path to this folder and fire the following command.
 
 `npx create-react-app hello-world-client`
 
