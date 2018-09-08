@@ -10,7 +10,7 @@ To execute the examples in this tutorial you will need-
 
 ## How to Build a GraphQL server with nodejs
 
-### Step 1 : Verify Node and Npm versions
+### Step 1 : Verify Node and NPM versions
   
   After Installing nodejs , verify the version of node and npm using following commands on the terminal
 
@@ -25,7 +25,7 @@ C:\Users\Admin>npm -v
 
 ### Step 2: Create a project folder and open in VSCode
 
-The root folder of project can be named *test-app* and open the folder using visual studio code editor by following the instructions.
+The root folder of project can be named **test-app** and open the folder using visual studio code editor by following the instructions.
 
 ```javascript
 
@@ -216,7 +216,6 @@ test-app /
       -->resolvers.js
       -->schema.graphql
       -->server.js
-
 
 ```
 
