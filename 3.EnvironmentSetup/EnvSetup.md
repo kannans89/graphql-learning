@@ -246,7 +246,7 @@ The response from the server is will be as below.
 
 ```
 
-![1_test_setup](https://user-images.githubusercontent.com/9062443/44847540-704a4e80-ac71-11e8-9bc2-d76fa69d822f.png)
+![1_test_setup](https://user-images.githubusercontent.com/9062443/44847540-704a4e80-ac71-11e8-9bc2-d76fa69d822f.png)  
 
- **Note**:We will modify the schema.graphql and resolvers.js files for illustrations discussed in the subsequent chapters
+ **Note**:We will modify the schema.graphql and resolvers.js files for illustrations discussed in the subsequent chapters  
  **Note**: Please ensure apollo server version 1.0 is used
