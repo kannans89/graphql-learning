@@ -72,7 +72,7 @@ C:\Users\Admin\test-app>npm install
 
 ### Step 4 : Create flat file database
 
-This tutorial will be using flat files to store and retrieve data.Create two files **students.json** and **colleges.json** . Following will be the contents of the files.
+This tutorial will be using flat files to store and retrieve data.Create two files **students.json** and **colleges.json** . Following will be the contents of the files. These database files will be used in illustrations explained in the subsequent chapters.
 
 - following is colleges.json
 
@@ -147,9 +147,9 @@ module.exports = {
 
 ```
 
-## Step 6: Create schema file schema.graphql
+## Step 6: Create a schema file schema.graphql
 
-Create a schema file  and add following contents.
+Create a schema file  and add following contents. 
 
 ```javascript
   type Query  {
@@ -248,4 +248,5 @@ The response from the server is will be as below.
 
 ![1_test_setup](https://user-images.githubusercontent.com/9062443/44847540-704a4e80-ac71-11e8-9bc2-d76fa69d822f.png)
 
- *Note*: please ensure apollo server version 1.0 is used
+ **Note**:We will modify the schema.graphql and resolvers.js files for illustrations discussed in the subsequent chapters
+ **Note**: Please ensure apollo server version 1.0 is used
