@@ -19,11 +19,11 @@ class Students extends Component {
     constructor(props){
         super(props);
         this.state={
-            students:[{id:701,firstName:'test'}],
+            students:[{id:100,firstName:'test'}],
             serverTime:''
         }
         
-        this.loadStudents().then(data=>{
+        this.loadStudents_noCache().then(data=>{
             this.setState({
                 students:data.students,
                 serverTime:data.getTime
@@ -48,7 +48,7 @@ class Students extends Component {
 
     }
 
-    async  loadStudents(){
+    async  loadStudents_noCache(){
         const response=await fetch('http://localhost:9000/graphql', {
           method:'POST',
           headers:{'content-type':'application/json'},
@@ -71,22 +71,24 @@ class Students extends Component {
 
         return(
             <div>
-                 <h1>Time on server :{this.state.serverTime}</h1>
-               <h1>Following Students Found </h1>
+              <h3>Time from GraphQL server :{this.state.serverTime}</h3>
+               <p>Following Students Found </p>
                <div>
+                   <ul>
                {
                  this.state.students.map(s=>{
                     return( 
-                    <h2 key={s.id}> 
-                    <Link to={"/students/"+s.id}>{s.firstName}</Link>
-                     </h2>
+                    <li key={s.id}> 
+                   {s.firstName}
+                     </li>
                     
                     )
                  })
                }
+               </ul>
                </div>
 
-                </div>
+            </div>
         )
     }
 }
