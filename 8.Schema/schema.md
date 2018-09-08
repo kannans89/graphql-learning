@@ -95,7 +95,7 @@ Here `greeting` and `students` are the resolvers that handle the query .`student
 
 
 ### Step 4: Run the application
-- Create a  **server.js** and add the following code. Refer step 8 in the Environment Setup Chapter.
+- Create a  **server.js** file.Refer step 8 in the Environment Setup Chapter.
 - Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url http://localhost:9000/graphiql.  
 Type the following query in the editor.
  
