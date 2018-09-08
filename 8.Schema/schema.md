@@ -42,92 +42,14 @@ const jsSchema = makeExecutableSchema({
 **Illustration**
 Let us create a simple application to understand schema . This application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
 
-Step 1 :  Download and Install required dependencies for the project  
+### Step 1 :  Download and Install required dependencies for the project  
 
-a. Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.   
-b. Add a file **package.json**. Add the following code to the **package.json** file. 
+- Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.   
+- Follow steps 3 to 5 explained in the Environment Setup chapter.
 
-```javascript
-{
-  "name": "schema-app",
-  "private": true,
-  "license": "MIT",
-  "scripts": {
-    "start": "nodemon --ignore data/ server.js"
-  },
-  "dependencies": {
-    "apollo-server-express": "^1.4.0",
-    "body-parser": "1.18.2",
-    "cors": "2.8.4",
-    "express": "4.16.3",
-    "graphql": "^0.13.2",
-    "graphql-tools": "^3.1.1",
-     "notarealdb": "0.2.2"
-  },
-  "devDependencies": {
-    "nodemon": "1.17.1"
-  }
-}
+### Step 2: Create a schema
 
-
-```
-
-c.Type the command `npm install` on the terminal to install all the dependencies . 
-
-Step 2: Create a Flat  file Database  
-a.Add a **data** folder where our flat files will be stored .Create **students.json** file inside data folder . This will act as the Student database. 
-
-```javascript
-[
-     {
-        "id": "S1001",
-        "firstName":"Mohtashim",
-        "lastName":"Mohammad",
-        "email": "mohtashim.mohammad@tutorialpoint.org",
-        "password": "pass123",
-        "collegeId": "col-102"
-      },
-      {
-        "id": "S1002",
-        "email": "kannan.sudhakaran@tutorialpoint.org",
-        "firstName":"Kannan",
-        "lastName":"Sudhakaran",
-        "password": "pass123",
-        "collegeId": "col-101"
-      },
-      {
-        "id": "S1003",
-        "email": "kiran.panigrahi@tutorialpoint.org",
-        "firstName":"Kiran",
-        "lastName":"Panigrahi",
-        "password": "pass123",
-        "collegeId": "col-101"
-      }
-  ]
-  
-
-```
-
-Step 3:  Create Data Access Layer. 
-Create a  **db.js** file in **schema-app** folder . Add the following code to this file. 
-
-```javascript
-
-const { DataStore } = require('notarealdb');
-const store = new DataStore('./data'); // data folder will contain students.json file and other flat files
-
-module.exports = {
-  
-  students:store.collection('students') // read the students.json file
-};
-
-
-
-```
-
-**explain code (step 3)** --Create a respository module to convert students.json as a collection.  
-
-Step 4: Create a schema **schema.graphql** file in the project folder **schema-app** and add the following code-
+Add **schema.graphql** file in the project folder **schema-app** and add the following code
 
 ```javascript
 
@@ -150,7 +72,9 @@ type Student {
 
 The root of the schema will be **Query** type . The query has two fields greeting and Students that return String and a list of students respectively . Student is declared as an Object type since it contains multiple fields.  The ID field is declared as non-nullable.
 
-Step 5: Create a file **resolvers.js** in the project folder and add the following code-
+### Step 3: Create Resolvers
+
+ Create a file **resolvers.js** in the project folder and add the following code
 
 ```javascript
 
@@ -166,48 +90,14 @@ const Query = {
 module.exports = {Query}
 
 ```
-**explain code**
-In order to handle a client request for data from GraphQL, we need a resolver function.Resolvers will be discussed in detail in another section.
 
-Step 6: Run the application
-a. Create a  **server.js** and add the following code.
-
-```javascript
-
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const express = require('express');
-const db = require('./db');
-
-const port = 9000;
-const app = express();
-
-const fs = require('fs')
-const typeDefs = fs.readFileSync('./schema.graphql',{encoding:'utf-8'})
-const resolvers = require('./resolvers')
-
-const {makeExecutableSchema}=require('graphql-tools')
-const schema = makeExecutableSchema({typeDefs , resolvers})
+Here `greeting` and `students` are the resolvers that handle the query .`students` resolver function returns a list of students from the data access layer.To access resolver functions outside the module `Query` object has to be exported using module.exports
 
 
-app.use(cors(), bodyParser.json());
-
-
-const  {graphiqlExpress,graphqlExpress} = require('apollo-server-express')
-app.use('/graphql',graphqlExpress({schema}))
-app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
-
-
-
-app.listen(port, () => console.info(`Server started on port ${port}`));
-
-
-```
-**explain code step (a)**
-**Now lets run the application by  . We read the file schema.graphql and convert into string using 'utf-8' and storing in variable typeDefs , this is similar to the helloword example we did before , only difference is as the schema get bigger we are creating and storing in separate file *schema.graphql* and resover functions can get bigger so in file *resolvers.js** - add this to comment section   
-
-b. Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
-c. Open the browser and type the url `http://localhost:9000/graphiql` . Type the following query in the editor.
+### Step 4: Run the application
+- Create a  **server.js** and add the following code. Refer step 8 in the Environment Setup Chapter.
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url http://localhost:9000/graphiql.  
+Type the following query in the editor.
  
  ```javascript
 
