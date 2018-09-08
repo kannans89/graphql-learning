@@ -1,24 +1,29 @@
 
 # JQuery Integration
 
-JQuery is a javascript library that helps to make asynchronous requests to the server and update data 
+Web applications may want to send and retrieve data asynchronously (in the background).AJAX allows websites to load content onto the screen without refreshing the page.jQuery provides several methods for AJAX functionality thus making it easier to use AJAX . In this chapter we shall learn how we can integrate GraphQL with jQuery.  
+  
 
-Suppose,a web application needs to load data from a GraphQL server.  
+Consider an application using client server architecture. We can build a front end webpage that requests data from a GraphQL server.The webpage will make ajax calls using jQuery to the GraphQL server.    
 
-To integrate GraphQL with JQuery first let us inspect the graphiql request headers and understand the request parameters.
+To integrate GraphQL with JQuery,let us inspect the GraphiQL request headers and understand the request parameters.  
 
-Start the hello-world app (refer chapter for illustration) and type the  graphql query `{greeting}` in graphiQL window . Right click and inspect or (ctrl+shift+I) on chrome , go to the network tab as shown below
+Start the hello-world app (refer chapter 1 for illustration) and type the  graphql query `{greeting}` in graphiQL window . Right click and inspect or (ctrl+shift+I) on chrome , go to the network tab as shown below
 
 ![1_request_header](https://user-images.githubusercontent.com/9062443/44342005-4f327280-a4a7-11e8-87ff-8afd3bf3547e.png)
 
-From the simple hello world example we can understand that the http method used is **POST** .Now int the browser scroll down the header section to view the *request payload* ,once you click on view code you will see following in request payload section of chrome .Also note the request url endpoint `http://localhost:9000/graphql` to be called from client application.
+From the simple hello world example we can understand that the http method used is **POST** .Now int the browser scroll down to the header section to view the *request payload* ,once you click on view code you will see following in request payload section of chrome .Also note the request url endpoint `http://localhost:9000/graphql` to be called from client application.
+
+**replace code with screenshot** 
 
 ```javascript
   {"query":"{\n  greeting\n}","variables":null,"operationName":null}
 
 ```
 
-Following is the server.js code , here we are using two queries one is `greeting` and second is  `sayHello` which takes in a parameter as string and returns another string.The parameter to sayHello function is not null.
+**mention the following as steps**  
+
+Following is the application's server.js file. The file has defined 2 queries namely `greeting`  and `sayHello`. Both these queries accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
 
 ```javascript
 
@@ -54,7 +59,7 @@ app.listen(port , ()=> console.log(`server is up and running ${port}`))
 
 
 ```
-
+**not required**
 following is the package.json
 
 ```javascript
