@@ -1,9 +1,13 @@
 
 # JQuery Integration
 
-To integrate GraphQL with jQuery first lets inspect the graphiql request headers and understand the request parameters.
+JQuery is a javascript library that helps to make asynchronous requests to the server and update data 
 
-Start the hello-world app and type the  graphql query `{greeting}` in graphiQL window . Right click and inspect or (ctrl+shift+I) on chrome , go to the network tab as shown below
+Suppose,a web application needs to load data from a GraphQL server.  
+
+To integrate GraphQL with JQuery first let us inspect the graphiql request headers and understand the request parameters.
+
+Start the hello-world app (refer chapter for illustration) and type the  graphql query `{greeting}` in graphiQL window . Right click and inspect or (ctrl+shift+I) on chrome , go to the network tab as shown below
 
 ![1_request_header](https://user-images.githubusercontent.com/9062443/44342005-4f327280-a4a7-11e8-87ff-8afd3bf3547e.png)
 
