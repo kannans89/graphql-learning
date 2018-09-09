@@ -55,7 +55,9 @@ C:\Users\Admin\test-app>code .
     "graphql": "^0.13.2",
     "graphql-tools": "^3.1.1",
     "node-datetime": "^2.1.0",
-    "notarealdb": "0.2.2"
+    "notarealdb": "0.2.2",
+    "express-jwt": "5.3.1",
+    "jsonwebtoken": "8.2.0"
   },
   "devDependencies": {
     "nodemon": "1.17.1"
