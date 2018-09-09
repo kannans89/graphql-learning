@@ -7,12 +7,15 @@ Authentication is the process or action of verifying the identity of a user or p
 In this example, we will use jQuery to create a client application. In order to authenticate requests, we will use `express-jwt` module on the server-side.  
 The `express-jwt` module is a middleware that lets you authenticate HTTP requests using JWT tokens.JSON Web Token is a long string that identifies the logged in user.Once the user logs in successfully , the server generates a JWT token. This token distinctly identifies a logged. In other words, the token is a representation of the user's identity.So next time the client comes to the server it has to present this token, to getget the needed resources. The client can be a mobile application or a web application.
 
-![1_authentication](https://user-images.githubusercontent.com/9062443/44628457-9a43fe00-a95d-11e8-990a-6f7d4ec0ee71.png)  
+![authentication](https://user-images.githubusercontent.com/9062443/45263854-5d910000-b44f-11e8-834a-942389a0b2a9.jpg)
+ 
 
 ## Illustration
 
+### Step 1 :  Download and Install required dependencies for the project  
 
-### Step 1: Install packages
+- Create a folder named **auth-app** .Change your directory to **auth-app** from the terminal.   
+- Follow steps 3 to 5 explained in the Environment Setup chapter.
 
 ```javascript
       npm install jsonwebtoken express-jwt
