@@ -1,10 +1,79 @@
 
 # React Integration
-React is a javascript library for building user interfaces.This chapter explains how one can integrate GraphQL with a React application.  
+React is a Javascript library for building user interfaces.This chapter explains how one can integrate GraphQL with a React application.  
 
-The quickest way to set up a react project is by using  the *Create React App* tool. Follow the steps gicen below-
+The quickest way to set up a react project is by using  the *Create React App* tool. Follow the steps given below-
 
-### Step 1 : Create a folder **ReactApp**. Change the terminal path to this folder and fire the following command.
+## Setting up the Server 
+
+### Step 1 : Download and Install required dependencies for the project
+
+- Create a folder **react-server-app**.Change your directory to **react-server-app** from the terminal.
+- Follow steps 3 to 5 explained in the Environment Setup chapter.  
+
+### Step 2: Create a schema
+Add schema.graphql file in the project folder **react-server-app** and add the following code  
+
+```javascript
+
+type Query
+{
+    greeting: String
+   sayHello(name:String!):String
+}
+
+```
+The file has defined two queries `greeting` and `sayHello`. The `sayHello` query accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
+
+### Step 3 : Create Resolvers
+
+Create a file resolvers.js in the project folder and add the following code-
+
+```javascript
+const Query =
+{
+   greeting: () => 'Hello GraphQL  From TutorialsPoint !!' ,
+   sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
+
+}
+
+module.exports = {Query}
+
+```
+
+Here `greeting` and `sayHello` are two resolvers .In the`sayHello` resolver the value passed to the name parameter can be accessed through `args`.To access resolver functions outside the module Query object has to be exported using `module.exports`.  
+
+### Step 4: Run the application  
+
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a       client to test the application.
+Open browser and type the url http://localhost:9000/graphiql .Type the following query in the editor.  
+
+```javascript
+{
+   greeting,
+   sayHello(name:"Mohtashim")
+}
+
+```
+The response from server is as given below-
+
+```javascript
+
+{
+  "data": {
+    "greeting": "Hello GraphQL  From TutorialsPoint !!",
+    "sayHello": "Hi Mohtashim GraphQL server says Hello to you!!"
+  }
+}
+
+```
+
+## Setting up the Client
+
+
+
 
 `npx create-react-app hello-world-client`
 
