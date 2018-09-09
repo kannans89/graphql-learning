@@ -94,7 +94,7 @@ The response from server is as given below-
 
 ### Step 1: Create a new folder **jquery-client-app** outside the current project folder
 
-### Step 2: Create an html page **index.html** for jquery integration
+### Step 2: Create an html page **index.html** for JQuery integration
 
 We will create a client application in jquery and invoke both the methods. Following is the code for **index.html** file.
 In the view page we are making to requests to the server on Greet button click and another on SayHello button click. We wil make
