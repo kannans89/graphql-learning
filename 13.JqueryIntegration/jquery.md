@@ -27,7 +27,7 @@ Also note the request url `http://localhost:9000/graphql` that should be called 
 
 ### Step 1 : Download and Install required dependencies for the project
 
-- Create a folder named **jquery-server-app** .Change your directory to schema-app from the terminal.
+- Create a folder named **jquery-server-app** .Change your directory to **jquery-server-app** from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.  
 
 ### Step 2: Create a schema
