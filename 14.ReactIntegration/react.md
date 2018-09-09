@@ -72,84 +72,27 @@ The response from server is as given below-
 
 ## Setting up the Client
 
+Open a new terminal for client . The server terminal should be
+kep running before executing client application. React application will be running in port no 3000 and server application on port no 9000.
 
+### Step 1: Create a react project hello-world-client
 
+In the client termianl type the following command .  
 
-`npx create-react-app hello-world-client`
+`npx create-react-app hello-world-client`  
 
 This will install everything needed for a typical react application. The **npx** utility and **create-react-app** tool creates a  project with name hello-world-client.Once the installation is completed open the project in VSCode.
 
-### Step 2 :Type `npm start` launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page. 
+### Step 2 :Start hello-world-client
+
+Change the current folder path from terminal to hello-world-client and type `npm start` to launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page
+
 This is shown in the screenshot given below:
-**put a ss here**
+![1_react_launch](https://user-images.githubusercontent.com/9062443/45262323-58718800-b432-11e8-89d9-daf6ed707f98.png)
 
-### Step 3 : In the App.js inside src folder add two functions - one to load greeting message and another to load sayHello message. This is our graphql schema
+### Step 3 : Modify the App Component
 
-```javascript
- type Query  {
-    greeting: String
-    sayHello(name:String!):String
-}
-
-```
-
-Following is the package.json of graphql server app
-
-```javascript
-{
-    "name": "hello-world-server",
-    "private": true,
-    "dependencies": {
-        "apollo-server-express": "^1.4.0",
-        "body-parser": "^1.18.3",
-        "cors": "^2.8.4",
-        "express": "^4.16.3",
-        "graphql": "^0.13.2",
-        "graphql-tools": "^3.1.1"
-    }
-}
-
-
-```
-
-Following is the server.js file
-
-```javascript
-
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const express = require('express')
-const port = 9000
-const app = express()
-app.use(bodyParser.json() , cors())
-
-const typeDefinition = `
-type Query  {
-    greeting: String
-    sayHello(name:String!):String
-}`
-
-const  resolverObject = {
-   Query : {
-       greeting: () => 'Hello GraphQL  From TutorialsPoint !!' ,
-       sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
-
-
-   }
-}
-const {makeExecutableSchema} = require('graphql-tools')
-const schema = makeExecutableSchema({typeDefs:typeDefinition , resolvers:resolverObject})
-const {graphqlExpress,graphiqlExpress} = require('apollo-server-express')
-app.use('/graphql',graphqlExpress({schema}))
-app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
-app.listen(port , ()=> console.log(`server is up and running ${port}`))
-
-
-```
-
-## React Client App Changes
-
-Now let us start the client side development using react, first we need to add function to fetch greeting data in App.js
+ In the App.js inside src folder add two functions - one to load greeting message and another to load sayHello message.
 
 ```javascript
 
