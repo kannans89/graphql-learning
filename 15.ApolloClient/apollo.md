@@ -1,5 +1,5 @@
 
-# Apollo Client
+# Apollo ClientF
 
 We have used Apollo Server to build graphql specification on server side.It is quick and easy to build production ready GraphQL server.Now let us look at the client side.
 
@@ -164,7 +164,7 @@ This will download the graphql libraries for client side and also the apollo boo
 
 We can clearly see that apollo-client library installed.
 
-### Step 4 : Modify the App Component
+### Step 4 : Modify the App Component in index.js file
 
 With apollo client we can directly call server without the use of `fetch` api. Also the queries and mutations should not be embedded in a string made with back tick notation.This is because, the `gql` function directly parses the queries. This means, a programmer can directly write queries in the the same way when writing queries in GraphiQL tool.
 `gql` is a tag function which will parse the template string written in back tick notation to graphql query object. The apollo client query method returns a promise.
@@ -208,7 +208,7 @@ async function loadStudentsAsync() {
 
 ```
 
-For simplicity you only need to keep the index.js in src folder and index.html in pubic folder all other files auto generated can be removed . Folder structure is given below.
+For simplicity you only need to keep the index.js in src folder and index.html in public folder all other files auto generated can be removed . Directory structure is given below.
 
 ```javascript
 hello-world-client /
