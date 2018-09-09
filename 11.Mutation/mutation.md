@@ -2,7 +2,7 @@
 # Mutation
 
 Mutation queries modify data in the data store. It can be used to insert, update, or delete data.  
-Mutations are defined as a part of the schema. Mutation query can  return a value.
+Mutations are defined as a part of the schema. Mutation query must  return a value.
 
 The syntax of a mutation query is as given below:
 
@@ -16,7 +16,7 @@ mutation{
 
 Let us understand how one can add new student record into the datastore using a  mutation query.
 
-### Step 1: Download and Install required dependencies for the project 
+### Step 1: Download and Install required dependencies for the project
 
 - Create a project folder by the name **mutation-app**.Change your directory to **mutation-app** from the terminal.  
 - Follow steps 3 to 5 explained in the Environment Setup chapter.
@@ -54,14 +54,15 @@ Create a file resolvers.js in the project folder and add the following code.
 
 module.exports = {Mutation}
 ```
+
 The mutation function points to students collection in the datastore . To add a new student invoke the create method in students collection. The *args* object will contain the parameters which are passed in the query.The create method of students collection will return the id of a newly created student object.
 
-## Step 4: Run the application 
+## Step 4: Run the application
 
-- Create a server.js file.Refer step 8 in the Environment Setup Chapter. 
-- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a       client to test the application.  
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
 
-Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.  
+Open browser and type the url `http://localhost:9000/graphiql` Type the following query in the editor.  
 
 ```javascript
 
@@ -99,22 +100,34 @@ type Student {
     id:ID!
     firstName:String
     lastName:String
-    password:String
     collegeId:String
 
 }
-
 ````
 
 - Edit the resolver.js file as given below.
 
-```javascript
+```graphql
+const db = require('./db')
 
-   studentById:(root,args,context,info) => {
-     //args will contain parameter passed in query
+const Query = {
+    studentById:(root,args,context,info) => {
         return db.students.get(args.id);
-  }
+    }
 
+}
+const Mutation ={
+    createStudent:(root,args,context,info)=>{
+
+        return db.students.create({collegeId:args.collegeId,
+            firstName:args.firstName,
+            lastName:args.lastName})
+
+    }
+
+}
+
+module.exports = {Query,Mutation}
 
 ```
 
@@ -150,7 +163,9 @@ The response from server is given below-
 
 It is a best practice to return an object in mutation.Say for example, the client application wants to fetch student and college details.In this case rather than making two different requests, we can create a query that returns an object that contains students and their college details.
 
-### Step 1: Add a new method  named `addStudent_returns_object` in mutation type of **schema.graphql**
+### Step 1: Edit schema file
+
+Add a new method  named `addStudent_returns_object` in mutation type of **schema.graphql** . Lets give this feature of accessing college through the student . Add college type in schema file.
 
 ```javascript
 
@@ -159,6 +174,22 @@ It is a best practice to return an object in mutation.Say for example, the clien
   addStudent_returns_object(collegeId:ID,firstName:String,lastName:String):Student
 
   createStudent(collegeId:ID,firstName:String,lastName:String):String
+}
+
+type College {
+    id:ID!
+    name:String
+    location:String
+    rating:Float
+
+}
+
+type Student {
+    id:ID!
+    firstName:String
+    lastName:String
+    fullName:String
+    college:College
 }
 
 ```
@@ -188,7 +219,14 @@ It is a best practice to return an object in mutation.Say for example, the clien
 
 }
 
+//for each single student object returned,resolver is invoked
+const Student={
+    college:(root)=>{
+        return db.colleges.get(root.collegeId);
+    }
+  }
 
+module.exports = {Query,Student,Mutation}
 ```
 
 ### Step 3: Start the server and type the request query in GraphiQL
