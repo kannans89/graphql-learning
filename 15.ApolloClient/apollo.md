@@ -1,9 +1,9 @@
 
 # Apollo Client
 
- We have used Apollo Server to build graphql specification on server side.It is quick and easy to build production ready GraphQL server.Now lets look at client side.
+We have used Apollo Server to build graphql specification on server side.It is quick and easy to build production ready GraphQL server.Now let us look at the client side.
 
-Apollo Client is the best way to use GraphQL to build client applications. The client is designed to help developer quickly build a UI that fetches data with GraphQL, and can be used with any JavaScript front-end.
+Apollo Client is the best way to use GraphQL to build client applications. The client is designed to help developer quickly build an UI that fetches data with GraphQL, and can be used with any JavaScript front-end.
 
 Apollo Client supports following platforms.
 
@@ -13,7 +13,147 @@ Apollo Client supports following platforms.
 |  2 | WebComponents  | Polymer , lit-apollo
 |  3 | Native Mobile  | Native Android with Java, Native iOS with Swift
 
-One of the major feature of apollo client is caching. Apollo boost is a convenience package which brings in a bunch of other dependencies`npm install apollo-boost graphql` . This will download the graphql libraries for client side and also the apollo boost package.
+One of the major feature of apollo client is caching. `apollo-boost` is a convenience package which brings in a bunch of other dependencies.  
+
+## Setting Up Server
+
+### Step 1 : Download and Install required dependencies for the project
+- Create a folder **apollo-server-app**.Change your directory to **apollo-server-app** from the terminal.
+- Follow steps 3 to 5 explained in the Environment Setup chapter.  
+
+### Step 2: Create a schema
+Add schema.graphql file in the project folder **apollo-server-app** and add the following code  
+
+```javascript
+
+type Query
+{
+        students:[Student]
+ }
+
+type Student {
+    id:ID!
+    firstName:String
+    lastName:String
+    college:College
+}
+
+type College {
+    id:ID!
+    name:String
+    location:String
+    rating:Float
+}
+```
+
+### Step 3: Add Resolvers  
+
+Create a file resolvers.js in the project folder and add the following code  
+
+```javascript
+
+const db = require('./db')
+
+const Query = {
+     //resolver function for students returns list
+   students:()=>db.students.list(),
+}
+const Student={
+      college:(root)=>{
+      return db.colleges.get(root.collegeId);
+   }
+}
+
+module.exports = {Query,Student}
+
+```
+### Step 4: Run the application  
+
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a       client to test the application.  
+Open browser and type the url http://localhost:9000/graphiql Type the following query in the editor.  
+
+```javascript
+
+ {
+        students{
+          id
+          firstName
+          lastName
+          college{
+            name
+          }
+        }
+    }
+
+
+```  
+The response for the query will be as given below  
+
+```javascript
+
+{
+  "data": {
+    "students": [
+      {
+        "id": "S1001",
+        "firstName": "Mohtashim",
+        "college": {
+          "id": "col-102",
+          "name": "CUSAT",
+          "location": "Kerala",
+          "rating": 4.5
+        }
+      },
+      {
+        "id": "S1002",
+        "firstName": "Kannan",
+        "college": {
+          "id": "col-101",
+          "name": "AMU",
+          "location": "Uttar Pradesh",
+          "rating": 5
+        }
+      },
+      {
+        "id": "S1003",
+        "firstName": "Kiran",
+        "college": {
+          "id": "col-101",
+          "name": "AMU",
+          "location": "Uttar Pradesh",
+          "rating": 5
+        }
+      }
+    ]
+  }
+}
+
+```
+
+## Setting up the Client  
+Open a new terminal for client . The server terminal should be kept running before executing the client application. React application will be running on port number 3000 and server application on port number 9000.
+
+### Step 1: Create a apollo project hello-world-client
+In the client terminal type the following command  
+
+`npx create-react-app hello-world-client`  
+
+This will install everything needed for a typical react application. The npx utility and create-react-app tool creates a project with name hello-world-client.Once the installation is completed open the project in VSCode.
+
+
+### Step 2 :Start hello-world-client  
+Change the current folder path in the terminal to hello-world-client. Type `npm start` to launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page  
+This is shown in the screenshot given below: 
+
+
+### Step 3 : Modify the App Component
+
+
+
+
+
+To install an apollo client use the `npm install apollo-boost graphql` command .This will download the graphql libraries for client side and also the apollo boost package.
 we can cross verify this by typing `npm view apollo-boost dependencies`
 this will have many dependencies as shown below
 
