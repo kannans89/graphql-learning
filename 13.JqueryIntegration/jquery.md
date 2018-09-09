@@ -3,8 +3,7 @@
 
 Web applications may want to send and retrieve data asynchronously (in the background).AJAX allows websites to load content onto the screen without refreshing the page.jQuery provides several methods for AJAX functionality thus making it easier to use AJAX . In this chapter we shall learn how we can integrate GraphQL with jQuery.  
   
-
-Consider an application using client server architecture. We can build a front end webpage that requests data from a GraphQL server.The webpage will make ajax calls using jQuery to the GraphQL server.    
+Consider an application using client server architecture. We can build a front end webpage that requests data from a GraphQL server.The webpage will make ajax calls using jQuery to the GraphQL server.
 
 To integrate GraphQL with JQuery,let us inspect the GraphiQL request headers and understand the request parameters.  
 
@@ -22,48 +21,54 @@ Once you click on **view code** you will see following in request payload sectio
 
 Also note the request url `http://localhost:9000/graphql` that should be called from client application.
 
-
 ## Illustration
 
-## Setting up the Server 
+## Setting up the Server
 
 ### Step 1 : Download and Install required dependencies for the project
+
 - Create a folder named **jquery-server-app** .Change your directory to schema-app from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.  
 
 ### Step 2: Create a schema
+
 Add schema.graphql file in the project folder jquery-server-app and add the following code  
 
 ```javascript
-type Query 
+type Query
 {
     greeting: String
-   sayHello(name:String!):String   
+   sayHello(name:String!):String
 }
 
 ```
+
 The file has defined a query `sayHello`. The query accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
 
 ### Step 3 : Create Resolvers
+
 Create a file resolvers.js in the project folder and add the following code
 
 ```javascript
 
-const Query = 
+const Query =
 {
    greeting: () => 'Hello GraphQL  From TutorialsPoint !!' ,
-   sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!` 
+   sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
 
 }
 
 module.exports = {Query}
 
 ```
+
 Here `greeting` and `sayHello` are two resolvers .In `sayHello` resolver the value passed to the name parameter can be accessed through `args`.To access resolver functions outside the module Query object has to be exported using module.exports
 
 ### Step 4: Run the application
--  Create a server.js file.Refer step 8 in the Environment Setup Chapter.
-- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.
+
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url `http://localhost:9000/graphiql` Type the following query in the editor.
 
 ```javascript
 {
@@ -87,11 +92,13 @@ The response from server is as given below-
 
 ## Setting up the Client
 
-### Step 1: Create a new folder **jquery-client-app** outside the current project folder.
-### Step 2: Create an html page **index.html** for jquery integration.
+### Step 1: Create a new folder **jquery-client-app** outside the current project folder
+
+### Step 2: Create an html page **index.html** for jquery integration
+
 We will create a client application in jquery and invoke both the methods. Following is the code for **index.html** file.
 In the view page we are making to requests to the server on Greet button click and another on SayHello button click. We wil make
-async request using `$.ajax()` function. 
+async request using `$.ajax()` function.
 
 ```javascript
 <!DOCTYPE html>
