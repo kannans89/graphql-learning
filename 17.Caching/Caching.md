@@ -1,65 +1,6 @@
 # Caching
 
-The graphql client applications have to handle caching on their end.One possible pattern for this is reserving a field, like `id`, to be a globally unique identifier. The sample schema of students and their college details  uses this approach:
-
-```javascript
-/* Query*/
- {
-  students{
-    id
-    firstName
-    lastName
-    college{
-      id
-      name
-    }
-  }
-}
-
-```
-
-A sample response from server for the above query.
-
-```javascript
-/* Response */
-{
-  "data": {
-    "students": [
-      {
-        "id": "S1001",
-        "firstName": "Mohtashim",
-        "lastName": "Mohammad",
-        "college": {
-          "id": "col-102",
-          "name": "CUSAT"
-        }
-      },
-      {
-        "id": "S1002",
-        "firstName": "Kannan",
-        "lastName": "Sudhakaran",
-        "college": {
-          "id": "col-101",
-          "name": "AMU"
-        }
-      },
-      {
-        "id": "S1003",
-        "firstName": "Kiran",
-        "lastName": "Panigrahi",
-        "college": {
-          "id": "col-101",
-          "name": "AMU"
-        }
-      }
-    ]
-  }
-}
-
-
-```
-
-This is a powerful tool for  GraphQL client side developers. In the same way that the URLs of a REST based API provided a globally unique key, the `id` field in this system provides a globally unique key.
+Caching is the process of storing data in a temporary storage area called *cache*. When you return to a page you've recently visited, the browser can get those files from the cache rather than the original server. This saves your time and the network from the burden of additional traffic.  
 
 ## InMemory Cache
 
@@ -96,25 +37,12 @@ This is a powerful tool for  GraphQL client side developers. In the same way tha
 
 ## Illustration
 
- We will create a single page application in reactjs with two tabs one for home tab and second students.The students tab will load data from a GraphQL server API which we will be setting up.  
- If we surf from home tab to students tab , react app will query for students data as shown below
-
- ```javascript
-  {
-            getTime
-            students {
-                id
-              firstName
-            }
-          }
-
- ```
-
-The resulting data if not cached , every time we move from home to students  tab it will make a new request to the API .To track if the page is cached we will also query the server time using `getTime` field.If the page is cached it will show the very first requested time from server other wise it will always show latest time from server.
+Client applications interacting with GraphQL are responsible for caching data at their end.One possible pattern for this is reserving a field, like `id`, to be a globally unique identifier.   
+We will create a single page application in ReactJS with two tabs one for the home tab and another for students.The students tab will load data from a GraphQL server API. The application will query for students data when the user navigates from the home tab to the students tab. The resulting data will be cached by the application. We will also query the server time using `getTime` field to verify if the page is cached.If data is returned from the cache, the page will display the time of the very first request sent to the server. If the data is a result of a fresh request made to the sever, it will always show the latest time from server.
 
 ## Setup GraphQL Server
 
-### Step 1: Edit Schema.graphql
+ ### Step 1: Edit Schema.graphql
 
  ```javascript
  type Query {
@@ -138,21 +66,24 @@ type Student {
  ```javascript
 
 const Query = {
+    
     students:()=>db.students.list(),
      getTime:()=>{
         const today = new Date();
+        
 
         var h = today.getHours();
         var m = today.getMinutes();
         var s = today.getSeconds();
+        
         return `${h}:${m}:${s}`;
 
     }
 
 }
 
- ```
-
+ ``` 
+ 
 ### Step 3: Run and Test using GraphiQL
 
 ## Setup ReactJs Client
@@ -163,7 +94,7 @@ const Query = {
 
 ### Step 3: Create Component Students
 
-Add a function which query for students , time from server
+  Add a function which query for students , time form server
 Here we use a gql function to parse the query .
 
   ```javascript
@@ -204,18 +135,22 @@ const client = new ApolloClient({
 
 
 class Students extends Component {
+
+    
     constructor(props){
         super(props);
         this.state={
             students:[{id:00,firstName:'test'}],
             serverTime:''
         }
+        
         this.loadWithApolloclient().then(data=>{
             this.setState({
                 students:data.students,
                 serverTime:data.getTime
             })
         })
+        
     }
 
      async  loadStudents_noCache(){
@@ -229,12 +164,16 @@ class Students extends Component {
               firstName
             }
           }`})
+      
         })
 
         const rsponseBody= await response.json();
         return rsponseBody.data;
+
     }
+
     async loadWithApolloclient(){
+    
         console.log("inside apollo client function")
          const query =gql`{
             getTime
@@ -246,6 +185,7 @@ class Students extends Component {
 
         const {data} = await  client.query({query})
         return data;
+
     }
 
       render(){
@@ -258,10 +198,11 @@ class Students extends Component {
                    <ul>
                {
                  this.state.students.map(s=>{
-                    return(
-                    <li key={s.id}>
+                    return( 
+                    <li key={s.id}> 
                    {s.firstName}
                      </li>
+                    
                     )
                  })
                }
@@ -293,8 +234,13 @@ import {HashRouter,Route , Link} from 'react-router-dom'
 //components
 
  import Students from './components/students'
+ 
+
 
 class App extends Component {
+    
+    
+    
     render(){
         return(
             <div><h1>Home !!</h1>
@@ -313,14 +259,20 @@ const routes = <HashRouter>
              <div>
                 <h4>Time from react app:{getTime()}</h4>
                  <header>
+                     
                 <h1>  <Link to="/">Home</Link>&ensp;
                   <Link to="/students">Students</Link>&ensp; </h1>
                 </header>
                     <Route exact path="/students" component={Students}></Route>
                     <Route exact path="/" component={App}></Route>
               </div>
+
               </HashRouter>
+
 ReactDOM.render(routes, document.querySelector("#root"))
+
+
+
 
 ```
 
