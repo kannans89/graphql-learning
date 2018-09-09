@@ -148,9 +148,7 @@ To install an apollo client open a new terminal and be in current project folder
     npm install apollo-boost graphql
 ```
 
- This will download the graphql libraries for client side and also the apollo boost package.
-we can cross verify this by typing `npm view apollo-boost dependencies`
-this will have many dependencies as shown below
+This will download the graphql libraries for client side and also the apollo boost package.We can cross verify this by typing `npm view apollo-boost dependencies`.This will have many dependencies as shown below-
 
 ```javascript
   { 'apollo-cache': '^1.1.15',
@@ -164,11 +162,11 @@ this will have many dependencies as shown below
 
 ```
 
-We can see clearly apollo-client library installed.
+We can clearly see that apollo-client library installed.
 
 ### Step 4 : Modify the App Component
 
-With apollo client we can directly call server without the need of fetch api. Also the queries and mutations not necessarily be a string made with back tick notation.There is a `gql` function which will directly parse the queries without being written in string type. so programmer can directly write queries very much the same way we type in GraphiQL tool.
+With apollo client we can directly call server without the use of `fetch` api. Also the queries and mutations should not be embedded in a string made with back tick notation.This is because, the `gql` function directly parses the queries. This means, a programmer can directly write queries in the the same way when writing queries in GraphiQL tool.
 `gql` is a tag function which will parse the template string written in back tick notation to graphql query object. The apollo client query method returns a promise.
 
 Following shows how to import ApolloClient
@@ -186,8 +184,7 @@ const client  = new ApolloClient({
 
 ```
 
-Following code shows how to use gql function . The
-loadStudentsAsync function using graphql client to query the server.Last chapter we discussed on using fetch api for http requests.
+Following code shows how to use gql function . The `loadStudentsAsync` function using graphql client to query the server.In the previuos  chapter we discussed how to use `fetch` api for HTTP requests.
 
 ```javascript
 
