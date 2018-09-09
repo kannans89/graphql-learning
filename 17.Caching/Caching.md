@@ -114,7 +114,7 @@ The resulting data if not cached , every time we move from home to students  tab
 
 ## Setup GraphQL Server
 
- ### Step 1: Edit Schema.graphql
+### Step 1: Edit Schema.graphql
 
  ```javascript
  type Query {
@@ -138,24 +138,21 @@ type Student {
  ```javascript
 
 const Query = {
-    
     students:()=>db.students.list(),
      getTime:()=>{
         const today = new Date();
-        
 
         var h = today.getHours();
         var m = today.getMinutes();
         var s = today.getSeconds();
-        
         return `${h}:${m}:${s}`;
 
     }
 
 }
 
- ``` 
- 
+ ```
+
 ### Step 3: Run and Test using GraphiQL
 
 ## Setup ReactJs Client
@@ -166,7 +163,7 @@ const Query = {
 
 ### Step 3: Create Component Students
 
-  Add a function which query for students , time form server
+Add a function which query for students , time from server
 Here we use a gql function to parse the query .
 
   ```javascript
@@ -207,22 +204,18 @@ const client = new ApolloClient({
 
 
 class Students extends Component {
-
-    
     constructor(props){
         super(props);
         this.state={
             students:[{id:00,firstName:'test'}],
             serverTime:''
         }
-        
         this.loadWithApolloclient().then(data=>{
             this.setState({
                 students:data.students,
                 serverTime:data.getTime
             })
         })
-        
     }
 
      async  loadStudents_noCache(){
@@ -236,16 +229,12 @@ class Students extends Component {
               firstName
             }
           }`})
-      
         })
 
         const rsponseBody= await response.json();
         return rsponseBody.data;
-
     }
-
     async loadWithApolloclient(){
-    
         console.log("inside apollo client function")
          const query =gql`{
             getTime
@@ -257,7 +246,6 @@ class Students extends Component {
 
         const {data} = await  client.query({query})
         return data;
-
     }
 
       render(){
@@ -270,11 +258,10 @@ class Students extends Component {
                    <ul>
                {
                  this.state.students.map(s=>{
-                    return( 
-                    <li key={s.id}> 
+                    return(
+                    <li key={s.id}>
                    {s.firstName}
                      </li>
-                    
                     )
                  })
                }
@@ -306,13 +293,8 @@ import {HashRouter,Route , Link} from 'react-router-dom'
 //components
 
  import Students from './components/students'
- 
-
 
 class App extends Component {
-    
-    
-    
     render(){
         return(
             <div><h1>Home !!</h1>
@@ -331,20 +313,14 @@ const routes = <HashRouter>
              <div>
                 <h4>Time from react app:{getTime()}</h4>
                  <header>
-                     
                 <h1>  <Link to="/">Home</Link>&ensp;
                   <Link to="/students">Students</Link>&ensp; </h1>
                 </header>
                     <Route exact path="/students" component={Students}></Route>
                     <Route exact path="/" component={App}></Route>
               </div>
-
               </HashRouter>
-
 ReactDOM.render(routes, document.querySelector("#root"))
-
-
-
 
 ```
 

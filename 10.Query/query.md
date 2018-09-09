@@ -39,12 +39,13 @@ GraphQL queries help to reduce over fetching of data.Unlike a Restful API, Graph
 In this example we have set of students stored in a json file each student model has fields like firstName,lastName , id  but no fullName field available. We will discuss here how to make a query to retrieve fullName of all students. For this we need to create fullName field in schema and  fullName field in resolver . Let us see how to do this in the illustration.
 
 ### Step 1 :  Download and Install required dependencies for the project
+
 - Create a folder named **query-app** .Change your directory to **query-app** from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.
 
 ### Step 2: Create a schema
-Add schema.graphql file in the project folder query-app and add the following code-
 
+Add schema.graphql file in the project folder query-app and add the following code-
 
 ```javascript
 type Query {
@@ -62,11 +63,12 @@ type Student {
 
 
 ```
-Note that there is no fullName field in the the students.json file. However, we need to fetch the fullname of the student via a query. The fullName, in this case will be a **custom field** that isn't available with the data source.  
+
+Note that there is no fullName field in the the students.json file. However, we need to fetch the fullName of the student via a query. The fullName, in this case will be a **custom field** that isn't available with the data source.  
 
 ### Step 3: Create Resolver
 
-Create a file resolvers.js in the project folder and add the following code 
+Create a file resolvers.js in the project folder and add the following code
 
 ```javascript
 
@@ -103,7 +105,7 @@ module.exports = {Query,Student}
 - Create a server.js file.Refer step 8 in the Environment Setup Chapter.  
 - Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client   to test the application.
 
-Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.  
+Open browser and type the url `http://localhost:9000/graphiql` Type the following query in the editor.  
 
 ```javascript
 {
@@ -143,29 +145,7 @@ The response for the  query will be as given below
 
 Let us create a nested query for fetching the student details and their college details. We will work with the same project folder.
 
-### Step 1: Add Colleges data
-
-- Add **colleges.json** file to the **data** folder.This file will hold a collection of colleges.
-
-```javascript
-[
-    {
-      "id": "col-101",
-      "name": "AMU",
-      "location": "Uttar Pradesh",
-       "rating":5.0
-    },
-    {
-        "id": "col-102",
-        "name": "CUSAT",
-        "location": "Kerala",
-        "rating":4.5
-      }
-  ]
-  
-```
-
-### Step 2: Edit the Schema
+### Step 1: Edit the Schema
 
 - The schema file already has the student field.Let us add a field college and define its type.
 
@@ -188,21 +168,7 @@ type Student {
 
 ```
 
-### Step 3: Modify the Data Access Code
-
-- In current **db.js** add a collection that points to the  colleges json file. The  code will be as  given below
-
-```javascript
-const { DataStore } = require('notarealdb');
-const store = new DataStore('./data');
-module.exports = {
-  students:store.collection('students'),
-  colleges:store.collection('colleges')
-};
-
-```
-
-### Step 4: Modify the **resolvers.js**
+### Step 2: Modify the **resolvers.js**
 
 - We need to add a `college` resolver function  as below. The college resolver function will be executed for each student object returned.The `root` parameter of resolver in this case will contain student.
 
@@ -223,7 +189,7 @@ module.exports = {Query,Student}
 The resolver returns college of each student by calling the get method of college collection and  passing the collegeId.
 We have assoication realtionship between Student and College through the collegeId.
 
-### Step 5: Test the application
+### Step 3: Test the application
 
 Open the terminal window,navigate to the project folder. Type the command -`npm start`.Launch the browser and enter the URL `http://localhost:9000/graphiql`. Enter the following query in the GraphiQL window
 
@@ -316,8 +282,8 @@ sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello t
 
 ### Step 3: Declare query variable in GraphiQL
 
-- Variable is declared with `$` followed by name of variable
-- Variable `$myname_Variable` is used with a named query syntax . The query `myQuery` takes string value and passes it on to `sayHello` as shown below.
+- Variable is declared with `$` followed by name of variable for example `$myname_Variable`
+- Next the variable declared `$myname_Variable` has to be used with a named query syntax . The query `myQuery` takes string value and passes it on to `sayHello` as shown below.
 
 ```javascript
 
@@ -385,7 +351,7 @@ setFavouriteColor:(root,args)=>{
 
 ### Step 3: Declare a query variable in GraphiQL
 
-query is named `query_to_setColor` which takes a variable of the named `color_variable` of the type ColorType.This variable is passed on to method `setFavouriteColor`
+query is named `query_to_setColor` which takes a variable of the named `$color_variable` of the type ColorType.This variable is passed on to method `setFavouriteColor`
 
 ```javascript
 query query_to_setColor($color_variable:ColorType)
