@@ -1,10 +1,11 @@
 
 # React Integration
+
 React is a Javascript library for building user interfaces.This chapter explains how one can integrate GraphQL with a React application.  
 
 The quickest way to set up a react project is by using  the *Create React App* tool. Follow the steps given below-
 
-## Setting up the Server 
+## Setting up the Server
 
 ### Step 1 : Download and Install required dependencies for the project
 
@@ -12,6 +13,7 @@ The quickest way to set up a react project is by using  the *Create React App* t
 - Follow steps 3 to 5 explained in the Environment Setup chapter.  
 
 ### Step 2: Create a schema
+
 Add schema.graphql file in the project folder **react-server-app** and add the following code  
 
 ```javascript
@@ -23,6 +25,7 @@ type Query
 }
 
 ```
+
 The file has defined two queries `greeting` and `sayHello`. The `sayHello` query accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
 
 ### Step 3 : Create Resolvers
@@ -48,7 +51,7 @@ Here `greeting` and `sayHello` are two resolvers .In the`sayHello` resolver the 
 - Create a server.js file.Refer step 8 in the Environment Setup Chapter.
 
 - Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a       client to test the application.
-Open browser and type the url http://localhost:9000/graphiql .Type the following query in the editor.  
+- Open browser and type the url `http://localhost:9000/graphiql` .Type the following query in the editor.  
 
 ```javascript
 {
@@ -57,6 +60,7 @@ Open browser and type the url http://localhost:9000/graphiql .Type the following
 }
 
 ```
+
 The response from server is as given below-
 
 ```javascript
@@ -94,6 +98,8 @@ This is shown in the screenshot given below:
 
  In the App.js inside src folder add two functions - one to load greeting message and another to load sayHello message.
 
+Following is `loadGreeting` function which sends  GraphQL query for greeting.
+
 ```javascript
 
 async function loadGreeting(){
@@ -114,7 +120,7 @@ async function loadGreeting(){
 
 ```
 
-we also need another function to get sayHello function details.Note we are using async await features of javascript ,  fetch api to make ajax calls
+Following is `loadSayhello` function which sends  GraphQL query for `sayHello`.
 
 ```javascript
 
@@ -237,7 +243,6 @@ export default App;
 
 ```
 
-The react app will be running on port 3000 and graphql server will be running on port 9000. Once both applications are running click on the greet button you will see the following output.After that enter a name on the following textbox and click on sayHello button.
-Output will be as below.
+ Once both applications are running click on the greet button you will see the following output.After that enter a name on the following textbox and click on sayHello button. Output will be as below.
 
 ![react-ouput](https://user-images.githubusercontent.com/9062443/44403682-b6692900-a572-11e8-883b-1c8d50eada16.png)
