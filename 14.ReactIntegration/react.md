@@ -1,15 +1,20 @@
 
 # React Integration
+React is a javascript library for building user interfaces.This chapter explains how one can integrate GraphQL with a React application.  
 
-The quickest way to set up a react project is by using *Create React App* tool.Create a client folder and change the terminal path to this folder and fire the following command.
+The quickest way to set up a react project is by using  the *Create React App* tool. Follow the steps gicen below-
+
+### Step 1 : Create a folder **ReactApp**. Change the terminal path to this folder and fire the following command.
 
 `npx create-react-app hello-world-client`
 
-This will install everything needed for a typical react application,here using npx utility and create-react-app tool a project with name hello-world-client is created.Once installation is completed open the project in VSCode.
+This will install everything needed for a typical react application. The **npx** utility and **create-react-app** tool creates a  project with name hello-world-client.Once the installation is completed open the project in VSCode.
 
-Type `npm start` launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page.
+### Step 2 :Type `npm start` launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page. 
+This is shown in the screenshot given below:
+**put a ss here**
 
-In the App.js inside src folder let us add two functions one to load greeting message and another to load sayHello message. This is our graphql schema
+### Step 3 : In the App.js inside src folder add two functions - one to load greeting message and another to load sayHello message. This is our graphql schema
 
 ```javascript
  type Query  {
