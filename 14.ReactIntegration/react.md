@@ -76,12 +76,11 @@ The response from server is as given below-
 
 ## Setting up the Client
 
-Open a new terminal for client . The server terminal should be
-kep running before executing client application. React application will be running in port no 3000 and server application on port no 9000.
+Open a new terminal for client . The server terminal should be kept running before executing the client application. React application will be running on port number 3000 and server application on port number 9000.
 
 ### Step 1: Create a react project hello-world-client
 
-In the client termianl type the following command .  
+In the client terminal type the following command .  
 
 `npx create-react-app hello-world-client`  
 
@@ -89,16 +88,16 @@ This will install everything needed for a typical react application. The **npx**
 
 ### Step 2 :Start hello-world-client
 
-Change the current folder path from terminal to hello-world-client and type `npm start` to launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page
+Change the current folder path in the terminal to hello-world-client. Type `npm start` to launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page
 
 This is shown in the screenshot given below:
 ![1_react_launch](https://user-images.githubusercontent.com/9062443/45262323-58718800-b432-11e8-89d9-daf6ed707f98.png)
 
 ### Step 3 : Modify the App Component
 
- In the App.js inside src folder add two functions - one to load greeting message and another to load sayHello message.
+ In the App.js inside src folder add two functions - one to load greeting and and another to load sayHello messages.
 
-Following is `loadGreeting` function which sends  GraphQL query for greeting.
+Following is the `loadGreeting` function which sends  GraphQL query for greeting.
 
 ```javascript
 
@@ -120,7 +119,7 @@ async function loadGreeting(){
 
 ```
 
-Following is `loadSayhello` function which sends  GraphQL query for `sayHello`.
+Following is the `loadSayhello` function which sends  GraphQL query for `sayHello`.
 
 ```javascript
 
@@ -243,6 +242,6 @@ export default App;
 
 ```
 
- Once both applications are running click on the greet button you will see the following output.After that enter a name on the following textbox and click on sayHello button. Output will be as below.
+Once both applications are running click on the greet button.After that enter a name in the textbox and click on sayHello button.  Output will be as given below.
 
 ![react-ouput](https://user-images.githubusercontent.com/9062443/44403682-b6692900-a572-11e8-883b-1c8d50eada16.png)
