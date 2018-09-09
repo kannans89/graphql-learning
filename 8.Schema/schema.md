@@ -6,7 +6,7 @@ A GraphQL schema is at the core of any GraphQL server implementation. It describ
 The GraphQL runtime defines a generic graph based schema to publish the capabilities of the data service it represents. Client applications an query the schema within its capabilities. This approach decouples clients from servers
 and allows both of them to evolve and scale independently.
 
-In this tutorial, we are using Apollo server for executing GraphQL queries. The makeExecutableSchema function in Apollo helps you to bind a schema and a resolvers. The syntax for using the makeExecutableSchema function is as given below-  
+In this tutorial, we are using Apollo server for executing GraphQL queries. The makeExecutableSchema function in graphql helps you to bind the schema and resolvers. The syntax for using the makeExecutableSchema function is as given below
 
 ## makeExecutableSchema Function Syntax
 
