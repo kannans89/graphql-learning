@@ -45,7 +45,7 @@ greeting:()=>{
 Let us create a simple application to understand resolver . This application will create schema for querying a student by Id from the server . The student data will be stored in a flat file and we will use a node module called notarealdb to fake a database and read from flat file .
 
 ### Step 1 : Download and Install required dependencies for the project  
-- Create a folder named **Resolver-app** .Change your directory to schema-app from the terminal.
+- Create a folder named **resolver-app** .Change your directory to **resolver-app** from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.
 
 ### Step 2: Create a schema
@@ -104,12 +104,10 @@ Note studentById takes in three parameters as discussed in this chapter , the st
 
 Here greeting , students ,studentById are the resolvers that handle the query .students resolver function returns a list of students from the data access layer.To access resolver functions outside the module Query object has to be exported using module.exports
 
-## Step 6: Run the application
-
-Step 4: Run the application
+## Step 4: Run the application
 Create a server.js file.Refer step 8 in the Environment Setup Chapter.
-Execute the command npm start in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url http://localhost:9000/graphiql.
-Type the following query in the editor.  
+Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
+Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.  
 
 ```javascript
 
