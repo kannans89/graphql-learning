@@ -16,40 +16,14 @@ mutation{
 
 Let us understand how one can add new student record into the datastore using a  mutation query.
 
-### Step 1: Create a project folder by the name mutation-app
+### Step 1: Download and Install required dependencies for the project 
 
-- Add a **package.json** file with following dependencies
-
-```javascript
-{
-  "name": "mutation-app",
-  "private": true,
-  "license": "MIT",
-  "scripts": {
-    "start": "nodemon --ignore data/ server.js"
-  },
-  "dependencies": {
-    "apollo-server-express": "^1.4.0",
-    "body-parser": "1.18.2",
-    "cors": "2.8.4",
-    "express": "4.16.3",
-    "graphql": "^0.13.2",
-    "graphql-tools": "^3.1.1",
-    "notarealdb": "0.2.2"
-  },
-  "devDependencies": {
-    "nodemon": "1.17.1"
-  }
-}
-
-
-```
-
-- use `npm install` to install all the dependencies.
+- Create a project folder by the name **mutation-app**.Change your directory to **mutation-app** from the terminal.  
+- Follow steps 3 to 5 explained in the Environment Setup chapter.
 
 ### Step 2: Create a **schema.graphql** file
 
-In the project folder, define a mutation type in this file as shown below
+Add schema.graphql file in the project folder mutation-app and add the following code
 
 ```javascript
 
@@ -61,51 +35,9 @@ In the project folder, define a mutation type in this file as shown below
 
 Note that the function returns a String type this will be the unique identifier(ID) which will be generated after creating a student.
 
-### Step 3: Create data access layer
+### Step 3: Create a resolver.js file
 
-- Create a folder **data** and add two files  students.json and colleges.json .Add some sample data as below in colleges.json
-
- ```javascript
- [
-    {
-      "id": "col-101",
-      "name": "AMU",
-      "location":"Mumbai",
-       "rating":5.0
-    },
-    {
-        "id": "col-102",
-        "name": "CUSAT",
-        "location": "Pune",
-        "rating":4.5
-      }
-  ]
-
-
-
- ```
-
-Using mutation query we will add new students in **students.json** file . The collegId should match with the data in colleges.json file.
-
-- Make a **db.js** file in project folder . Write code to access the files using notarealdb package
-
-  ```javascript
-  const { DataStore } = require('notarealdb');
-
-  const store = new DataStore('./data');
-
-  module.exports = {
-    students:store.collection('students'),
-    colleges:store.collection('colleges')
-  };
-
-  ```
-
-Create a DataStore object which will be pointing to the *data* folder where json files are kept. Export students and colleges as a collection .
-
-### Step 3:Create a resolver.js file
-
-In the mutation-app project folder.Add a resolver for the Mutation type . In mutation function we will point to students collection in the datastore . To add a new student invoke the create method in students collection as given below.
+Create a file resolvers.js in the project folder and add the following code.  
 
 ```javascript
  const db = require('./db')
@@ -122,49 +54,14 @@ In the mutation-app project folder.Add a resolver for the Mutation type . In mut
 
 module.exports = {Mutation}
 ```
+The mutation function points to students collection in the datastore . To add a new student invoke the create method in students collection. The *args* object will contain the parameters which are passed in the query.The create method of students collection will return the id of a newly created student object.
 
-The *args* object will contain the parameters which are passed in the query.The create method of students collection will return the id of newly created object.
+## Step 4: Run the application 
 
-## Step 6: Run the application
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter. 
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a       client to test the application.  
 
-- Create a  **server.js** and add the following code.
-
-```javascript
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const express = require('express');
-const db = require('./db');
-
-const port = 9000;
-const app = express();
-
-//loading type definitions from schema file
-const fs = require('fs')
-const typeDefs = fs.readFileSync('./schema.graphql',{encoding:'utf-8'})
-
-//loading resolvers
-const resolvers = require('./resolvers')
-
-//binding schema and resolver
-const {makeExecutableSchema}=require('graphql-tools')
-const schema = makeExecutableSchema({typeDefs , resolvers})
-
-//enabling cross domain calls and form post
-app.use(cors(), bodyParser.json());
-
-//enabling routes
-const  {graphiqlExpress,graphqlExpress} = require('apollo-server-express')
-app.use('/graphql',graphqlExpress({schema}))
-app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
-
-//registering port
-app.listen(port, () => console.info(`Server started on port ${port}`));
-
-```
-
-- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.
-
-- Open the browser and type the url `http://localhost:9000/graphiql` . Type the following query in the editor.
+Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.  
 
 ```javascript
 
@@ -188,10 +85,9 @@ The above query will create a student object in **student.json** file. The query
 
 ```
 
-To verify if the student object is created,since a student is created we can use the `studentById` query, you can also open the **students.json** file from **data** folder to verify the id.  
-To use `studentById`  query do the following
+To verify if the student object is created,since a student is created we can use the `studentById` query, you can also open the **students.json** file from **data** folder to verify the id. To use `studentById`  query do the following
 
-- edit schema as below
+- Edit the schema.graphql as given below
 
 ```javascript
 type Query {
@@ -210,7 +106,7 @@ type Student {
 
 ````
 
-- edit the resolver file as below.
+- Edit the resolver.js file as given below.
 
 ```javascript
 
@@ -222,7 +118,7 @@ type Student {
 
 ```
 
-This will be the query get student by the unique id returned from the mutation query.
+This will be the query to get student by the unique id returned from the mutation query.
 
 ```javascript
 {
@@ -234,7 +130,7 @@ This will be the query get student by the unique id returned from the mutation q
 
 ```
 
-response from server
+The response from server is given below-
 
 ```javascript
 
@@ -252,9 +148,9 @@ response from server
 
 ## Returning an Object in mutation
 
- Its a best practice to return an object in mutation.Say for example, the client application wants to fetch student and college details.In this case rather than making two different requests, we can create a query that returns and object that contains students and their college details.
+It is a best practice to return an object in mutation.Say for example, the client application wants to fetch student and college details.In this case rather than making two different requests, we can create a query that returns an object that contains students and their college details.
 
-step 1: add new method  named `addStudent_returns_object` in mutation type of **schema.graphql**
+### Step 1: Add a new method  named `addStudent_returns_object` in mutation type of **schema.graphql**
 
 ```javascript
 
@@ -267,7 +163,7 @@ step 1: add new method  named `addStudent_returns_object` in mutation type of **
 
 ```
 
-step 2: update the **resolvers.js** file as below
+### Step 2: Update the **resolvers.js** file as below
 
 ```javascript
 
@@ -295,7 +191,7 @@ step 2: update the **resolvers.js** file as below
 
 ```
 
-step 3: start the server and type the request query in GraphiQL
+### Step 3: Start the server and type the request query in GraphiQL
 
 ```javascript
 mutation {
@@ -311,7 +207,7 @@ mutation {
 
 ```
 
-response will be as below , this query add a new student as well as retrieves that object along with college object. so this saves round trips to the server
+The response will be as below , this query add a new student as well as retrieves that object along with college object. This saves round trips to the server
 
 ```javascript
   {
