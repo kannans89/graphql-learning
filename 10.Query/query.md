@@ -64,7 +64,7 @@ type Student {
 ```
 Note that there is no fullName field in the the students.json file. However, we need to fetch the fullname of the student via a query. The fullName, in this case will be a **custom field** that isn't available with the data source.  
 
-### Step 5: Create Resolver
+### Step 3: Create Resolver
 
 Create a file resolvers.js in the project folder and add the following code 
 
@@ -294,7 +294,7 @@ If a query has some dynamic values to be passed , then represent these dynamic v
 
 ### Illustration
 
-### Step1 : Edit schema file
+### Step 1 : Edit schema file
 
  Add a sayHello field which takes a string parameter and returns a string.The name values will be dynamic in client application.
 
@@ -306,7 +306,7 @@ If a query has some dynamic values to be passed , then represent these dynamic v
 
  ```
 
-### Step 2: Edit resolver file
+### Step 2: Edit resolver.js file
 
 Add a sayHello resolver which takes parameter as below .
 
