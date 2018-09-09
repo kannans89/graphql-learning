@@ -12,97 +12,80 @@ Start the hello-world app (refer chapter 1 for illustration) and type the  graph
 
 ![1_request_header](https://user-images.githubusercontent.com/9062443/44342005-4f327280-a4a7-11e8-87ff-8afd3bf3547e.png)
 
-From the simple hello world example we can understand that the http method used is **POST** .Now int the browser scroll down to the header section to view the *request payload* ,once you click on view code you will see following in request payload section of chrome .Also note the request url endpoint `http://localhost:9000/graphql` to be called from client application.
-
-**replace code with screenshot** 
+From the simple hello world example we can understand that the http method used is **POST** .Now in the browser scroll down to the header section to view the *request payload* .  
+Once you click on **view code** you will see following in request payload section of chrome .  
 
 ```javascript
   {"query":"{\n  greeting\n}","variables":null,"operationName":null}
 
 ```
 
-**mention the following as steps**  
+Also note the request url `http://localhost:9000/graphql` that should be called from client application.
 
-Following is the application's server.js file. The file has defined 2 queries namely `greeting`  and `sayHello`. Both these queries accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
+
+## Illustration
+
+## Setting up the Server 
+
+### Step 1 : Download and Install required dependencies for the project
+- Create a folder named **jquery-server-app** .Change your directory to schema-app from the terminal.
+- Follow steps 3 to 5 explained in the Environment Setup chapter.  
+
+### Step 2: Create a schema
+Add schema.graphql file in the project folder schema-app and add the following code  
+
+```javascript
+type Query 
+{
+   sayHello(name:String!):String   
+}
+
+```
+The file has defined a query `sayHello`. The query accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
+
+### Step 3 : Create Resolvers
+Create a file resolvers.js in the project folder and add the following code
 
 ```javascript
 
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const express = require('express')
-const port = 9000
-const app = express()
-app.use(bodyParser.json() , cors())
+const Query = 
+{
+   sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!` 
 
-const typeDefinition = `
-type Query  {
-    greeting: String
-    sayHello(name:String!):String
-}`
-
-const  resolverObject = {
-   Query : {
-       greeting: () => 'Hello GraphQL  From TutorialsPoint !!' ,
-       sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!`
-
-
-   }
 }
-const {makeExecutableSchema} = require('graphql-tools')
-const schema = makeExecutableSchema({typeDefs:typeDefinition , resolvers:resolverObject})
-const {graphqlExpress,graphiqlExpress} = require('apollo-server-express')
-app.use('/graphql',graphqlExpress({schema}))
-app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
-app.listen(port , ()=> console.log(`server is up and running ${port}`))
 
-
-
+module.exports = {Query}
 
 ```
-**not required**
-following is the package.json
+Here the `sayHello` resolver function handles the query . The value passed to the name parameter is stored in `args`.To access resolver functions outside the module Query object has to be exported using module.exports
+
+### Step 4: Run the application
+-  Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.
 
 ```javascript
 {
-    "name": "hello-world-server",
-    "private": true,
-    "dependencies": {
-        "apollo-server-express": "^1.4.0",
-        "body-parser": "^1.18.3",
-        "cors": "^2.8.4",
-        "express": "^4.16.3",
-        "graphql": "^0.13.2",
-        "graphql-tools": "^3.1.1"
-    }
-}
-
-
-```
-
-sample request from grpahiql is given below
-
-```javascript
-{
-  greeting,
-  sayHello(name:"Mohtashim")
+   sayHello(name:"Mohtashim")
 }
 
 ```
 
-response from server
+The response from server is as given below-
 
 ```javascript
 {
   "data": {
-    "greeting": "Hello GraphQL  From TutorialsPoint !!",
     "sayHello": "Hi Mohtashim GraphQL server says Hello to you!!"
   }
 }
 
 ```
 
-We will create a client application in jquery and invoke both the methods.
-Following is the html page **index.html** for jquery integration.
+## Setting up the Client
+
+### Step 1: Create a new folder **jquery-client-app** outside the current project folder.
+### Step 2: Create an html page **index.html** for jquery integration.
+We will create a client application in jquery and invoke both the methods. Following is the code for **index.html** file.
 
 ```javascript
 <!DOCTYPE html>
