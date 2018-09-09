@@ -32,11 +32,12 @@ Also note the request url `http://localhost:9000/graphql` that should be called 
 - Follow steps 3 to 5 explained in the Environment Setup chapter.  
 
 ### Step 2: Create a schema
-Add schema.graphql file in the project folder schema-app and add the following code  
+Add schema.graphql file in the project folder jquery-server-app and add the following code  
 
 ```javascript
 type Query 
 {
+    greeting: String
    sayHello(name:String!):String   
 }
 
@@ -50,6 +51,7 @@ Create a file resolvers.js in the project folder and add the following code
 
 const Query = 
 {
+   greeting: () => 'Hello GraphQL  From TutorialsPoint !!' ,
    sayHello:(root,args,context,info)=> `Hi ${args.name} GraphQL server says Hello to you!!` 
 
 }
@@ -57,7 +59,7 @@ const Query =
 module.exports = {Query}
 
 ```
-Here the `sayHello` resolver function handles the query . The value passed to the name parameter is stored in `args`.To access resolver functions outside the module Query object has to be exported using module.exports
+Here `greeting` and `sayHello` are two resolvers .In `sayHello` resolver the value passed to the name parameter can be accessed through `args`.To access resolver functions outside the module Query object has to be exported using module.exports
 
 ### Step 4: Run the application
 -  Create a server.js file.Refer step 8 in the Environment Setup Chapter.
@@ -65,6 +67,7 @@ Here the `sayHello` resolver function handles the query . The value passed to th
 
 ```javascript
 {
+   greeting,
    sayHello(name:"Mohtashim")
 }
 
@@ -75,6 +78,7 @@ The response from server is as given below-
 ```javascript
 {
   "data": {
+    "greeting": "Hello GraphQL  From TutorialsPoint !!",
     "sayHello": "Hi Mohtashim GraphQL server says Hello to you!!"
   }
 }
@@ -86,6 +90,8 @@ The response from server is as given below-
 ### Step 1: Create a new folder **jquery-client-app** outside the current project folder.
 ### Step 2: Create an html page **index.html** for jquery integration.
 We will create a client application in jquery and invoke both the methods. Following is the code for **index.html** file.
+In the view page we are making to requests to the server on Greet button click and another on SayHello button click. We wil make
+async request using `$.ajax()` function. 
 
 ```javascript
 <!DOCTYPE html>
