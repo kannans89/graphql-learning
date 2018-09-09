@@ -43,7 +43,7 @@ type Query
 
 ```
 
-The file has defined a query `sayHello`. The query accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
+The file has defined two queries `greeting` and `sayHello`. The `sayHello` query accepts a string parameter returns another string.The parameter to the `sayHello()` function is not null.
 
 ### Step 3 : Create Resolvers
 
@@ -97,8 +97,7 @@ The response from server is as given below-
 ### Step 2: Create an html page **index.html** for JQuery integration
 
 We will create a client application in jquery and invoke both the methods. Following is the code for **index.html** file.
-In the view page we are making to requests to the server on Greet button click and another on SayHello button click. We wil make
-async request using `$.ajax()` function.
+The **index.html** page sends requests to the server when the buttons Greet and SayHello are clicked. We will make asynchronous request using `$.ajax()` function.
 
 ```javascript
 <!DOCTYPE html>
@@ -178,5 +177,5 @@ query:`{greeting}`
 
 ```
 
-Open this file in the browser and click on the button to see the response.Ouput will look as below
+Open this file in the browser and click on the button to see the response. The output will be as given below
 ![2_jquery_output](https://user-images.githubusercontent.com/9062443/44388206-2791e780-a545-11e8-9df6-20fc55625ac7.png)
