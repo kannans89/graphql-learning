@@ -1,5 +1,5 @@
 
-# Apollo ClientF
+# Apollo Client
 
 We have used Apollo Server to build graphql specification on server side.It is quick and easy to build production ready GraphQL server.Now let us look at the client side.
 
