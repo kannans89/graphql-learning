@@ -88,9 +88,10 @@ app.post('/login', (req, res) => {
 
 ```
 
-- For every request,the `app.use()` function will be calle verify whether the request contains the JWT token. This function will decode the token. This decoded value can be accessed globaly by using the `req.user`.
+- For every request,the `app.use()` function will be called.This in turn will invoke the expressJWT middleware. This middleware will decode the JSON Web Token. User id stored in the token will be retrieved and stored as a property `user` in the request object.
 
 ```javascript
+//decodes the JWT and stores in request object
 app.use(expressJwt({
   secret: jwtSecret,
   credentialsRequired: false
@@ -99,9 +100,10 @@ app.use(expressJwt({
 
 ```
 
-In the server.js for every `/graphql` request we are adding a context object as shown below.  In the context we will pass the user object which is authenticated by JWT token.
+- To make available,the user property within GraphQL context,this property is assigned to the **context** object as shown below.
 
 ```javascript
+//Make req.user available to GraphQL context
 app.use('/graphql', graphqlExpress((req) => ({
   schema,
   context: {user: req.user && db.students.get(req.user.sub)}
@@ -204,15 +206,15 @@ The response is as shown below , since we have not authenticated we will get err
 
 ## Setting up the Jquery client
 
-In the client application a greet button is provided which will invoke the schema `greetingWithAuth` , if you click the button without login , it will give you the error message as below .
+- In the client application a greet button is provided which will invoke the schema `greetingWithAuth` , if you click the button without login , it will give you the error message as below .
 
-![jQuery clientUI](https://user-images.githubusercontent.com/9062443/44637227-a5367700-a9cd-11e8-91eb-79ff28e0673d.png)
+![jQuery clientUI](https://user-images.githubusercontent.com/9062443/44637227-a5367700-a9cd-11e8-91eb-79ff28e0673d.png)  
 
-Once you login with a user available in database the following screen will appear
+- Once you login with a user available in database the following screen will appear  
 
-![3_jquery_app](https://user-images.githubusercontent.com/9062443/44637611-d3b55180-a9cf-11e8-964c-518015d0c117.png)
+![3_jquery_app](https://user-images.githubusercontent.com/9062443/44637611-d3b55180-a9cf-11e8-964c-518015d0c117.png)  
 
-So for accessing greeting we need to first access `http://localhost:9000/login` route as below , the response will contain the token generated from server.
+So for accessing greeting we need to first access `http://localhost:9000/login` route as below , the response will contain the token generated from server.  
 
 ```javascript
 
@@ -234,7 +236,7 @@ So for accessing greeting we need to first access `http://localhost:9000/login` 
 
 ```
 
-after login successfulyy we can access `greetingWithAuth` schema as given  below , there should be a `Authorization` for all subsequent request with `bearer` token.
+- After login successfully we can access `greetingWithAuth` schema as given  below , there should be a `Authorization` header for all subsequent request with `bearer` token.
 
 ```javascript
 
@@ -247,7 +249,7 @@ after login successfulyy we can access `greetingWithAuth` schema as given  below
 
 ```
 
-following is index.html
+Following is index.html
 
 ```javascript
 
