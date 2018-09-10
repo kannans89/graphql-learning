@@ -34,8 +34,7 @@ type Query
 
 ### Step 3: Add Resolvers  
 
-Create a file resolvers.js in the project folder and add the following code  
-
+Create a file resolvers.js in the project folder and add the following code . The resolver will verify if an authenticated user object is available in the context object of GraphQL. It will raise an exception if an authenticated  user is not available. 
 ```javascript
 
 const db = require('./db')
@@ -43,6 +42,7 @@ const db = require('./db')
 const Query = {
     greetingWithAuth:(root,args,context,info)=>{
 
+//check if the context.user is null
         if (!context.user) {
             throw new Error('Unauthorized');
           }
