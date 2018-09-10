@@ -2,17 +2,13 @@
 
 Caching is the process of storing data in a temporary storage area called *cache*. When you return to a page you've recently visited, the browser can get those files from the cache rather than the original server. This saves your time and the network from the burden of additional traffic.  
 
+Client applications interacting with GraphQL are responsible for caching data at their end.One possible pattern for this is reserving a field, like `id`, to be a globally unique identifier.  
+
 ## InMemory Cache
 
- InMemoryCache is a normalized data store that supports all of Apollo Client  features without the dependency on third party javascript library like Redux. In some instances, you may need to manipulate the cache directly, such as updating the store after a mutation.**use of inmemory cache**
+ InMemoryCache is a normalized data store commonly used in GraphQL client applications without use of other library like Redux.
 
- To install InMemory cache  into reactjs application we can install apollo-boost package.
-
- ```javascript
-   npm install apollo-boost
- ```
-
- The apollo-boost package comes with apollo client and the caching library . The sample code to use InMemoryCache with ApolloClient is given below.
+  The sample code to use InMemoryCache with ApolloClient is given below.
 
  ```javascript
 
@@ -37,8 +33,9 @@ Caching is the process of storing data in a temporary storage area called *cache
 
 ## Illustration
 
-Client applications interacting with GraphQL are responsible for caching data at their end.One possible pattern for this is reserving a field, like `id`, to be a globally unique identifier.
-We will create a single page application in ReactJS with two tabs one for the home tab and another for students.The students tab will load data from a GraphQL server API. The application will query for students data when the user navigates from the home tab to the students tab. The resulting data will be cached by the application. We will also query the server time using `getTime` field to verify if the page is cached.If data is returned from the cache, the page will display the time of the very first request sent to the server. If the data is a result of a fresh request made to the sever, it will always show the latest time from server.
+We will create a single page application in ReactJS with two tabs one for the home tab and another for students.The students tab will load data from a GraphQL server API. The application will query for students data when the user navigates from the home tab to the students tab. The resulting data will be cached by the application.  
+
+ We will also query the server time using `getTime` field to verify if the page is cached.If data is returned from the cache,the page will display the time of the very first request sent to the server. If the data is a result of a fresh request made to the sever, it will always show the latest time from server.
 
 ## Setting up the server
 
@@ -130,7 +127,7 @@ sample response shows the students and the server time.
 }
 ```
 
-## Setting up the Client  
+## Setting up the ReactJS Client  
 
 Open a new terminal for client . The server terminal should be kept running before executing the client application. React application will be running on port number 3000 and server application on port number 9000.  
 
@@ -174,14 +171,67 @@ We can clearly see that apollo-client library installed.
 
 ### Step 4 : Modify the App Component in index.js file
 
-### Step 1: Create client application using crateReactApp utility
+For simplicity of react application you only need to keep the index.js in src folder and index.html in public folder all other files auto generated can be removed . Directory structure is given below.
 
-### Step 2: Install apollo boost
+```javascript
+hello-world-client /
 
-### Step 3: Create Component Students
+      -->node_modules
+      -->public
+           index.html
+       -->src
+           index.js
+           students.js
+      -->package.json
 
-  Add a function which query for students , time form server
-Here we use a gql function to parse the query .
+```
+
+In the App Component we are using a HashRouter . Student details are fetched through a Student Component.
+
+Following is the **index.js** in react application.
+
+```javascript
+import React ,{Component} from 'react';
+import ReactDOM from 'react-dom';
+import {HashRouter,Route , Link} from 'react-router-dom'
+//components
+import Students from './students'
+
+class App extends Component {
+    render(){
+        return(
+            <div><h1>Home !!</h1>
+             <h2>Welcome to React Application !! </h2>
+            </div>
+        )
+    }
+}
+
+function getTime(){
+    var d =new Date();
+    return d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()
+}
+
+const routes = <HashRouter>
+             <div>
+                <h4>Time from react app:{getTime()}</h4>
+                 <header>
+                <h1>  <Link to="/">Home</Link>&ensp;
+                  <Link to="/students">Students</Link>&ensp; </h1>
+                </header>
+                    <Route exact path="/students" component={Students}></Route>
+                    <Route exact path="/" component={App}></Route>
+              </div>
+
+              </HashRouter>
+
+ReactDOM.render(routes, document.querySelector("#root"))
+
+```
+
+### Step 5: Create Component Students
+
+  Add a function `loadWithApolloclient` which query for students and  time from server .Here we use a gql function to parse the query .
 
   ```javascript
     async loadWithApolloclient(){
@@ -200,8 +250,7 @@ Here we use a gql function to parse the query .
 
   ````
 
-In the construcotr of StudentsComponent call the loadWithApolloClient method. The complete Student.js file is
-below
+In the constructor of StudentsComponent call the loadWithApolloClient method. The complete **Student.js** file is below
 
 ```graphql
 
@@ -299,52 +348,7 @@ export default Students
 
 ````
 
-The app component is given below . This  code placed in index.js file
-
-```graphql
-
-import React ,{Component} from 'react';
-import ReactDOM from 'react-dom';
-import {HashRouter,Route , Link} from 'react-router-dom'
-
-
-
-
-//components
-
- import Students from './components/students'
-
-class App extends Component {
-    render(){
-        return(
-            <div><h1>Home !!</h1>
-             <h2>Welcome to React Application !! </h2>
-            </div>
-        )
-    }
-}
-
-function getTime(){
-    var d =new Date();
-    return d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()
-}
-
-const routes = <HashRouter>
-             <div>
-                <h4>Time from react app:{getTime()}</h4>
-                 <header>
-                <h1>  <Link to="/">Home</Link>&ensp;
-                  <Link to="/students">Students</Link>&ensp; </h1>
-                </header>
-                    <Route exact path="/students" component={Students}></Route>
-                    <Route exact path="/" component={App}></Route>
-              </div>
-              </HashRouter>
-ReactDOM.render(routes, document.querySelector("#root"))
-
-```
-
-### Step 4: Run the react application with npm start
+### Step 6: Run the react application with npm start
 
  You can test the react application from  by switching from home tab to students tab. Once the students tab is loaded with data from server.It will cache the data.You can test it by switching from home and students multiple times. The output will be as shown below.
 
@@ -353,7 +357,7 @@ ReactDOM.render(routes, document.querySelector("#root"))
  If you have loaded the students page first by typing url `http://localhost:3000/#/students` you can see the react app loaded time and GraphQL load time would be approximately same . After that
  if you switch to home view and return back the GraphQL server time will not change. This shows the data is cached.
 
-### Step 5: Change loadWithApolloclient call to loadStudents_noCache
+### Step 7: Change loadWithApolloclient call to loadStudents_noCache
 
  If you change the load method to loadStudents_noCache in constructor of StudentComponent,
  the output will not cache the data. This way you can see the difference between caching and non caching.
