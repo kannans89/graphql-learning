@@ -11,8 +11,8 @@ This tutorial will introduce you to the fundamental concepts of  GraphQL. In thi
 
 # Audience
 
-This tutorial has been created for  developers who worked on client-server javascript applications. After completing this tutorial, you will be able to build moderately complex GraphQL APIs for you mobile,web applications.
+This tutorial is created for developers who have worked on JavaScript applications based on Client-Server architecture. After completing this tutorial, you will be able to build moderately complex GraphQL APIs for mobile and web applications.
 
 # Prerequisites
 
- This course is based on nodejs and express . So if you have basic understanding of nodejs  then it will be fun to learn GraphQL. For frontend integration of GraphQL we will be using ReactJs and Jquery .Illustrations in this tutorial uses EcmaScript 6(ES6) syntax . So  any knowledge in these areas can be helpful.
+ This course is based on NodeJs and Express . So if you have a basic understanding of NodeJS  then it will be easy to learn GraphQL. For frontend integration of GraphQL we will be using ReactJs and Jquery .Illustrations in this tutorial uses EcmaScript 6(ES6) syntax . So  any knowledge in these areas can be helpful.
