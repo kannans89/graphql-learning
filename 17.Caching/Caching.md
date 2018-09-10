@@ -186,7 +186,7 @@ hello-world-client /
 
 ```
 
-In the App Component we are using a HashRouter . Student details are fetched through a Student Component.
+Add additional file students.js which will contain Students Component . Student details are fetched through the Student Component. In the App Component we are using a HashRouter.
 
 Following is the **index.js** in react application.
 
@@ -229,7 +229,11 @@ ReactDOM.render(routes, document.querySelector("#root"))
 
 ```
 
-### Step 5: Create Component Students
+### Step 5: Edit Component Students in Students.js
+
+ In Students Component we will use two approaches to load data .
+  1. Fetch API (loadStudents_noCache)
+  2. Apollo Client (loadWithApolloclient)
 
   Add a function `loadWithApolloclient` which query for students and  time from server .Here we use a gql function to parse the query .
 
@@ -250,7 +254,33 @@ ReactDOM.render(routes, document.querySelector("#root"))
 
   ````
 
-In the constructor of StudentsComponent call the loadWithApolloClient method. The complete **Student.js** file is below
+ The Fetch API is a simple interface for fetching resources. Fetch makes it easier to make web requests and handle responses than with the older XMLHttpRequest.
+  Following method shows loading data directly using fetch api.
+
+ ```graphql
+
+  async  loadStudents_noCache(){
+        const response=await fetch('http://localhost:9000/graphql', {
+          method:'POST',
+          headers:{'content-type':'application/json'},
+          body:JSON.stringify({query:`{
+            getTime
+            students {
+                id
+              firstName
+            }
+          }`})
+        })
+
+        const rsponseBody= await response.json();
+        return rsponseBody.data;
+    }
+
+
+ ```
+
+In the constructor of StudentsComponent call the loadWithApolloClient method.
+The complete **Student.js** file is below
 
 ```graphql
 
