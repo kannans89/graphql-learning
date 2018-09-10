@@ -37,16 +37,17 @@ Caching is the process of storing data in a temporary storage area called *cache
 
 ## Illustration
 
-Client applications interacting with GraphQL are responsible for caching data at their end.One possible pattern for this is reserving a field, like `id`, to be a globally unique identifier.   
+Client applications interacting with GraphQL are responsible for caching data at their end.One possible pattern for this is reserving a field, like `id`, to be a globally unique identifier.
 We will create a single page application in ReactJS with two tabs one for the home tab and another for students.The students tab will load data from a GraphQL server API. The application will query for students data when the user navigates from the home tab to the students tab. The resulting data will be cached by the application. We will also query the server time using `getTime` field to verify if the page is cached.If data is returned from the cache, the page will display the time of the very first request sent to the server. If the data is a result of a fresh request made to the sever, it will always show the latest time from server.
 
 ## Setting up the server
 
 ## Step 1 : Download and Install required dependencies for the project
+
 - Create a folder **cache-server-app**.Change your directory to **cache-server-app** from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.
- 
- ## Step 2: Create a schema
+
+## Step 2: Create a schema
 
 Add schema.graphql file in the project folder cache-server-app and add the following code
 
@@ -72,34 +73,30 @@ type Student {
 Create a file resolvers.js in the project folder and add the following code-
 
  ```javascript
- 
+
 const db = require('./db')
+
 const Query = {
-    
     students:()=>db.students.list(),
      getTime:()=>{
         const today = new Date();
-        
-
         var h = today.getHours();
         var m = today.getMinutes();
         var s = today.getSeconds();
-        
         return `${h}:${m}:${s}`;
-
     }
-
 }
+ ```
 
- ``` 
- 
 ## Step 4: Run the application
-- Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter
+
 - Execute the command npm start in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client   to test the application.
- Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.
- 
- ```javascript
- 
+ Open browser and type the url `http://localhost:9000/graphiql` Type the following query in the editor.
+
+```javascript
+
   {
             getTime
             students {
@@ -107,16 +104,38 @@ const Query = {
               firstName
             }
           }
-          
  ```
- **Add response** 
- 
+
+sample response shows the students and the server time.
+
+```javascript
+{
+  "data": {
+    "getTime": "22:18:42",
+    "students": [
+      {
+        "id": "S1001",
+        "firstName": "Mohtashim"
+      },
+      {
+        "id": "S1002",
+        "firstName": "Kannan"
+      },
+      {
+        "id": "S1003",
+        "firstName": "Kiran"
+      }
+    ]
+  }
+}
+```
 
 ## Setting up the Client  
 
 Open a new terminal for client . The server terminal should be kept running before executing the client application. React application will be running on port number 3000 and server application on port number 9000.  
 
 ### Step 1: Create a react application
+
 In the client terminal type the following command
 
 `npx create-react-app hello-world-client`
@@ -124,6 +143,7 @@ In the client terminal type the following command
 This will install everything needed for a typical react application. The npx utility and create-react-app tool creates a project with name hello-world-client.Once the installation is completed open the project in VSCode.  
 
 ### Step 2 :Start hello-world-client  
+
 Change the current folder path in the terminal to hello-world-client. Type `npm start` to launch the project.This will run a development server at port 3000 and will automatically open the browser and load the index page
 This is shown in the screenshot given below:  
 
@@ -132,13 +152,14 @@ This is shown in the screenshot given below:
 ### Step 3 :Install apollo client libraries
 
 To install an apollo client open a new terminal and be in current project folder path .Type following command.  
+
 ```javascript
 npm install apollo-boost graphql
 ```
+
 This will download the graphql libraries for client side and also the apollo boost package.We can cross verify this by typing `npm view apollo-boost dependencies`.This will have many dependencies as shown below-  
 
 ```javascript
-
 { 'apollo-cache': '^1.1.15',
   'apollo-cache-inmemory': '^1.2.8',
   'apollo-client': '^2.4.0',
@@ -147,18 +168,11 @@ This will download the graphql libraries for client side and also the apollo boo
   'apollo-link-http': '^1.3.1',
   'apollo-link-state': '^0.4.0',
   'graphql-tag': '^2.4.2' }
-  
 ```
+
 We can clearly see that apollo-client library installed.
 
 ### Step 4 : Modify the App Component in index.js file
-
-
-
-
-
-
-
 
 ### Step 1: Create client application using crateReactApp utility
 
@@ -189,7 +203,7 @@ Here we use a gql function to parse the query .
 In the construcotr of StudentsComponent call the loadWithApolloClient method. The complete Student.js file is
 below
 
-```javascript
+```graphql
 
 
 import React ,{Component} from 'react';
@@ -208,21 +222,18 @@ const client = new ApolloClient({
 
 class Students extends Component {
 
-    
     constructor(props){
         super(props);
         this.state={
             students:[{id:00,firstName:'test'}],
             serverTime:''
         }
-        
         this.loadWithApolloclient().then(data=>{
             this.setState({
                 students:data.students,
                 serverTime:data.getTime
             })
         })
-        
     }
 
      async  loadStudents_noCache(){
@@ -236,16 +247,13 @@ class Students extends Component {
               firstName
             }
           }`})
-      
         })
 
         const rsponseBody= await response.json();
         return rsponseBody.data;
-
     }
 
     async loadWithApolloclient(){
-    
         console.log("inside apollo client function")
          const query =gql`{
             getTime
@@ -270,11 +278,10 @@ class Students extends Component {
                    <ul>
                {
                  this.state.students.map(s=>{
-                    return( 
-                    <li key={s.id}> 
+                    return(
+                    <li key={s.id}>
                    {s.firstName}
                      </li>
-                    
                     )
                  })
                }
@@ -294,7 +301,7 @@ export default Students
 
 The app component is given below . This  code placed in index.js file
 
-```javascript
+```graphql
 
 import React ,{Component} from 'react';
 import ReactDOM from 'react-dom';
@@ -306,13 +313,8 @@ import {HashRouter,Route , Link} from 'react-router-dom'
 //components
 
  import Students from './components/students'
- 
-
 
 class App extends Component {
-    
-    
-    
     render(){
         return(
             <div><h1>Home !!</h1>
@@ -331,20 +333,14 @@ const routes = <HashRouter>
              <div>
                 <h4>Time from react app:{getTime()}</h4>
                  <header>
-                     
                 <h1>  <Link to="/">Home</Link>&ensp;
                   <Link to="/students">Students</Link>&ensp; </h1>
                 </header>
                     <Route exact path="/students" component={Students}></Route>
                     <Route exact path="/" component={App}></Route>
               </div>
-
               </HashRouter>
-
 ReactDOM.render(routes, document.querySelector("#root"))
-
-
-
 
 ```
 
@@ -355,7 +351,7 @@ ReactDOM.render(routes, document.querySelector("#root"))
  ![2_caching_stduents](https://user-images.githubusercontent.com/9062443/45249007-5aeeb780-b336-11e8-8f1d-37586b7b2266.png)
 
  If you have loaded the students page first by typing url `http://localhost:3000/#/students` you can see the react app loaded time and GraphQL load time would be approximately same . After that
- if you swtich to home view and return back the GraphQL server time will not change. This shows the data is cached.
+ if you switch to home view and return back the GraphQL server time will not change. This shows the data is cached.
 
 ### Step 5: Change loadWithApolloclient call to loadStudents_noCache
 
