@@ -232,10 +232,10 @@ ReactDOM.render(routes, document.querySelector("#root"))
 ### Step 5: Edit Component Students in Students.js
 
  In Students Component we will use two approaches to load data .
-  1. Fetch API (loadStudents_noCache)
-  2. Apollo Client (loadWithApolloclient)
+  1. Fetch API (loadStudents_noCache) - This will trigger a new request everytime the clicks the student tab.
+  2. Apollo Client (loadWithApolloclient)- This will fetch data from the cache.
 
-  Add a function `loadWithApolloclient` which query for students and  time from server .Here we use a gql function to parse the query .
+  Add a function `loadWithApolloclient` which query for students and  time from server .This function will enable caching.Here we use a gql function to parse the query .
 
   ```javascript
     async loadWithApolloclient(){
