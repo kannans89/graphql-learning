@@ -7,7 +7,7 @@ Consider an application using client server architecture. We can build a front e
 
 To integrate GraphQL with JQuery,let us inspect the GraphiQL request headers and understand the request parameters.  
 
-Start the hello-world app (refer chapter 1 for illustration).Type the  graphql query `{greeting}` in the GraphiQL window . Right click and inspect or (ctrl+shift+I) on chrome , go to the network tab as shown below
+Start the hello-world app (refer chapter 6 for illustration).Type the  graphql query `{greeting}` in the GraphiQL window . Right click and inspect or (ctrl+shift+I) on chrome , go to the network tab as shown below
 
 ![1_request_header](https://user-images.githubusercontent.com/9062443/44342005-4f327280-a4a7-11e8-87ff-8afd3bf3547e.png)
 
