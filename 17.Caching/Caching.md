@@ -310,7 +310,7 @@ class Students extends Component {
     constructor(props){
         super(props);
         this.state={
-            students:[{id:00,firstName:'test'}],
+            students:[{id:1,firstName:'test'}],
             serverTime:''
         }
         this.loadWithApolloclient().then(data=>{
