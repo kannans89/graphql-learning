@@ -83,6 +83,8 @@ const Query = {
         return `${h}:${m}:${s}`;
     }
 }
+
+module.exports = {Query}
  ```
 
 ## Step 4: Run the application
@@ -95,12 +97,12 @@ const Query = {
 ```javascript
 
   {
-            getTime
+    getTime
             students {
                 id
               firstName
-            }
           }
+  }
  ```
 
 sample response shows the students and the server time.
@@ -137,7 +139,10 @@ In the client terminal type the following command
 
 `npx create-react-app hello-world-client`
 
-This will install everything needed for a typical react application. The npx utility and create-react-app tool creates a project with name hello-world-client.Once the installation is completed open the project in VSCode.  
+- This will install everything needed for a typical react application. The npx utility and create-react-app tool creates a project with name hello-world-client.Once the installation is completed open the project in VSCode.  
+
+- Install router modules for react using following command
+ `npm install react-router-dom`
 
 ### Step 2 :Start hello-world-client  
 
@@ -152,6 +157,7 @@ To install an apollo client open a new terminal and be in current project folder
 
 ```javascript
 npm install apollo-boost graphql
+
 ```
 
 This will download the graphql libraries for client side and also the apollo boost package.We can cross verify this by typing `npm view apollo-boost dependencies`.This will have many dependencies as shown below-  
