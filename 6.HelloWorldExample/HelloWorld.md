@@ -8,7 +8,7 @@ You will learn to put together all the concepts together .
 
 ExpressJS is a web application framework that helps you build websites, web applications.In this example,we will build a GraphQL API on top of the Express framework.
 
-a. Create a folder **hello-world-server** .Add a **package.json** , and give a name to the package . Since we this package will be used internally we shall declare it private.
+a. Create a folder **hello-world-server** navigate to the same folder from terminal.Add a **package.json** , and give a name to the package . Since this package will be used internally we shall declare it private.
 
 ```javascript
 {
@@ -17,11 +17,9 @@ a. Create a folder **hello-world-server** .Add a **package.json** , and give a n
 }
 ```
 
-b. Open the terminal.Change the directory to **hello-world-server**.Install the dependencies for Express server
+b. Install the dependencies for Express server as shown
 
 ```javascript
-C:\Users\Admin>mkdir hello-world-server
-C:\Users\Admin>cd hello-world-server
 C:\Users\Admin\hello-world-server>npm install express body-parser cors
 
 ```
@@ -66,15 +64,16 @@ To stop the server press *ctr+c*.
 Now that Express is configured , the next step will be to download the following GraphQL dependencies-
 a.  graphql
 b. graphql-tools
-c. apollo-server-express@1 modules 
-We shall use Apollo server v1.0 as it is a stable release 
+c. apollo-server-express@1 modules
+We shall use Apollo server v1.0 as it is a stable release
 Type the following commands to install this dependencies.
 
 ```javascript
  C:\Users\Admin\hello-world-server>npm install graphql graphql-tools apollo-server-express@1
 ```
 
-We can verify if these dependencies are installed successfully by checking the **package.json** file that we created previously. 
+We can verify if these dependencies are installed successfully by checking the **package.json** file that we created previously.
+
 ```javascript
 {
     "name": "hello-world-server",
@@ -106,7 +105,6 @@ A GraphQL schema defines what kind of object can be fetched from a service, and 
   `
 ```
 
-
 Here, the query contains a `greeting` attribute that returns a `string` value.
 
 ## Step 4: Create a  Resolver
@@ -133,6 +131,7 @@ b. Bind the schema and resolver using `makeExecutableSchema`. This function is p
 ```
 
 ## Step 4: Define routes to fetch data from ReactJS / GraphiQL application
+
 Add the following code snippet in the **server.js** file.
 
 ```javascript
@@ -146,9 +145,7 @@ Add the following code snippet in the **server.js** file.
 
 The `graphqlExpress` function helps to register the route `http://localhost:9000/graphql`. The ReactJS application can use this endpoint to query data. Similarly, the `graphqliExpress` function helps to register the route `http://localhost:9000/graphiql`. This will be used by the GraphiQL browser client to test the API.
 
- 
- 
- The complete **server.js** code is as given below
+The complete **server.js** code is as given below
 
 ```javascript
 
@@ -186,7 +183,7 @@ Execute **server.js** using Node.js .
 C:\Users\Admin\hello-world-server>node server.js
 ```
 
-## Step 6: Test the GraphQL API.
+## Step 6: Test the GraphQL API
 
 Open the  browser and type `http://localhost:9000/graphiql`
 
@@ -211,6 +208,8 @@ The response from the server is given below.
 
 ```
 
-The following image illustrates the same. 
+The following image illustrates the response
 
 !["graphiql"](https://user-images.githubusercontent.com/9062443/44010356-80865618-9ecf-11e8-8297-fe947766a200.png "graphql")
+
+*note*: please ensure apollo server version 1.0 is used

@@ -26,14 +26,17 @@ Let us understand how one can add new student record into the datastore using a 
 Add schema.graphql file in the project folder mutation-app and add the following code
 
 ```javascript
-
-  type Mutation {
-    createStudent(collegeId:ID,firstName:String,lastName:String):String
+type Query {
+  greeting:String
 }
 
+type Mutation {
+    createStudent(collegeId:ID,firstName:String,lastName:String):String
+}
+  
 ```
 
-Note that the function returns a String type this will be the unique identifier(ID) which will be generated after creating a student.
+Note that the function createStudent returns a String type this will be the unique identifier(ID) which will be generated after creating a student.
 
 ### Step 3: Create a resolver.js file
 
@@ -52,7 +55,12 @@ Create a file resolvers.js in the project folder and add the following code.
 
 }
 
-module.exports = {Mutation}
+
+const Query = {
+  greeting:()=>"hello"
+}
+
+module.exports = {Query,Mutation}
 ```
 
 The mutation function points to students collection in the datastore . To add a new student invoke the create method in students collection. The *args* object will contain the parameters which are passed in the query.The create method of students collection will return the id of a newly created student object.
@@ -137,7 +145,8 @@ This will be the query to get student by the unique id returned from the mutatio
 {
     studentById(id:"SkQtxYBUm"){
     id
-    fullName
+    firstName
+    lastName
   }
 }
 
@@ -151,7 +160,8 @@ The response from server is given below-
   "data": {
     "studentById": {
       "id": "SkQtxYBUm",
-      "fullName": "Tim:John"
+      "firstName": "Tim",
+      "lastName":"George"
     }
   }
 }
@@ -170,8 +180,7 @@ Add a new method  named `addStudent_returns_object` in mutation type of **schema
 ```javascript
 
  type Mutation {
-  //new method
-  addStudent_returns_object(collegeId:ID,firstName:String,lastName:String):Student
+   addStudent_returns_object(collegeId:ID,firstName:String,lastName:String):Student
 
   createStudent(collegeId:ID,firstName:String,lastName:String):String
 }
@@ -188,7 +197,6 @@ type Student {
     id:ID!
     firstName:String
     lastName:String
-    fullName:String
     college:College
 }
 
@@ -235,7 +243,7 @@ module.exports = {Query,Student,Mutation}
 mutation {
   addStudent_returns_object(collegeId:"col-101",firstName:"Susan",lastName:"George"){
     id
-    fullName
+    firstName
     college{
       id
       name
@@ -252,7 +260,7 @@ The response will be as below , this query add a new student as well as retrieve
   "data": {
     "addStudent_returns_object": {
       "id": "rklUl08IX",
-      "fullName": "Susan:George",
+      "firstName": "Susan",
       "college": {
         "id": "col-101",
         "name": "AMU"

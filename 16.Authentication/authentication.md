@@ -3,7 +3,7 @@
 
 Authentication is the process or action of verifying the identity of a user or process. It is important that an application authenticates a user to ensure that the data is not available to an anonymous user.In this section we will learn how to authenticate a GraphQL client.
   
-## Express JWT 
+## Express JWT
 
 In this example, we will use jQuery to create a client application. In order to authenticate requests, we will use `express-jwt` module on the server-side.  
 The `express-jwt` module is a middleware that lets you authenticate HTTP requests using JWT tokens.JSON Web Token (JWT) is a long string that identifies the logged in user.Once the user logs in successfully , the server generates a JWT token. This token distinctly identifies a logged. In other words, the token is a representation of the user's identity.So next time the client comes to the server it has to present this token, to get the needed resources. The client can be a mobile application or a web application.

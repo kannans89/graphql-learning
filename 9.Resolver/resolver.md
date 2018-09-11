@@ -44,11 +44,13 @@ greeting:()=>{
 
 Let us create a simple application to understand resolver . This application will create schema for querying a student by Id from the server . The student data will be stored in a flat file and we will use a node module called notarealdb to fake a database and read from flat file .
 
-### Step 1 : Download and Install required dependencies for the project  
+### Step 1 : Download and Install required dependencies for the project
+
 - Create a folder named **resolver-app** .Change your directory to **resolver-app** from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.
 
 ### Step 2: Create a schema
+
 Add **schema.graphql** file in the project folder **resolver-app** and add the following code
 
 ```javascript
@@ -71,6 +73,7 @@ type Student {
 
 
 ```
+
 The schema file shows user can query for greeting,students and studentById. To retrieve students with specific id we use data type `ID!` which shows a non nullable unique identifier field.The students field returns an array of students and greeting returns a simple string value.
 
 ### Step 3: Create Resolvers
@@ -105,9 +108,13 @@ Note studentById takes in three parameters as discussed in this chapter , the st
 Here greeting , students ,studentById are the resolvers that handle the query .students resolver function returns a list of students from the data access layer.To access resolver functions outside the module Query object has to be exported using module.exports
 
 ## Step 4: Run the application
-Create a server.js file.Refer step 8 in the Environment Setup Chapter.
-Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.  
-Open browser and type the url http://localhost:9000/graphiql. Type the following query in the editor.  
+
+- Create a server.js file.Refer step 8 in the Environment Setup Chapter.
+
+- Execute the command `npm start` in the terminal.The server will be up and running on 9000 port.Here , we will use GraphiQL as a client to test the application.
+
+Open browser and type the url `http://localhost:9000/graphiql`.
+Type the following query in the editor.  
 
 ```javascript
 

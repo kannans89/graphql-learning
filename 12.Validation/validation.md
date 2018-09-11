@@ -16,7 +16,7 @@ The syntax for using the ! type marker is as given below:
 
 The above syntax ensures that all the fields are not null.
 
-If we want to implement additional rules like checking for a string's length or checking if a number is within a given range, we can define custom validators. The custom validation logic will be a part of the resolver function. Let us understand this with the help of an example.
+If we want to implement additional rules like checking for a string's length or checking if a number is within a given range, we can define custom validaters. The custom validation logic will be a part of the resolver function. Let us understand this with the help of an example.
 
 ## Illustration : Implementing Custom Validators
 
@@ -33,12 +33,15 @@ If we want to implement additional rules like checking for a string's length or 
 
   ```javascript
 
+type Query {
+  greeting:String
+}
+
 type Mutation {
-    //add this function
+
    signUp(input:SignUpInput):String
 }
 
-//input type
 input SignUpInput {
     email:String!,
     password:String!,
@@ -54,6 +57,9 @@ Note to reduce the number of parameters in signUp function we can use the input 
 Create a file **resolvers.js** in the project folder and add the following code-
 
 ```javascript
+const Query = {
+  greeting:()=>"Hello"
+}
 const Mutation ={
     signUp:(root,args,context,info)=>{
 
@@ -76,6 +82,7 @@ const emailExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(
 
 }
 
+module.exports={Query,Mutation}
 ```
 
 The resolver function `signUp` accepts parameters `email`,`password` and `firstName` . These will be passed through *input* variable so that it can be accessed through `args.input`

@@ -72,9 +72,9 @@ C:\Users\Admin\test-app>code .
 C:\Users\Admin\test-app>npm install
 ```
 
-### Step 4 : Create flat file database
+### Step 4 : Create flat file database in data folder
 
-This tutorial will be using flat files to store and retrieve data.Create two files **students.json** and **colleges.json** . Following will be the contents of the files.
+This tutorial will be using flat files to store and retrieve data.Create a folder **data** and add two files **students.json** and **colleges.json** . Following will be the contents of the files.
 
 - following is colleges.json
 
@@ -134,7 +134,7 @@ This tutorial will be using flat files to store and retrieve data.Create two fil
 
 We need a datastore which will load the **data** folder contents. The datastore should contain students and colleges collection variables. So any time application need to get data they can use these collection variables.
 
-- Create file **db.js** this will be our datastore
+- Create file **db.js** with in the project folder ,this will be our datastore
 
 ```javascript
 
@@ -151,7 +151,7 @@ module.exports = {
 
 ## Step 6: Create schema file schema.graphql
 
-Create a schema file  and add following contents.
+Create a schema file in the current project folder  and add following contents.
 
 ```javascript
   type Query  {
@@ -161,6 +161,8 @@ Create a schema file  and add following contents.
 ```
 
 ## Step 7: Create resolver file resolvers.js
+
+Create a resolver file in the current project folder  and add following contents.
 
 ```javascript
 
@@ -249,5 +251,3 @@ The response from the server is will be as below.
 ```
 
 ![1_test_setup](https://user-images.githubusercontent.com/9062443/44847540-704a4e80-ac71-11e8-9bc2-d76fa69d822f.png)
-
- *note*: please ensure apollo server version 1.0 is used

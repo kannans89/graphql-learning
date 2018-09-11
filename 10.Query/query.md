@@ -87,6 +87,7 @@ const Query = {
      //args will contain parameter passed in query
         return db.students.get(args.id);
   }
+}
 
   //for each single student object returned,resolver is invoked
 const Student={

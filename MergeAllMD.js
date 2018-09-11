@@ -1,5 +1,6 @@
 var path = require('path'), fs = require('fs');
 var mdFilesFound =[];
+var firstTimeSearch = true;
 
 function fromDir(startPath, filter) {
 
@@ -9,11 +10,36 @@ function fromDir(startPath, filter) {
         return;
     }
 
-  
-    var files = fs.readdirSync(startPath);
+  var files;  
+
+if(firstTimeSearch){
+    files = ['1.Home',
+            '2.Introduction',
+            '3.EnvironmentSetup',
+            '4.Architecture',
+            '5.ApplicationComponents',
+            '6.HelloWorldExample',
+            '7.TypeSystem',
+            '8.Schema',
+            '9.Resolver',
+            '10.Query',
+            '11.Mutation',
+            '12.Validation',
+            '13.JqueryIntegration',
+            '14.ReactIntegration',
+            '15.ApolloClient',
+            '16.Authentication',
+            '17.Caching'
+]
+firstTimeSearch=false;
+}
+else { files = fs.readdirSync(startPath);
+}
     for (var i = 0; i < files.length; i++) {
         
+       // console.log(startPath)
         var filename = path.join(startPath, files[i]);
+      //  console.log(filename)
          var stat = fs.lstatSync(filename);
         if (stat.isDirectory()) {
             if(files[i]=="node_modules" || files[i]=="Merge") {
@@ -29,22 +55,30 @@ function fromDir(startPath, filter) {
 
            }
           else mdFilesFound.push(filename);
-            console.log('-- found: ', filename);
+            //console.log('-- found: ', filename);
         };
     };
 };
 
 fromDir('../graphql-learning', '.md');
 
-console.log(mdFilesFound);
+var pageBreak=`<div style="page-break-after: always;"></div>`;
+mdFilesFound.map(file=>{
+    console.log(file);
+    var contents = fs.readFileSync(file).toString()+"\n\n";
+    contents= contents+ pageBreak+"\n\n";
+    fs.appendFileSync("../graphql-learning/Merge/GraphQL.md",contents);
 
-var writeStream=fs.createWriteStream("../graphql-learning/Merge/big.md");
+
+})
 
 
-console.log(mdFilesFound);
 
-mdFilesFound.map(file => {
-    var readStream = fs.createReadStream(file);;
-    readStream.pipe(writeStream);        
 
-});
+
+
+
+
+
+
+

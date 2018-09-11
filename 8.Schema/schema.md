@@ -39,12 +39,13 @@ const jsSchema = makeExecutableSchema({
 | 5 |  resolverValidationOptions | This is an optional argument.It accepts an object with boolean properties
 | 6| inheritResolversFromInterfaces| This is an optional argument. It accepts a boolean argument to check resolvers object inheritance.
 
-**Illustration**
+## Illustration
+
 Let us create a simple application to understand schema . This application will create schema for querying  list of students from the server . The student data will be stored in a flat file and we will use a node module called **notarealdb** to fake a database and read from flat file .
 
 ### Step 1 :  Download and Install required dependencies for the project  
 
-- Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.   
+- Create a folder named **schema-app** .Change your directory to **schema-app** from the terminal.
 - Follow steps 3 to 5 explained in the Environment Setup chapter.
 
 ### Step 2: Create a schema
@@ -93,12 +94,14 @@ module.exports = {Query}
 
 Here `greeting` and `students` are the resolvers that handle the query .`students` resolver function returns a list of students from the data access layer.To access resolver functions outside the module `Query` object has to be exported using module.exports
 
-
 ### Step 4: Run the application
-- Create a  **server.js** file.Refer step 8 in the Environment Setup Chapter.
-- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url http://localhost:9000/graphiql.  
+
+- Create a  **server.js** file.Refer step 8 in the Environment Setup Chapter
+
+- Execute the command `npm start` in the terminal. The server will be up and running on 9000 port. Here , we will use GraphiQL as a client to test the application.Open browser and type the url `http://localhost:9000/graphiql`
+
 Type the following query in the editor.
- 
+
  ```javascript
 
 {
@@ -112,12 +115,9 @@ Type the following query in the editor.
 }
 
 ```
+
 The query will display the output as shown below-  
 
 ![1_student_query](https://user-images.githubusercontent.com/9062443/44244618-714f9a80-a1f2-11e8-84dd-d948ca0e0913.png)
 
-
- 
-
 **Note** : We can replace the students.json with a RESTful api call to retrieve student data or even a real database like mysql or mongodb. GraphQL becomes a thin wrapper around your original application layer to improve performance .
-
