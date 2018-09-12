@@ -158,7 +158,7 @@ app.use('/graphiql',graphiqlExpress({endpointURL:'/graphql'}))
 app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  
+
   const user = db.students.list().find((user) =>  user.email === email);
   if (!(user && user.password === password)) {
     res.sendStatus(401);
@@ -336,9 +336,9 @@ $(document).ready(function(){
             <header>
                 <h2>*Login first to  access greeting </h2>
             </header>
-            <input type="text" value="mohtashim@tutorial.com" placeholder="enter email" id="txtEmail"/>
+            <input type="text" value="mohtashim.mohammad@tutorialpoint.org" placeholder="enter email" id="txtEmail"/>
             <br/>
-           <input type="password" value="pass@123" placeholder="enter password" id="txtPwd"/>
+           <input type="password" value="pass123" placeholder="enter password" id="txtPwd"/>
 
             <br/>
 
