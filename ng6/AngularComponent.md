@@ -5,36 +5,37 @@
  2. http://csharp-video-tutorials.blogspot.com/2017/05/angular-2-components.html
 
   -->
-Angular follows a clean modular architecture . A complex application web page can be divided into the following .
+Angular follows a clean modular architecture . A complex Angular web application user interface can be divided as- .
 
-- Modules
-- Components
-- Services
+- **MODULES**    : are the basic building blocks in an angular application .Modules logically group one or more **components** and provide a   
+                   compilation context for it  
+                 
+- **COMPONENTS** : represent building blocks for UI  
 
-**Modules** are the basic building blocks in an angular application .Modules logically group one or more **components** and provide a compilation context for it.Components uses **services** to  share  data and  logic.
+- **SERVICES**    : used to share  data and  logic between componenets
 
-The core idea of angular is to build components.
-Angular splits complex application UI into reusable components . So we can think an angular application as nothing but a bunch of components as shown in the diagram below.
+This chapter discusses how to create and use components in an Angular 6 application.
+  
+  
 
-**todo**
+Angular splits complex application UI into reusable components . So we can think of an angular application as nothing but a bunch of components as shown in the diagram below.Every angular application must have at least one component .Components work together in harmony to provide great user experience.
 
-Every angular application must have at least one component wrapped in a module . The root component and the associated components builds a hierarchal tree . Components works together in harmony to provide the user great  experience.
+** diag-1**
+
 
 ## Building blocks of a Component
 
 A component itself is made up of three pieces
+** diag 2**
 
-1. Template
-2. Class
-3. Metadata
+1. Template :is created using HTML. It acts an interface to accept user input.
+2. Class :is created with Typescript.This defines the functionality of a component. It exposes methods and properties of a component.
+3. Metadata:It binds a template with a class. It is created using decorator function..We will use *@Component()* decorator
 
-**Template** is created using html.This includes binding expressions and directives.  
-**Class** is created with Typescript.This includes methods and properties a component exposes.  
-**Metadata** is created with decorator.Decorators are functions which give extra meaning to class.We will use *@Component()* decorator.
 
 ## Syntax to create a component
 
-- create a **class** in typescript and add properties .Following shows a class `TutsTeacherHelloComponent.ts`  and a property `messsage`.The class has to be exported so that it becomes public and can be accessed in other
+- Create a **class** in typescript and add properties .Following shows a class `TutsTeacherHelloComponent.ts`  and a property `messsage`.The class should be exported so that it becomes public and can be accessed by other classes in the application.
 
 ```javascript
 export class TutsTeacherHelloComponent {
@@ -47,7 +48,7 @@ export class TutsTeacherHelloComponent {
 
 ```
 
-- Create a **template** file `TutsTeacherHelloComponent.html`. Inside the `h1` tag we are binding the value from `message` property.
+- Create a **template** file `TutsTeacherHelloComponent.html`. The `h1` tag embeds the value of the  `message` property in the `TutsTeacherHelloComponent ` class.
 
 ```html
 <section>
@@ -55,7 +56,7 @@ export class TutsTeacherHelloComponent {
 </section>
 ```
 
-- Add **metadata** to the class created . To bring relation between the template and the class created we use the decorator function @Component() as below. 
+- Add **metadata** to the class created . The decorator function @Component() is used to bind the template and the class.
 
  ```javascript
  import { Component } from "@angular/core";
@@ -83,9 +84,9 @@ export class TutsTeacherHelloComponent {
 | 4   | template  |An inline template for an Angular component. If provided, do not supply a template file using templateUrl.|
 | 5  | styles  |One or more inline CSS stylesheets to use in this component.|
 
-## Register the Component and Execute the App
+## Register the Component in AppModule and Execute the App
 
-- Register the created component `TutsTeacherHelloComponent`  in the default module **AppModule** of the project as given below
+- Register the created component `TutsTeacherHelloComponent`  in the **AppModule** (created by the Angular CLI) of the project as given below
 
 ```javascript
  import { BrowserModule } from '@angular/platform-browser';
@@ -106,8 +107,7 @@ import { TutsTeacherHelloComponent } from '../TutorialsTeacher/TutsTeacherHelloC
 export class AppModule { }
 
 ```
-
-It is clear that `TutsTeacherHelloComponent` is the starting component or root component of the module.
+The `TutsTeacherHelloComponent` is or root component of the module.
 
 - The Angular CLI creates an **index.html** page . To execute and view how the component looks in the browser .We need to use the selector **tt-hello** in index.html as below.
 
