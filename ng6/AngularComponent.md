@@ -20,13 +20,13 @@ This chapter discusses how to create and use components in an Angular 6 applicat
 
 Angular splits complex application UI into reusable components . So we can think of an angular application as nothing but a bunch of components as shown in the diagram below.Every angular application must have at least one component .Components work together in harmony to provide great user experience.
 
-** diag-1**
-
+![angularapp](https://user-images.githubusercontent.com/9062443/46332024-2372e280-c638-11e8-9143-af2603ee22de.JPG)
 
 ## Building blocks of a Component
 
 A component itself is made up of three pieces
-** diag 2**
+
+![component](https://user-images.githubusercontent.com/9062443/46332026-240b7900-c638-11e8-9a56-c72f18879de8.jpg)
 
 1. Template :is created using HTML. It acts an interface to accept user input.
 2. Class :is created with Typescript.This defines the functionality of a component. It exposes methods and properties of a component.
