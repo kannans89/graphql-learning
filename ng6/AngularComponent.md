@@ -7,16 +7,13 @@
   -->
 Angular follows a clean modular architecture . A complex Angular web application user interface can be divided as- .
 
-- **MODULES**    : are the basic building blocks in an angular application .Modules logically group one or more **components** and provide a   
-                   compilation context for it  
-                 
+- **MODULES**    : are the basic building blocks in an angular application .Modules logically group one or more **components** and provide a compilation context for it.
+
 - **COMPONENTS** : represent building blocks for UI  
 
-- **SERVICES**    : used to share  data and  logic between componenets
+- **SERVICES**    : used to share  data and  logic between components
 
 This chapter discusses how to create and use components in an Angular 6 application.
-  
-  
 
 Angular splits complex application UI into reusable components . So we can think of an angular application as nothing but a bunch of components as shown in the diagram below.Every angular application must have at least one component .Components work together in harmony to provide great user experience.
 
@@ -30,12 +27,11 @@ A component itself is made up of three pieces
 
 1. Template :is created using HTML. It acts an interface to accept user input.
 2. Class :is created with Typescript.This defines the functionality of a component. It exposes methods and properties of a component.
-3. Metadata:It binds a template with a class. It is created using decorator function..We will use *@Component()* decorator
-
+3. Metadata:It binds a template with a class. It is created using decorator function.We will use *@Component()* decorator
 
 ## Syntax to create a component
 
-- Create a **class** in typescript and add properties .Following shows a class `TutsTeacherHelloComponent.ts`  and a property `messsage`.The class should be exported so that it becomes public and can be accessed by other classes in the application.
+- Create a **class** in typescript and add properties .Following shows a class `TutsTeacherHelloComponent.ts`  and a property `message`.The class should be exported so that it becomes public and can be accessed by other classes in the application.
 
 ```javascript
 export class TutsTeacherHelloComponent {
@@ -48,7 +44,7 @@ export class TutsTeacherHelloComponent {
 
 ```
 
-- Create a **template** file `TutsTeacherHelloComponent.html`. The `h1` tag embeds the value of the  `message` property in the `TutsTeacherHelloComponent ` class.
+- Create a **template** file `TutsTeacherHelloComponent.html`. The `h1` tag embeds the value of the  `message` property in the `TutsTeacherHelloComponent` class.
 
 ```html
 <section>
@@ -92,22 +88,24 @@ export class TutsTeacherHelloComponent {
  import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+//import the component created
 import { TutsTeacherHelloComponent } from '../TutorialsTeacher/TutsTeacherHelloComponent';
 
 @NgModule({
   declarations: [
-    TutsTeacherHelloComponent
+    TutsTeacherHelloComponent // register here
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [TutsTeacherHelloComponent]
+  bootstrap: [TutsTeacherHelloComponent] //modify here
 })
 export class AppModule { }
 
 ```
-The `TutsTeacherHelloComponent` is or root component of the module.
+
+The `TutsTeacherHelloComponent` is  root component of the module.
 
 - The Angular CLI creates an **index.html** page . To execute and view how the component looks in the browser .We need to use the selector **tt-hello** in index.html as below.
 
@@ -118,6 +116,6 @@ The `TutsTeacherHelloComponent` is or root component of the module.
 
 ```
 
--- Finally run the application using angular cli using `ng serve` command .Open the browser type url `http://localhost:4200/` and verify the output as below.
+- Finally run the application with angular cli use `ng serve` command .Open the browser type url `http://localhost:4200/` and verify the output as below.
 
 ![1_component](https://user-images.githubusercontent.com/9062443/46330404-721c7e80-c630-11e8-9419-67476e9764e1.png)
